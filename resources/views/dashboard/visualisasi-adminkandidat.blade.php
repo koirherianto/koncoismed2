@@ -301,30 +301,31 @@
                 </div>
             </div>
         </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title"><i class="fa fa-user indigo "></i>  Relawan Jenis Kelamin</h4>
-                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                <li><a data-action="close"><i class="ft-x"></i></a></li>
-                            </ul>
-                        </div>
+        <!-- Simple Doughnut Chart -->
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Relawan Jenis Kelamin</h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-1"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
                     </div>
-                    <div class="card-content collapse show">
-                        <div class="card-body">
-                            <div class="height-300">
-                                <canvas id="simple-pie-chart-tiga"></canvas>
-                            </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body">
+                        <div class="height-300">
+                            <canvas id="simple-doughnut-chart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 <!-- Bar charts Relawan Perwilayah Kecamatan  dan Bar chart relawan desa -->
@@ -1253,6 +1254,47 @@ var config = {
 
 // Create the chart
 var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#simple-doughnut-chart");
+
+    // Chart Options
+    var chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+    };
+
+    // Chart Data
+    var chartData = {
+        labels: [
+            @foreach($pieChartRelawanJenisKelamin as $item)
+            // console.log($item);
+            '{{ $item->jenis_kelamin}}',
+            @endforeach
+        ],
+        datasets: [{
+            label: "Jumlah Relawan",
+            data: [
+            @foreach($pieChartRelawanJenisKelamin as $item)
+            '{{ $item->total}}',
+            @endforeach
+        ],
+            backgroundColor:  ['#f53d6f','#00b0ef'],
+        }]
+    };
+
+    var config = {
+        type: 'doughnut',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var doughnutSimpleChart = new Chart(ctx, config);
 </script>
 
 @endsection
