@@ -7,10 +7,10 @@
 <meta name="description" content="Gistaru - GIS Tata Ruang Wilaya Samarinda" />
 <meta name="author" content="britech.id" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Kawal Data</title>
+<title>Konco Ismed - Website Profile Lulur Ismet Herlambang</title>
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="{{asset('image/gelora.png')}}" />
+<link rel="shortcut icon" href="{{ asset('image/ppp.png') }}" />
 
 <!-- font -->
 <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,500,500i,600,700,800,900|Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
