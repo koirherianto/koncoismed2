@@ -21,6 +21,6 @@ NOTE:  This file includes all plugins. If you don't want to use any plugins from
 @import url("plugins/slick-theme.css");
 @import url("plugins/themify-icons.css");
 @import url("plugins/fullcalendar.css");
-@import url("../../master/app-assets/fonts/feather/style.min.css");
-@import url("../../master/app-assets/fonts/flag-icon-css/css/flag-icon.min.css");
+@import url("/master/app-assets/fonts/feather/style.min.css");
+@import url("/master/app-assets/fonts/flag-icon-css/css/flag-icon.min.css");
 

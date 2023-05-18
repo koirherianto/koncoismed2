@@ -82,7 +82,7 @@ hr.light { margin: 0; padding: 0px; border-bottom:1px solid rgba(255,255,255,0.1
 /***************************
 Page section margin padding
 ****************************/
-.page-section-ptb { padding: 10px 0; }
+.page-section-ptb { padding: 20px 0; }
 .page-section-pt { padding: 80px 0 0; }
 .page-section-pb { padding: 0 0 80px; }
 
@@ -93,12 +93,14 @@ Page section margin padding
 /*************************
     Text color
 *************************/
-.theme-color { color: #0dd4fb !important; }
+.theme-color { color: #049d64 !important; }
+.theme-color-light { color: #a6f371 !important; }
+.theme-color-dark { color: #033e22 !important; }
+.theme-color-secondary { color: #f3a900 !important; }
 .text-orange { color: #ed5001 !important; }
 .text-white { color: #fff !important; }
 .text-black { color: #000000 !important; }
 .text-gray { color: #999999 !important; }
-.theme-color-secondary{ color: #006bab !important; }
 
 
 img.bottom-img { position: absolute; bottom: 0; left: 0; right: 0;  }

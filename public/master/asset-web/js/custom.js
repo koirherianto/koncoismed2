@@ -177,7 +177,7 @@ var $window = $(window),
 POTENZA.raindrops = function () {
   if ($('.raindrops').exists()) {
      loadScript(plugin_path + 'raindrops/raindrops.js', function() {
-         $('#raindrops').raindrops({color:'#0dd4fb',
+         $('#raindrops').raindrops({color:'#86AC41',
          canvasHeight:50});
      });
     }
