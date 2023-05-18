@@ -1,0 +1,30 @@
+
+.dropcap {
+	width: 40px;
+	height: 40px;
+	line-height: $l-height-40;
+	float: left;
+	border-radius: 50%;
+	background: $theme-color;
+	text-align: center;
+	color: $white;
+	margin-right: 10px;
+}
+.dropcap.dropcap-border {
+	background: transparent;
+	border: 2px solid $theme-color;
+	color: $theme-color;
+}
+.dropcap.gray {
+	background: $gray-bg-02;
+	color: $theme-color;
+}
+.dropcap.large {
+	width: 70px;
+	height: 70px;
+	line-height: $l-height-70;
+	font-size: $fs-30;
+}
+.dropcap.square {
+	border-radius: 3px;
+}

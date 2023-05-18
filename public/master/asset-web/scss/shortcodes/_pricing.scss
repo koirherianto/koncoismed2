@@ -1,0 +1,262 @@
+
+.pricing-top {
+	@include box-shadow(0px, 0px, 40px, rgba(0, 0, 0, 0.05));
+	padding: 30px;
+	border-top: 8px solid #1a1a1a;
+	border-radius: 6px;
+}
+.pricing-prize {
+	h2 {
+		span {
+			font-size: $fs-18;
+		}
+	}
+	margin: 30px 0;
+}
+.pricing-content {
+	width: 70%;
+	margin: 40px auto 0;
+	.pricing-table-list {
+		ul {
+			li {
+				line-height: 56px;
+				font-weight: $fw-6;
+				i {
+					width: 25px;
+					display: inline-block;
+					color: $theme-color;
+				}
+				i.fa-times {
+					color: red;
+				}
+				span {
+					margin-top: 16px;
+					text-align: center;
+					font-size: $fs-14;
+					line-height: 24px;
+					@include box-shadow(0px, 6px, 14px, rgba(0, 0, 0, 0.09));
+					width: 24px;
+					height: 24px;
+					background: transparent;
+					border-radius: 50%;
+					i {
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
+}
+.pricing-table.active {
+	margin-top: -7px;
+	.pricing-top {
+		border-top: 16px solid $theme-color;
+		@include box-shadow(0px, 0px, 50px, rgba(0, 0, 0, 0.05));
+		padding-bottom: 30px;
+		a.button {
+			padding: 12px 60px;
+			font-size: $fs-20;
+		}
+	}
+	.pricing-prize {
+		margin: 30px 0 20px;
+	}
+}
+.pricing-table.boxed {
+	@include box-shadow(0px, 0px, 40px, rgba(0, 0, 0, 0.05));
+	padding: 30px;
+	border-top: 8px solid #1a1a1a;
+	border-radius: 6px;
+	.pricing-top {
+		box-shadow: none;
+		border: 0;
+		padding: inherit;
+		border-radius: inherit;
+		padding: 0;
+	}
+	.pricing-content {
+		width: inherit;
+		margin: 0;
+		margin-top: 20px;
+	}
+}
+.pricing-table.active.boxed {
+	border-top: 16px solid $theme-color;
+	@include box-shadow(0px, 0px, 50px, rgba(0, 0, 0, 0.05));
+}
+.price {
+	list-style-type: none;
+	border: 1px solid $border-color;
+	margin: 0;
+	padding: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+	border: 0;
+	&:hover {
+		@include box-shadow(0px, 0px, 40px, rgba(0, 0, 0, 0.05));
+	}
+	.header {
+		background-color: #111;
+		color: $white;
+		font-size: 25px;
+	}
+	li {
+		border-bottom: 1px solid $border-color;
+		padding: 20px;
+		text-align: center;
+	}
+	.grey {
+		background-color: $border-color;
+		font-size: $fs-20;
+	}
+}
+.price.active {
+	.header {
+		background: $theme-color;
+	}
+}
+.membership-pricing-table {
+	width: 100%;
+	table {
+		width: 100%;
+		border: 1px solid #ebebeb;
+		.icon-no {
+			font-size: $fs-22;
+			color: #a93717;
+		}
+		.icon-yes {
+			font-size: $fs-22;
+			color: #209e61;
+		}
+		.plan-header {
+			text-align: center;
+			font-size: $fs-48;
+			border: 1px solid #e2e2e2;
+			padding: 25px 0;
+		}
+		.plan-header-free {
+			background-color: $border-color;
+			color: #555;
+		}
+		.plan-header-blue {
+			color: $white;
+			background-color: #111;
+			border-color: #000;
+		}
+		.plan-header-standard {
+			color: $white;
+			background-color: $theme-color;
+			border-color: $theme-color;
+		}
+		td {
+			text-align: center;
+			width: 15%;
+			padding: 7px 10px;
+			background-color: #fafafa;
+			font-size: $fs-14;
+			-webkit-box-shadow: 0 1px 0 $white inset;
+			box-shadow: 0 1px 0 $white inset;
+			border: 1px solid #ebebeb;
+			i.fa-times-circle-o {
+				color: red;
+			}
+		}
+		tr {
+			td {
+				&:first-child {
+					background-color: transparent;
+					text-align: right;
+					width: 14%;
+				}
+				&:nth-child(5) {
+					background-color: $white;
+				}
+			}
+			&:first-child {
+				td {
+					-webkit-box-shadow: none;
+					box-shadow: none;
+				}
+				th {
+					&:first-child {
+						border-top-color: transparent;
+						border-left-color: transparent;
+						border-right-color: #e2e2e2;
+					}
+					.pricing-plan-name {
+						font-size: $fs-22;
+					}
+					.pricing-plan-price {
+						line-height: 35px;
+						>sup {
+							font-size: 45%;
+						}
+						>i {
+							font-size: 30%;
+						}
+					}
+					.pricing-plan-period {
+						margin-top: 10px;
+						font-size: 25%;
+					}
+				}
+			}
+			&:nth-child(2) {
+				td {
+					-webkit-box-shadow: none;
+					box-shadow: none;
+				}
+			}
+		}
+		.header-plan-inner {
+			position: relative;
+		}
+		.recommended-plan-ribbon {
+			box-sizing: content-box;
+			background-color: $white;
+			color: $theme-color;
+			position: absolute;
+			padding: 3px 6px;
+			font-size: $fs-11 !important;
+			font-weight: 500;
+			left: -6px;
+			top: -22px;
+			z-index: 99;
+			width: 100%;
+			-webkit-box-shadow: 0 -1px #c2284c inset;
+			box-shadow: 0 -1px $white inset;
+			text-shadow: 0 -1px $white;
+			&:before {
+				border: solid;
+				border-color: $white transparent;
+				border-width: 6px 0 0 6px;
+				bottom: -5px;
+				content: "";
+				left: 0;
+				position: absolute;
+				z-index: 90;
+			}
+			&:after {
+				border: solid;
+				border-color: $white transparent;
+				border-width: 6px 6px 0 0;
+				bottom: -5px;
+				content: "";
+				right: 0;
+				position: absolute;
+				z-index: 90;
+			}
+		}
+		.plan-head {
+			box-sizing: content-box;
+			background-color: #ff9c00;
+			border: 1px solid #cf7300;
+			position: absolute;
+			top: -33px;
+			left: -1px;
+			height: 30px;
+			width: 100%;
+			border-bottom: none;
+		}
+	}
+}

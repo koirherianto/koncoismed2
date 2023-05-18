@@ -1,0 +1,29 @@
+
+.round-chart {
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	margin-bottom: 20px;
+	span {
+		display: inline-block;
+		font-size: $fs-28;
+		z-index: 2;
+		font-weight: $fw-6;
+		position: absolute;
+	}
+	i {
+		display: inline-block;
+		font-size: $fs-28;
+		z-index: 2;
+		font-weight: $fw-6;
+		position: absolute;
+	}
+}
+.round-chart.white {
+	span {
+		color: $white;
+	}
+	i {
+		color: $white;
+	}
+}

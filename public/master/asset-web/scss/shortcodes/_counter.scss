@@ -1,0 +1,109 @@
+
+.counter {
+	position: relative;
+	color: $text-black;
+	min-height: 60px;
+	.icon {
+		font-size: $fs-40;
+	}
+	.timer {
+		display: block;
+		font-size:  $fs-44;
+		font-weight: $fw-6;
+		line-height: 40px;
+		margin: 20px 0 5px;
+	}
+	label {
+		font-size:  $fs-15;
+		font-weight: $fw-6;
+		margin: 10px 0 0;
+		position: relative;
+		text-transform: capitalize;
+	}
+}
+.counter.text-white {
+	color: $white;
+	label {
+		color: $white;
+	}
+	span {
+		color: $white;
+	}
+}
+.counter.theme-color {
+	color: $theme-color;
+	label {
+		color: $theme-color;
+	}
+	span {
+		color: $theme-color;
+	}
+}
+.counter.counter-small {
+	.timer {
+		font-size:  $fs-30;
+		font-weight: $fw-6;
+	}
+	label {
+		font-size:  $fs-16;
+		font-weight: $fw-4;
+		margin-top: 20px;
+	}
+	.icon {
+		font-size:  $fs-30;
+		line-height: $l-height-40;
+	}
+}
+.counter.big-counter {
+	.timer {
+		font-size:  $fs-70;
+		font-weight: $fw-6;
+	}
+	label {
+		font-size: $fs-18;
+		font-weight: $fw-3;
+		margin-top: 20px;
+	}
+	icon {
+		font-size: $fs-50;
+		line-height: $l-height-60;
+	}
+}
+.counter.left-icon {
+	position: relative;
+	padding-left: 70px;
+	.icon {
+		font-size: $fs-40;
+		line-height: $l-height-50;
+		position: absolute;
+		left: 0;
+		bottom: auto;
+		top: 0;
+	}
+	span {
+		margin: 0;
+		line-height: $l-height-40;
+	}
+}
+.counter.right-icon {
+	position: relative;
+	padding-right: 70px;
+	.icon {
+		font-size: $fs-40;
+		line-height: $l-height-50;
+		position: absolute;
+		right: 0;
+		bottom: auto;
+		top: 0;
+	}
+	span {
+		margin: 0;
+		line-height: $l-height-50;
+		text-align: right;
+	}
+	label {
+		text-align: right;
+		display: block;
+	}
+}
+

@@ -1,0 +1,99 @@
+
+.divider {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.divider.dotted {
+	border-bottom: 2px dotted rgba(0, 0, 0, 0.1);
+}
+.divider.dashed {
+	border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+}
+.divider.double {
+	border-bottom: 5px double rgba(0, 0, 0, 0.1);
+}
+.divider.outset {
+	border-bottom: 3px outset rgba(0, 0, 0, 0.1);
+}
+.divider.icon {
+	border: 0;
+	color: #ccc;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+	&:after {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		content: "";
+		content: "";
+		display: inline-block;
+		display: inline-block;
+		height: 10px;
+		height: 10px;
+		margin: 0 -4px 0 -100%;
+		margin: 0 -4px 0 -100%;
+		vertical-align: top;
+		vertical-align: top;
+		width: 50%;
+		width: 50%;
+	}
+	&:before {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		content: "";
+		content: "";
+		display: inline-block;
+		display: inline-block;
+		height: 10px;
+		height: 10px;
+		margin: 0 -4px 0 -100%;
+		margin: 0 -4px 0 -100%;
+		vertical-align: top;
+		vertical-align: top;
+		width: 50%;
+		width: 50%;
+	}
+	&::after {
+		margin: 0 -100% 0 0;
+		margin: 0 -100% 0 0;
+	}
+	i {
+		margin: 0 20px 0 24px;
+		margin: 0 20px 0 24px;
+	}
+	span {
+		margin: 0 20px 0 24px;
+		margin: 0 20px 0 24px;
+	}
+}
+.divider.icon.left {
+	i {
+		float: left;
+		margin: 0 40px 0 0;
+	}
+	span {
+		float: left;
+		margin: 0 40px 0 0;
+	}
+}
+.divider.icon.right {
+	i {
+		float: right;
+		margin: 0 0 0 40px;
+	}
+	span {
+		float: right;
+		margin: 0 0 0 40px;
+	}
+}
+.divider.medium {
+	width: 40%;
+	margin: 0 auto;
+}
+.divider.small {
+	width: 20%;
+	margin: 0 auto;
+}
+.divider.light {
+	border-color: rgba(255, 255, 255, 0.1);
+}
+

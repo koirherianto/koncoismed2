@@ -1,0 +1,71 @@
+
+.blockquote {
+	font-size: $fs-14;
+	padding: 10px 20px;
+	margin: 0 0 20px;
+	font-size: 17px;
+	border-left: 5px solid $border-color;
+	position: relative;
+	cite {
+		display: block;
+		font-weight: $fw-6;
+		margin-top: 10px;
+	}
+}
+.blockquote-right {
+	text-align: right;
+	border-right: 5px solid $border-color;
+	border-left: 0;
+	padding: 0 20px 0;
+}
+.blockquote.gray-bg {
+	border-left: 5px solid $theme-color;
+}
+.blockquote-right.gray-bg {
+	text-align: right;
+	border-right: 5px solid $theme-color;
+	border-left: 0;
+	padding: 0 20px 0;
+}
+.quote {
+	padding-top: 50px;
+	&:before {
+		content: "\201C";
+		font-family: Georgia, serif;
+		font-size: $fs-100;
+		font-weight: bold;
+		color: $border-color;
+		position: absolute;
+		left: 14px;
+		top: -30px;
+	}
+}
+.blockquote-right.quote {
+	&:before {
+		left: inherit;
+		right: 14px;
+	}
+}
+.blockquote.theme-bg {
+	border: 0px;
+	color: $white;
+	padding: 70px 30px 30px;
+	border-radius: 6px;
+	&:before {
+		left: 24px;
+		top: -10px;
+		color: $white;
+	}
+}
+.blockquote.black-bg {
+	border: 0px;
+	color: $white;
+	padding: 70px 30px 30px;
+	border-radius: 6px;
+	&:before {
+		left: 24px;
+		top: -10px;
+		left: inherit;
+	}
+}
+

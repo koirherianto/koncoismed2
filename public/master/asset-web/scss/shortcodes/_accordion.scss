@@ -1,0 +1,238 @@
+
+
+.accordion {
+	.acd-group {
+		.acd-heading {
+			&:before {
+				font-family: fontawesome;
+				cursor: pointer;
+				position: absolute;
+				top: 6px;
+				right: 20px;
+				display: block;
+				padding: 3px 6px 2px;
+				content: "\f105";
+				font-size: $fs-22;
+				line-height: $l-height-38;
+			}
+			&:hover {
+				color: $theme-color;
+			}
+		}
+		>.acd-heading {
+			>span {
+				margin-right: 15px;
+			}
+		}
+	}
+	.acd-heading {
+		font-weight: $fw-5;
+		position: relative;
+		padding: 20px 0;
+		color: #353535;
+		line-height: normal;
+		cursor: pointer;
+		background-color: transparent;
+		margin-bottom: 0px;
+		display: block;
+		font-family: $font-hedding;
+		text-transform: uppercase;
+		border-radius: 3px;
+	}
+	.acd-group.acd-active {
+		.acd-heading {
+			color: $theme-color;
+			&:before {
+				content: "\f107";
+			}
+			span {
+				color: $white;
+			}
+		}
+	}
+}
+.acd-des {
+	padding: 0 20px 20px 0;
+}
+.accordion.plus-icon {
+	.acd-group.acd-active {
+		.acd-heading {
+			&:before {
+				content: "\f068";
+				font-size: $fs-14;
+			}
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:before {
+				content: "\f067";
+				font-size: $fs-14;
+			}
+		}
+	}
+}
+.accordion.plus-icon.round {
+	.acd-group.acd-active {
+		.acd-heading {
+			&:before {
+				content: "\f056";
+				font-size: $fs-14;
+			}
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:before {
+				content: "\f055";
+				font-size: $fs-14;
+			}
+		}
+	}
+}
+.accordion.gray {
+	.acd-heading {
+		background-color: $gray-bg;
+		margin-bottom: 20px;
+		padding: 20px 30px;
+	}
+	.acd-des {
+		padding: 0 30px 20px;
+	}
+	.acd-group.acd-active {
+		.acd-heading {
+			color: $white;
+			background: $theme-color;
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:hover {
+				color: $white;
+				background: $theme-color;
+			}
+		}
+	}
+}
+.accordion.shadow {
+	.acd-heading {
+		@include box-shadow(0px, 5px, 10px, rgba(0, 0, 0, 0.1));
+		background: $white;
+		margin-bottom: 20px;
+		padding: 20px 30px;
+	}
+	.acd-des {
+		padding: 0 30px 20px;
+	}
+	.acd-group.acd-active {
+		.acd-heading {
+			color: $white;
+			background: $theme-color;
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:hover {
+				color: $white;
+				background: $theme-color;
+			}
+		}
+	}
+}
+.accordion.accordion-border {
+	.acd-heading {
+		background: transparent;
+		border: 1px solid $border-color;
+		box-shadow: none;
+		margin-bottom: 20px;
+		padding: 20px 30px;
+	}
+	.acd-des {
+		padding: 0 30px 20px;
+	}
+	.acd-group.acd-active {
+		.acd-heading {
+			color: $white;
+			background: $theme-color;
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:hover {
+				color: $white;
+				background: $theme-color;
+			}
+		}
+	}
+}
+.accordion.animated {
+	.acd-group {
+		.acd-heading {
+			box-shadow: none;
+			border: none;
+			font-size: $fs-18;
+			margin-bottom: 0;
+			color: $text-black;
+			text-transform: inherit;
+			font-weight: $fw-7;
+			padding: 20px 0px 0;
+			&:hover {
+				background: none !important;
+				color: $theme-color;
+			}
+			&::before {
+				display: none;
+			}
+		}
+		.acd-des {
+			padding: 0 30px 20px;
+		}
+	}
+	.acd-group.acd-active {
+		.acd-heading {
+			font-size: $fs-28;
+			color: $theme-color;
+			margin-bottom: 20px;
+			background: none !important;
+		}
+	}
+}
+.accordion.animated.dark-bg {
+	.acd-group.acd-active {
+		.acd-heading {
+			color: $white;
+		}
+	}
+	.acd-group {
+		.acd-heading {
+			&:hover {
+				color: $white;
+			}
+		}
+	}
+}
+.accordion.no-radius {
+	.acd-heading {
+		border-radius: 0;
+	}
+}
+
+#accordion {
+	.card {
+		margin-bottom: 10px;
+		.card-header {
+			box-shadow: none;
+			border-bottom: 0;
+			button {
+				color: $theme-color;
+				font-weight: 500;
+				padding: 0;
+				text-decoration: none;
+			}
+			button.collapsed {
+				color: $black;
+			}
+		}
+	}
+}
+

@@ -1,0 +1,347 @@
+/*
+Template:  Webster - Responsive Multi-purpose HTML5 Template
+Author: potenzaglobalsolutions.com
+Design and Developed by: potenzaglobalsolutions.com
+
+NOTE: This file contains the styling for the marketing Template. You can edit/add anything in this file!
+*/
+
+h1 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+h2 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+h3 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+h5 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+h6 {
+	font-family: 'Nunito', sans-serif;
+	color: #16182c;
+	margin-top: 0px;
+	font-weight: bold;
+}
+.section-title {
+	p {
+		font-size: 16px;
+		margin-top: 15px;
+	}
+}
+.search-cart {
+	.search {
+		padding-right: 0;
+	}
+}
+.marketing-banner {
+	height: 70vh;
+	position: relative;
+	z-index: 9;
+	.slider-content {
+		padding-left: 30px;
+		border-left: 5px solid #d12326;
+		h1 {
+			font-size: 50px;
+			line-height: 60px;
+			position: relative;
+			font-weight: 600;
+		}
+	}
+}
+.marketing-tab {
+	.tab {
+		margin-top: -50px;
+		position: relative;
+		z-index: 99;
+	}
+	.tab-vertical {
+		.tab-content {
+			p {
+				line-height: 24px;
+			}
+		}
+		.nav.nav-tabs {
+			li {
+				a {
+					font-size: 16px;
+					padding: 28px 30px;
+					background: #d12326;
+					color: #ffffff;
+					border-color: rgba(0,0,0,0.2);
+				}
+				&:first-child {
+					a {
+						border-color: rgba(0,0,0,0.2);
+					}
+				}
+			}
+			>li {
+				>a.active {
+					border-color: rgba(0,0,0,0.2);
+					&:focus {
+						border-color: rgba(0,0,0,0.2);
+					}
+					&:hover {
+						border-color: rgba(0,0,0,0.2);
+					}
+				}
+			}
+		}
+	}
+	ul.nav.nav-tabs {
+		&:before {
+			position: absolute;
+			content: "";
+			height: 100%;
+			width: 25%;
+			background: #d12326;
+			left: 0;
+			top: 0;
+			z-index: -1;
+		}
+	}
+	.tab-border {
+		.nav.nav-tabs {
+			>li {
+				>a.active {
+					background: rgba(0,0,0,0.2) !important;
+					color: #ffffff !important;
+					&:focus {
+						background: rgba(0,0,0,0.2) !important;
+						color: #ffffff !important;
+					}
+					&:hover {
+						background: rgba(0,0,0,0.2) !important;
+						color: #ffffff !important;
+					}
+				}
+			}
+		}
+	}
+	.tab-content {
+		line-height: 14px;
+	}
+}
+.marketing-service {
+	.feature-text {
+		.feature-icon {
+			span {
+				padding-left: 0;
+			}
+			i {
+				padding-left: 0;
+			}
+		}
+		padding: 60px 40px;
+		border: 1px solid #eeeeee;
+		height: 100%;
+		background: #ffffff;
+		-webkit-transition: all 0.5s ease-in-out;
+		-o-transition: all 0.5s ease-in-out;
+		-ms-transition: all 0.5s ease-in-out;
+		-moz-transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in-out;
+		&:hover {
+			box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+			position: relative;
+			z-index: 1;
+		}
+	}
+}
+.marketing-step {
+	.step-box {
+		height: 230px;
+		width: 230px;
+		box-shadow: 0px 0px 0 10px #d12326;
+		border-radius: 50%;
+		overflow: hidden;
+		-webkit-transition: all 0.5s ease-in-out;
+		-o-transition: all 0.5s ease-in-out;
+		-ms-transition: all 0.5s ease-in-out;
+		-moz-transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in-out;
+		h4 {
+			text-align: center;
+			line-height: 230px;
+			position: relative;
+		}
+		&:hover {
+			box-shadow: 0px 0px 0 15px #d12326;
+		}
+	}
+}
+.marketing-testimonial {
+	.testimonial-info {
+		font-size: 18px;
+		line-height: 34px;
+	}
+}
+ul.menu-sidebar {
+	position: relative;
+	z-index: 1;
+	li {
+		display: block;
+		a {
+			text-transform: capitalize;
+			display: block;
+			background: #f6f7f8;
+			padding: 16px 30px;
+			color: #323232;
+			font-weight: 600;
+			border-bottom: 1px solid #ffffff;
+			border-left: 5px solid transparent;
+			&:hover {
+				border-left: 5px solid #d12326;
+				color: #d12326;
+			}
+		}
+	}
+	li.active {
+		a {
+			border-left: 5px solid #d12326;
+			color: #d12326;
+		}
+	}
+}
+.marketing-action-box {
+	.action-box {
+		padding: 40px 50px;
+	}
+	.popup-video-image {
+		a {
+			i {
+				left: inherit;
+				top: -14px;
+			}
+		}
+	}
+}
+.our-history.timeline-left {
+	.timeline {
+		>li {
+			>.timeline-badge {
+				left: 15%;
+				p {
+					margin-top: -6px;
+				}
+			}
+			>.timeline-panel {
+				width: 79%;
+			}
+		}
+		&:before {
+			left: 15%;
+		}
+	}
+	.timeline-arrow {
+		width: inherit;
+		left: 14.3%;
+		right: inherit;
+	}
+}
+.marketing-team {
+	.team.team-list {
+		h5 {
+			font-size: 18px;
+			text-transform: capitalize;
+		}
+		.team-info {
+			span {
+				font-size: 14px;
+				text-transform: capitalize;
+			}
+		}
+	}
+}
+.marketing-work {
+	.portfolio-item {
+		a.popup {
+			width: auto;
+			height: inherit;
+			padding: 0px 20px;
+			border-radius: 3px;
+			display: inline-block;
+		}
+	}
+}
+.bg-overlay-theme-20 {
+	&:before {
+		background: rgba(22, 24, 44, 0.2) !important;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+.bg-overlay-theme-50 {
+	&:before {
+		background: rgba(22, 24, 44, 0.5) !important;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+.bg-overlay-theme-70 {
+	&:before {
+		background: rgba(22, 24, 44, 0.7) !important;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+.bg-overlay-theme-80 {
+	&:before {
+		background: rgba(22, 24, 44, 0.8) !important;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+.bg-overlay-theme-90 {
+	&:before {
+		background: rgba(22, 24, 44, 0.9) !important;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+

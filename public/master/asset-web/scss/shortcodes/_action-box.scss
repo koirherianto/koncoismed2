@@ -1,0 +1,125 @@
+
+.action-box {
+	position: relative;
+	a.button {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		margin-top: -20px;
+	}
+	strong {
+		font-weight: bold;
+	}
+	p {
+		margin-bottom: 0;
+	}
+	.action-box-text {
+		padding-right: 230px;
+	}
+}
+.action-box.action-box-border {
+	padding: 30px;
+	border: 1px solid $border-color;
+	a.button {
+		right: 30px;
+	}
+}
+.action-box.center {
+	text-align: center;
+	a.button {
+		position: relative;
+		top: inherit;
+		right: inherit;
+		margin-top: 15px;
+	}
+	.action-box-text {
+		padding-right: 0;
+	}
+}
+.action-box.theme-bg {
+	padding: 30px;
+	a.button {
+		right: 30px;
+	}
+	h3 {
+		color: $white;
+	}
+	p {
+		color: $white;
+	}
+}
+.action-box.black-bg {
+	padding: 30px;
+	a.button {
+		right: 30px;
+	}
+	h3 {
+		color: $white;
+	}
+	p {
+		color: $white;
+	}
+}
+.action-box.dark-theme-bg {
+	padding: 30px;
+	a.button {
+		right: 30px;
+	}
+	h3 {
+		color: $white;
+	}
+	p {
+		color: $white;
+	}
+}
+.action-box.gray-bg {
+	padding: 30px;
+	a.button {
+		right: 30px;
+	}
+}
+.action-box.white-bg {
+	padding: 30px;
+	a.button {
+		right: 30px;
+	}
+}
+.action-box.parallax {
+	padding: 100px 30px;
+	h3 {
+		color: $white;
+	}
+	p {
+		color: $white;
+	}
+}
+.action-box.full-width {
+	a.button {
+		right: 15px;
+	}
+}
+.action-box.pattern {
+	padding: 100px 30px;
+}
+.action-box.small {
+	padding: 40px 35px;
+	h3 {
+		position: relative;
+	}
+	p {
+		position: relative;
+	}
+	.social-icons {
+		position: relative;
+	}
+	a.button {
+		position: relative;
+		top: inherit;
+		right: inherit;
+		margin-top: 15px;
+	}
+	.action-box-text {
+		padding-right: 0;
+	}
+}
+

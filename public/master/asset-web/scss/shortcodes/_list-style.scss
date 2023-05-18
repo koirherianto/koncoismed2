@@ -1,0 +1,82 @@
+
+ul.list {
+	padding: 0;
+	margin: 0;
+	li {
+		margin: 5px 0;
+		padding-left: 24px;
+		position: relative;
+		line-height: $l-height-28;
+		&:after {
+			content: "";
+			font-family: 'FontAwesome';
+			position: absolute;
+			color: $theme-color;
+			left: 0;
+			top: 0;
+		}
+	}
+	i {
+		position: absolute;
+		left: 0;
+		top: 5px;
+	}
+}
+ul.list.theme-color {
+	li {
+		i {
+			color: $theme-color;
+		}
+		color: #333333;
+	}
+}
+ul.list-mark {
+	padding: 0;
+	margin: 0;
+	li {
+		list-style-type: none;
+		padding-left: 25px;
+		position: relative;
+		&:after {
+			content: "\f00c";
+		}
+	}
+}
+ul.list-arrow {
+	padding: 0;
+	margin: 0;
+	li {
+		list-style-type: none;
+		padding-left: 25px;
+		position: relative;
+		&:after {
+			content: "\f105";
+			font-size: $fs-18;
+		}
+	}
+}
+ul.list-hand {
+	padding: 0;
+	margin: 0;
+	li {
+		list-style-type: none;
+		padding-left: 25px;
+		position: relative;
+		&:after {
+			content: "\f0a4";
+		}
+	}
+}
+ul.list-edit {
+	padding: 0;
+	margin: 0;
+	li {
+		list-style-type: none;
+		padding-left: 25px;
+		position: relative;
+		&:after {
+			content: "\f040";
+		}
+	}
+}
+

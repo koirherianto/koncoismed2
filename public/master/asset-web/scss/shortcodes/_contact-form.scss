@@ -1,0 +1,259 @@
+.form-control {
+	border-radius: 3px;
+	font-size: $fs-13;
+	height: auto;
+	line-height: 1.33333;
+	padding: 15px 15px 15px 20px;
+	background: $gray-bg-02;
+	color: $black;
+	border: 0px solid transparent;
+	box-shadow: none;
+	&:focus {
+		background: $white;
+		border: 0px;
+		@include box-shadow(0px, 3px, 10px, rgba(0, 0, 0, 0.1));
+		@include transition (all, 0.5s, ease);
+		border-color: transparent;
+	}
+	label {
+		color: #353535;
+		display: inline-block;
+		margin-top: 8px;
+		margin-bottom: 4px;
+		text-transform: uppercase;
+		font-size: $fs-13;
+	}
+	>label {
+		display: block;
+	}
+	&::-moz-placeholder {
+		color: $black;
+	}
+	&::-ms-input-placeholder {
+		color: $black;
+	}
+	&::-webkit-input-placeholder {
+		color: $black;
+	}
+}
+.form-control.input-lg {
+	resize: none;
+	font-size: .9em;
+}
+.form-control.rounded {
+	border-radius: 0px;
+}
+.input-group-prepend {
+	border: 1px solid $border-table;
+}
+.form-inline {
+	button {
+		margin: 0px;
+	}
+}
+.table-bordeblue {
+	>tbody {
+		>tr {
+			>td {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+			>th {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+		}
+	}
+	>tfoot {
+		>tr {
+			>td {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+			>th {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+		}
+	}
+	>thead {
+		>tr {
+			>td {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+			>th {
+				border-color: $border-table;
+				padding: 12px 20px;
+			}
+		}
+	}
+}
+textarea.form-control {
+	resize: vertical;
+}
+.contact-form.border-form {
+	.form-control {
+		background: transparent;
+		color: #aaaaaa;
+		border: 2px solid $border-color;
+		box-shadow: none;
+		color: #aaaaaa;
+		&::-moz-placeholder {
+			color: #aaaaaa;
+		}
+		&::-ms-input-placeholder {
+			color: #aaaaaa;
+		}
+		&::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+		&:focus {
+			background: $gray-bg-02;
+		}
+	}
+	.nice-select {
+		background: transparent;
+		color: #aaaaaa;
+		border: 2px solid $border-color;
+		.option {
+			color: $black;
+		}
+		&:after {
+			border-color: #aaaaaa;
+		}
+	}
+}
+.contact-form.dark-form {
+	.form-control {
+		background: rgba(43, 43, 43, 0.12);
+		color: $white;
+		box-shadow: none;
+		color: $white;
+		&::-moz-placeholder {
+			color: $white;
+		}
+		&::-ms-input-placeholder {
+			color: $white;
+		}
+		&::-webkit-input-placeholder {
+			color: $white;
+		}
+		&:focus {
+			background: rgba(43, 43, 43, 0.19);
+		}
+	}
+	.nice-select {
+		background: rgba(43, 43, 43, 0.12);
+		color: $white;
+		border: 0;
+		.option {
+			color: $black;
+		}
+		&:after {
+			border-color: $white;
+		}
+	}
+}
+.contact-form.white-form {
+	.form-control {
+		background: $white;
+	}
+}
+.contact-form.transparent-form {
+	.form-control {
+		background: rgba(255, 255, 255, 0.12);
+		color: $white;
+		box-shadow: none;
+		color: $white;
+		&::-moz-placeholder {
+			color: $white;
+		}
+		&::-ms-input-placeholder {
+			color: $white;
+		}
+		&::-webkit-input-placeholder {
+			color: $white;
+		}
+		&:focus {
+			background: rgba(255, 255, 255, 0.19);
+		}
+	}
+	.nice-select {
+		background: rgba(255, 255, 255, 0.12);
+		color: $white;
+		border: 0;
+		.option {
+			color: $black;
+		}
+		&:after {
+			border-color: $white;
+		}
+	}
+}
+.contact-form.full-width {
+	.section-field {
+		width: 100%;
+	}
+}
+.newsletter.fancy {
+	position: relative;
+	.form-control {
+		padding-right: 200px;
+	}
+	button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 12px 20px;
+		border-radius: 0 3px 3px 0;
+	}
+}
+.newsletter-box {
+	padding: 30px;
+	background: $white;
+	border-radius: 3px;
+}
+.newsletter-box.gray-bg {
+	background: $gray-bg;
+	.form-control {
+		background: $white;
+	}
+}
+.newsletter-box.newsletter-border {
+	padding: 30px;
+	border: 2px solid $border-color;
+	border-radius: 3px;
+}
+.newsletter {
+	.button.large {
+		padding: 11px 20px;
+	}
+}
+
+
+.custom-checkbox {
+	.custom-control-input {
+		&:checked~.custom-control-label {
+			&::before {
+				background-color: $theme-color;
+				box-shadow: none;
+			}
+		}
+	}
+}
+.custom-control-label {
+	&::before {
+		box-shadow: none;
+		outline: none;
+	}
+}
+.custom-control-input {
+	&:focus~.custom-control-label {
+		&::before {
+			outline: 0 !important;
+			box-shadow: none;
+			border: 0;
+		}
+	}
+}

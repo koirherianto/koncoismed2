@@ -1,0 +1,107 @@
+
+.skill {
+	position: relative;
+	width: 100%;
+	height: 7px;
+	margin: 40px 0 20px 0;
+	background-color: #eceff8;
+	border-radius: 4px;
+	&:not(:first-child) {
+		margin-top: 64px;
+	}
+}
+.skill-bar {
+	position: relative;
+	height: 100%;
+	border-radius: 4px;
+	padding: 0px;
+	background: $theme-color;
+	box-shadow: none;
+	transition: width .9s ease;
+	-webkit-transition: width .9s ease;
+	-o-transition: width .9s ease;
+	-ms-transition: width .9s ease;
+	-moz-transition: width .9s ease;
+	.progress-number {
+		color: $text-black;
+		float: right;
+		margin-top: -18px;
+		position: absolute;
+		right: 0;
+		top: -10px;
+		font-size: 15px;
+		font-weight: 600;
+		right: 14px;
+	}
+	.progress-type {
+		color: $text-black;
+		float: right;
+		margin-top: -18px;
+		position: absolute;
+		right: 0;
+		top: -10px;
+		font-size: 15px;
+		font-weight: 600;
+	}
+}
+.progress-bar {
+	position: relative;
+	height: 100%;
+	border-radius: 4px;
+	padding: 0px;
+	background-color: $theme-color;
+	box-shadow: none;
+}
+.skill-title {
+	color: $text-black;
+	font-size: 18px;
+	font-weight: 500;
+	position: absolute;
+	text-align: left;
+	margin-left: 0;
+	margin-top: -28px;
+	>i {
+		margin-right: 8px;
+	}
+}
+.text-white {
+	.skill {
+		background: rgba(255,255,255,0.25);
+	}
+	.skill-title {
+		color: $white;
+	}
+	.skill-bar {
+		.progress-number {
+			color: $white;
+		}
+		.progress-type {
+			color: $white;
+		}
+	}
+}
+.theme-bg {
+	.skill-bar {
+		background: $white;
+	}
+}
+.services-text-box-blue {
+	.skill-bar {
+		background: $white;
+	}
+}
+.skill.skill-big {
+	height: 12px;
+}
+.skill.skill-medium {
+	height: 8px;
+}
+.skill.skill-small {
+	height: 3px;
+}
+.skill.skill-dark {
+	.skill-bar {
+		background: $text-black;
+	}
+}
+
