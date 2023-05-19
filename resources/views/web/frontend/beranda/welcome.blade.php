@@ -101,7 +101,7 @@
                         <li><i class="fa fa-dot-circle-o"></i>Ensure everything goes precisely to plan</li> --}}
                     </ul>
                     <div class="mt-30">
-                        <img class="img-fluid full-width" src="{{asset('master/app-assets/images/8.jpg')}}" alt="">
+                        <img class="img-fluid full-width" src="{{asset('master/asset-web/images/8.jpg')}}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 sm-mt-40 pt-50">
@@ -267,152 +267,74 @@
         </div>
     </section>
 
-    <section class="page-section-ptb">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 sm-mb-30">
-                    <div class="owl-carousel bottom-center-dots owl-loaded owl-drag" data-nav-dots="ture"
-                         data-smartspeed="1200" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1"
-                         data-xx-items="1">
-                        <div class="owl-stage-outer">
-                            <div class="owl-stage"
-                                 style="transform: translate3d(-2079px, 0px, 0px); transition: all 1.2s ease 0s; width: 4854px;">
-                                <div class="owl-item cloned" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/1.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item cloned" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/2.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/3.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item active" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/1.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/2.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item cloned" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/3.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                                <div class="owl-item cloned" style="width: 663.333px; margin-right: 30px;">
-                                    <div class="item">
-                                        <img class="img-fluid" src="{{asset('master/app-assets/images/slide/1.jpg')}}"
-                                             alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-nav disabled">
-                            <button type="button" role="presentation" class="owl-prev"><i
-                                    class="fa fa-angle-left fa-2x"></i></button>
-                            <button type="button" role="presentation" class="owl-next"><i
-                                    class="fa fa-angle-right fa-2x"></i></button>
-                        </div>
-                        <div class="owl-dots">
-                            <button role="button" class="owl-dot"><span></span></button>
-                            <button role="button" class="owl-dot active"><span></span></button>
-                            <button role="button" class="owl-dot"><span></span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-title">
-                        <h6>Visi yang dimiliki?</h6>
-                        <h2 class="title-effect">Visi - Caleg DPRD Provinsi Kaltim</h2>
-                        <p> Mendedikasikan diri untuk kepentingan rakyat.</p>
-                    </div>
-                    <p><span class="dropcap gray square">"M</span> ewujudkan dewan perwakilan rakyat daerah kabupaten
-                        banjarnegara sebagai lembaga legislatif yang kuat, merakyat, dinamis dan transparan dalam
-                        memperjuangkan aspirasi rakyat guna mencapai banjarnegara maju berbasis pertanian”</p>
-                    <div class="mt-30">
-                        <button type="button" class="button icon mb-10 mr-10" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                            View modal popup <i class="fa fa-eye"></i>
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header align-items-start">
-                                        <div class="modal-title" id="exampleModalLabel">
-                                            <div class="section-title mb-10">
-                                                <h6>EXPERTISE</h6>
-                                                <h2>Modal title</h2>
-                                                <p>We are an innovative agency. We develop and design customers around
-                                                    the world. Our clients are some.</p>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <span class="dropcap square">Y</span>ou can use model anywhere in your website
-                                        consectetur adipisicing elit. At vel sed corporis delectus quo ea molestias a ab
-                                        ad officiis eaque natus animi reiciendis sint beatae, dolor inventore
-                                        praesentium lorem qui.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="button button-border icon"
-                           href="https://themeforest.net/item/webster-responsive-multipurpose-html5-template/20904293?ref=Potenzaglobalsolutions"
-                           target="_blank">
-                            <span>Purchase Now</span>
-                            <i class="fa fa-download"></i>
-                        </a>
-                    </div>
-                </div>
+
+               {{-- visi caleg --}}
+
+<section class="page-section-ptb">
+    <div class="container pt-80">
+       <div class="row">
+           <div class="col-lg-6">
+              {{-- <div class="owl-carousel bottom-center-dots owl-loaded owl-drag" data-nav-dots="ture" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">  
+            <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-1893px, 0px, 0px); transition: all 1s ease 0s; width: 4420px;"><div class="owl-item cloned" style="width: 601.333px; margin-right: 30px;"><div class="item"> --}}
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/cth.png')}}" alt="">
+                {{-- </div></div><div class="owl-item cloned" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/4.jpg')}}" alt="">
+                </div></div><div class="owl-item" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/3.jpg')}}" alt="">
+                </div></div><div class="owl-item active" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/1.jpg')}}" alt="">
+                </div></div><div class="owl-item" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/4.jpg')}}" alt="">
+                </div></div><div class="owl-item cloned" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/3.jpg')}}" alt="">
+                </div></div><div class="owl-item cloned" style="width: 601.333px; margin-right: 30px;"><div class="item">
+                  <img class="img-fluid" src="{{asset('master/app-assets/images/slide/1.jpg')}}" alt="">
+                </div></div></div></div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><i class="fa fa-angle-left fa-2x"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-right fa-2x"></i></button></div><div class="owl-dots"><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div> --}}
+           </div>
+           <div class="col-lg-6 sm-mt-30">
+              <div class="section-title">
+              {{-- <h6>Selamat datang di Kawal Data</h6> --}}
+              <h2 class="text-dark-blue"><mark> Visi</mark> Calon Legislatif DPR RI</h2>
+              <p>Mendorong terwujudnya penyelenggaraan pemerintahan yang transparan, bersih dan akuntabel.</p>
             </div>
+              <p>Mewujudkan Dewan Perwakilan Rakyat Republik Indonesia sebagai lembaga legislatif yang <mark>kuat, merakyat, dinamis dan transparan</mark></p>
+             <div class="mt-30">
+                <a class="button button-border icon" target="_blank" href="#">
+                <span>Lanjut</span>
+                <i class="fa fa-hand-o-right"></i>
+                </a>
+              </div>
+            </div>
+       </div>
+    </div>
+  </section>
         </div>
         </div>
         </div>
     </section>
 
-    <div id="video-background" class="video-content app-video pos-r bg-overlay-black-70 jarallax" data-speed="0.6"
-         data-img-src="{{asset('master/app-assets/images/SLIDE/1.jpg')}}">
-        <div class="video-bg page-section-ptb">
-            <div class="container">
-                <div class="row pos-r popup-gallery">
-                    <div class="col">
-                        <div class="play-video text-center"><a class="view-video popup-youtube"
-                                                               href="https://www.youtube.com/watch?v=LgvseYYhqU0"> <i
-                                    class="fa fa-play"></i> </a></div>
-                        <div class="section-title text-center mt-20 mb-0">
-                            <h2 class="text-white">Video Overview</h2>
-                            <p class="text-white">Cek video untuk lebih tahu mengenai aplikasi Kawal data </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{-- video --}}
+
+<section class="page-section-1-ptb bg-overlay-black-70 popup-gallery o-hidden parallax" data-jarallax='{"speed": 0.6}' style="background-image: url(master/asset-web/images/8.jpg);">
+    <div class="container">
+     <div class="row justify-content-center">
+       <div class="col-lg-8">
+        <div class="section-title mb-30 text-center">
+          <h6 class="text-white">Ingin tahu tentang kami!</h6>
+          <h2 class="text-white">Cek video di bawah ini dan jadi bagian dari koncoismed.</h2>
         </div>
+      </div>
+     </div>
+     <div class="row">
+       <div class="col-lg-12">
+         <div class="play-video text-center"> <a class="view-video popup-youtube" href="https://youtu.be/qVa-mdp7W5Y"> <i class="fa fa-play"></i> </a></div>
+       </div>
     </div>
+    </div>
+   </section>
 
 
-    <section id="screenshot" class="page-section-ptb">
+    {{-- <section id="screenshot" class="page-section-ptb">
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-8">
@@ -445,47 +367,48 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    {{-- join relawan --}}
-    <section class="page-section pt-50 pb-30">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 sm-mt-30">
-                    <div class="section-title line lef mb-20">
-                        <h6 class="subtitle">Bergabung Menjadi Relawan</h6>
-                        <h2 class="title theme-color">WUJUDKAN INDONESIA KITA</h2>
-                        <p class="mt-30">Ayo menjadi bagian dari gelombang rakyat menuju Indonesia yang kita cita-citakan.</p>
-                    </div>
-                    <p class="theme-color">Menyatukan dan melibatkan seluruh elemen kekuatan rakyat</p>
-                    <p class="dark-grey-bg text-white">Digerakkan oleh rakyat dan untuk rakyat. Karena rakyat adalah pelaku utama sejarah yang berhak dan berkewajiban menentukan masa depan dan jalan sejarahnya sendiri.</p>
-                    <div class="row mt-30">
-                        <div class="col-sm-6 col-xs-6 col-xx-12">
-                            <ul class="list list-hand">
-                                <li> Project Buildings</li>
-                                <li> Home Maintenance </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6 col-xs-6 col-xx-12">
-                            <ul class="list list-hand">
-                                <li> Value Engineering</li>
-                                <li> Project Management  </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-30">
-                        <a class="button button-border icon" target="_blank" href="#">
-                            <span>Gabung</span>
-                            <i class="fa fa-hand-o-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="{{asset('master/app-assets/images/gabung-1.png')}}" alt="">
-                </div>
+ {{-- join relawan --}}
+
+<section class="page-section pt-50 pb-30">
+    <div class="container">
+     <div class="row">
+       <div class="col-lg-6 sm-mt-30">
+           <div class="section-title line lef mb-20">
+             <h6 class="subtitle">Bergabung Menjadi Relawan</h6>
+             <h2 class="title-effect">WUJUDKAN INDONESIA KITA</h2>
+             <p class="mt-30">Ayo menjadi bagian dari koncoismed menuju Indonesia yang kita cita-citakan.</p>
+           </div>
+           <p class="text">Menyatukan dan melibatkan seluruh elemen kekuatan rakyat</p>
+           <p class="dark-blue text-white">Digerakkan oleh rakyat dan untuk rakyat. Karena rakyat adalah pelaku utama sejarah yang berhak dan berkewajiban menentukan masa depan dan jalan sejarahnya sendiri.</p>
+          <div class="row mt-30">
+             <div class="col-sm-6 col-xs-6 col-xx-12">
+               <ul class="list list-hand">
+                 <li> Menuju Kejayaan</li>
+                 <li> Membangun Kekuatan </li>
+               </ul>
+             </div>
+             <div class="col-sm-6 col-xs-6 col-xx-12">
+               <ul class="list list-hand">
+                 <li> Menyatukan Rakyat</li>
+                 <li> Arah Maju Indonesia  </li>
+               </ul>
+             </div>
             </div>
-        </div>
-    </section>
+            <div class="mt-30">
+              <a class="button button-border icon" target="_blank" href="#">
+              <span>Gabung</span>
+              <i class="fa fa-hand-o-right"></i>
+              </a>
+            </div>
+       </div>
+       <div class="col-lg-6">
+        <img class="img-fluid" src="{{asset('master/asset-web/images/gabung2.png')}}" alt="">
+      </div>
+     </div>
+    </div>
+   </section>
 
     {{-- map --}}
     <section class="google-map theme">
