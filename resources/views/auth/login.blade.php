@@ -5,7 +5,7 @@
     <meta name="description" content="Webster - Responsive Multi-purpose HTML5 Template">
     <meta name="author" content="potenzaglobalsolutions.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Login to Kawal Data</title>
+    <title>Login Konco Ismed</title>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('image/gelora.png')}}" />

@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <meta name="author" content="Britech">
-        <title>Dashboard :: Kawal Data</title>
+        <title>Dashboard :: Konco Ismed</title>
         <link rel="shortcut icon" href="{{asset('image/gelora.png')}}" />
         <link rel="apple-touch-icon" sizes="152x152" href="{{asset('asset-web/images/logo-icon-dark.png')}}">
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('asset-web/images/logo-icon-dark.png')}}">
