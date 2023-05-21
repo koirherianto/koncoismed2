@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="keywords" content="Gistaru, samarinda, tata ruang, gistaru samarinda" />
-<meta name="description" content="Gistaru - GIS Tata Ruang Wilaya Samarinda" />
+<meta name="keywords" content="Konco Ismed" />
+<meta name="description" content="Konco Ismed" />
 <meta name="author" content="britech.id" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>Konco Ismed - Website Profile Lulur Ismet Herlambang</title>
