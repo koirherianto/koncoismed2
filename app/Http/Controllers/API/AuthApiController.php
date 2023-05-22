@@ -9,6 +9,7 @@ use App\Models\JenisKandidat;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +21,7 @@ class AuthApiController extends AppBaseController
 
     public function register(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         $validator = Validator::make($request->all(), [
             // users table
             'nama_relawan' => 'required|min:3|max:250',
@@ -28,7 +29,7 @@ class AuthApiController extends AppBaseController
             'email_relawan' => 'required|max:250|email:dns|unique:users,email',
             'alamat_relawan' => 'required|min:4|max:250',
             'password_relawan' => 'required|min:6|max:250',
-            'password_confirm_relawan' => 'required|same:password',
+            'password_confirm_relawan' => 'required|same:password_relawan',
             // kandidat table
             "nomor_urut" => "required|numeric",
             "jenis_kandidat_id" => "required",
@@ -61,9 +62,8 @@ class AuthApiController extends AppBaseController
             $this->response['error'] = $validator->errors();
             return response()->json($this->response, 200);
         }
-
         $jenisKandidat = JenisKandidat::find($request->jenis_kandidat_id);
-        if ($jenisKandidat->lembaga = 'eksekutif') {
+        if ($jenisKandidat->lembaga == 'eksekutif') {
             $validator = Validator::make($request->all(), [
                 // Person2 table
                 'nama_calon2' => 'required|min:3|max:250',
@@ -87,6 +87,7 @@ class AuthApiController extends AppBaseController
         }
         
         try{
+            // return $request->nama_calon1;
             DB::beginTransaction();
             $user = User::create([
                 'name' => $request->nama_relawan,
@@ -111,7 +112,8 @@ class AuthApiController extends AppBaseController
                 'kandidat_id' => $kandidat->id,
                 "id_wilayah" => $request->id_wilayah
             ]);
-
+            
+            // return $request->nama_calon1;
             $person1 = Person::create([
                 "nama" => $request->nama_calon1,
                 "nik" => $request->nik_calon1,
@@ -127,7 +129,7 @@ class AuthApiController extends AppBaseController
                 "kandidat_id" => $kandidat->id
             ]);
 
-            if ($jenisKandidat->lembaga = 'eksekutif') {
+            if ($jenisKandidat->lembaga == 'eksekutif') {
                 $person2 = Person::create([
                     "nama" => $request->nama_calon2,
                     "nik" => $request->nik_calon2,
