@@ -50,8 +50,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('chart/relawan/rangeumur', [ChartRelawanApiController::class, 'getRangeUmurRelawan']);
 
 
-    
     Route::resource('dpts', DptAPIController::class)->except(['create', 'edit']);
+    Route::post('dpts/updateimage/{id}', [DptAPIController::class, 'updateImage']);
 
     Route::put('relawanpassword/{id}',[RelawanAPIController::class,"updatePass"]);
     Route::resource('relawans', RelawanAPIController::class)

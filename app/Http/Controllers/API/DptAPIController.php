@@ -39,7 +39,7 @@ class DptAPIController extends AppBaseController
             $dpts=[];
             foreach( $relawan->descendants as $key=> $item){
                     if(!$item->dpts->isEmpty()){
-                        $dpts[] = $item->dpts;
+                        $dpts[] =  $item->dpts;
                     }        
             }
 
@@ -51,6 +51,7 @@ class DptAPIController extends AppBaseController
                 for ($k=0; $k < $i; $k++) { 
                     $dptx = $value[$k]->load(['agama','sukus']);
                     $dptx['wilayah'] = $this->wilayahById($dptx->id_wilayah);
+                    $dptx->getFirstMediaUrl();
                     $tampungData[] = $dptx;
                 }
             }
@@ -60,6 +61,7 @@ class DptAPIController extends AppBaseController
             $dpts = Dpt::where('relawan_id',Auth::user()->relawan->id)->with(['agama','sukus'])->get();
 
             foreach ($dpts as $dpt) {
+                $dpt->getFirstMediaUrl();
                 $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
             }
         }
@@ -82,7 +84,7 @@ class DptAPIController extends AppBaseController
     public function store(Request $request)
     {
         $input = $request->all();
-
+        
         $input['relawan_id'] = Auth::user()->relawan->id;
         $input['kandidat_id'] = Auth::user()->relawan->kandidat_id;
         $input['id_wilayah'] = Auth::user()->relawan->id_wilayah;
@@ -119,6 +121,8 @@ class DptAPIController extends AppBaseController
             'alamat.required' => '*Wajib di isi',
         ]);
 
+        // return $request->gambar_ktp;
+
         if ($validator->fails()) {
             $this->response['success'] = false;
             $this->response['error'] = $validator->errors();
@@ -127,6 +131,13 @@ class DptAPIController extends AppBaseController
             $dpt = $this->dptRepository->create($input);
             $dpt->load(['agama','sukus']);
             $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
+
+            if($request->hasFile('gambar_ktp')){
+                $image = $request->file('gambar_ktp');
+                $dpt->addFromMediaLibraryRequest($image)->toMediaCollection();
+                
+                $dpt['url_ktp'] = $media->getUrl();
+            }
             return $this->sendResponse($dpt->toArray(), 'DPT Berhasil ditambahkan');
         }
     }
@@ -145,10 +156,27 @@ class DptAPIController extends AppBaseController
         return $this->sendResponse($dpt->toArray(), 'Dpt retrieved successfully');
     }
 
+    public function updateImage($id, Request $request)
+    {
+        $dpt = $this->dptRepository->find($id);
+        // return $dpt->id_wilayah;
+        if (empty($dpt)) {
+            return $this->sendError('Dpt not found');
+        }
+
+        if($request->hasFile('gambar_ktp')){
+            $image = $request->file('gambar_ktp');
+            // $media = $dpt->addMedia($image)->toMediaCollection();
+            // $media = $dpt->syncMedia($image)->toMediaCollection();
+            $media = $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();;
+            $dpt['url_ktp'] = $media->getUrl();
+            return $this->sendResponse($dpt, 'Gambar success di update');
+        }
+    }
+
     public function update($id, Request $request)
     {
         $input = $request->all();
-
         $dpt = Dpt::find($id);
         $nikValidation = "$dpt->nik" == "$request->nik" ? '' : '|unique:dpt,nik';
 
@@ -194,6 +222,7 @@ class DptAPIController extends AppBaseController
             return $this->sendError('Dpt not found');
         }
 
+        
         $input['id_wilayah'] = $dpt->id_wilayah;
         $dpt = $this->dptRepository->update($input, $id);
         $dpt['jenis_kelamin'] = $this->dptRepository->find($id)->jenis_kelamin;
@@ -201,7 +230,14 @@ class DptAPIController extends AppBaseController
         $dpt->load(['agama','sukus']);
         $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
 
-        return $this->sendResponse($dpt, 'Dpt updated successfully');
+        $mediaItems = $dpt->getMedia(); // Mendapatkan koleksi media dari entitas DPT
+        // Mendapatkan URL gambar pertama dalam koleksi media (jika ada)
+        if ($mediaItems->isNotEmpty()) {
+            $dpt['url_ktp'] = $mediaItems->first()->getUrl();
+        } else {
+            $dpt['url_ktp'] = null; // Atau dapatkan URL default jika tidak ada gambar
+        }
+        return $this->sendResponse($dpt, 'Update DPT success');
     }
 
     public function destroy($id): JsonResponse
