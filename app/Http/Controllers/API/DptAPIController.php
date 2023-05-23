@@ -133,9 +133,13 @@ class DptAPIController extends AppBaseController
             $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
 
             if($request->hasFile('gambar_ktp')){
+                // $image = $request->file('gambar_ktp');
+                // $dpt->addMedia($image)->toMediaCollection();
+                // $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();
+                // $dpt['url_ktp'] = $media->getUrl();
+
                 $image = $request->file('gambar_ktp');
-                $dpt->addFromMediaLibraryRequest($image)->toMediaCollection();
-                
+                $media = $dpt->addMedia($image)->toMediaCollection();
                 $dpt['url_ktp'] = $media->getUrl();
             }
             return $this->sendResponse($dpt->toArray(), 'DPT Berhasil ditambahkan');
@@ -168,7 +172,7 @@ class DptAPIController extends AppBaseController
             $image = $request->file('gambar_ktp');
             // $media = $dpt->addMedia($image)->toMediaCollection();
             // $media = $dpt->syncMedia($image)->toMediaCollection();
-            $media = $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();;
+            $media = $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();
             $dpt['url_ktp'] = $media->getUrl();
             return $this->sendResponse($dpt, 'Gambar success di update');
         }
