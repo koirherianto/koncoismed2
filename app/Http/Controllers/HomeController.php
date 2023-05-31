@@ -119,7 +119,7 @@ class HomeController extends Controller
             //  }
 
              //Line chart Pertumbuhan DPT Berdasarkan bulan tahun
-            $time_series_dpt = DB::table('dpt')
+            $time_series_dpt = DB::table('pendukung')
             ->select(DB::raw("concat(MONTH(created_at), '-',YEAR(created_at)) as monthyear"), 
             DB::raw('count(*) as jumlah'))
             ->where('kandidat_id',$idKandidat)
@@ -135,8 +135,8 @@ class HomeController extends Controller
             // ->get();
 
             //visualisasi dpt berdasarkan wilayah
-            $barChartDptIdWilayah = DB::table('dpt')
-            ->join('desa', 'dpt.id_wilayah', '=', 'desa.id')
+            $barChartDptIdWilayah = DB::table('pendukung')
+            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('id_wilayah')
@@ -144,8 +144,8 @@ class HomeController extends Controller
             ->get();
 
             //visualisasi dpt berdasarkan sukunya
-            $barChartDptSuku = DB::table('dpt')
-            ->join('suku', 'dpt.suku_id', '=', 'suku.id')
+            $barChartDptSuku = DB::table('pendukung')
+            ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
             ->select(DB::raw('count(*) as total, suku.nama as suku'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('suku.nama')
@@ -154,8 +154,8 @@ class HomeController extends Controller
             ->get();
 
             //visualisasi dpt berdasarkan agama dengan pie chart
-            $pieChartDptAgama = DB::table('dpt')
-            ->join('agama', 'dpt.agama_id', '=', 'agama.id')
+            $pieChartDptAgama = DB::table('pendukung')
+            ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
             ->select(DB::raw('count(*) as total, agama.nama as agama_id'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('agama.nama')
@@ -196,13 +196,13 @@ class HomeController extends Controller
              ->get();            
 
             //tabel most count DPT
-            $mostDpt = DB::table('dpt')
-            ->join('relawan', 'dpt.relawan_id', '=', 'relawan.id')
+            $mostDpt = DB::table('pendukung')
+            ->join('relawan', 'pendukung.relawan_id', '=', 'relawan.id')
             ->join('users', 'relawan.users_id', '=', 'users.id')
             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-            ->where('dpt.kandidat_id', $idKandidat)
+            ->where('pendukung.kandidat_id', $idKandidat)
             ->select(DB::raw('count(*) as total , users.name as relawan_id, desa.nama as id_wilayah'))
-            ->groupBy('dpt.relawan_id')
+            ->groupBy('pendukung.relawan_id')
             ->orderBy('total', 'desc')
             ->take(5)
             ->get();
@@ -232,7 +232,7 @@ class HomeController extends Controller
             //   };
             
             //pie chart dpt jenis kelamin
-            $pieChartDptJenisKelamin = DB::table('dpt')
+            $pieChartDptJenisKelamin = DB::table('pendukung')
             ->select(DB::raw('count(*) as total, jenis_kelamin'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('jenis_kelamin')
@@ -330,7 +330,7 @@ class HomeController extends Controller
             ];
 
             //get tanggal lahir dpt
-            $tanggalLahirDpt = DB::table('dpt')
+            $tanggalLahirDpt = DB::table('pendukung')
             ->select(DB::raw('tanggal_lahir'))
             ->where('kandidat_id',$idKandidat)
             ->get();

@@ -14,7 +14,8 @@ class Kandidat extends Model
         'nomor_urut',
         'users_id',
         'jenis_kandidat_id',
-        'id_wilayah'
+        'id_wilayah',
+        'target_pendukung'
     ];
 
     protected $casts = [
@@ -30,7 +31,8 @@ class Kandidat extends Model
         'nomor_urut' => 'nullable',
         'users_id' => 'required',
         'jenis_kandidat_id' => 'required',
-        'id_wilayah' => 'nullable'
+        'id_wilayah' => 'nullable',
+        'target_pendukung' => 'required'
     ];
 
     public function jenisKandidat(): \Illuminate\Database\Eloquent\Relations\BelongsTo

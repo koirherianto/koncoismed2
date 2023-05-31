@@ -32,6 +32,10 @@
                      <label class="mb-10" for="name">Nomor Urut </label>
                      {!! Form::number('nomor_urut', null, ['class' => 'form-control rounded-pill border-primary', 'placeholder' => 'Nomor Urut']) !!}
                     </div>
+                    <div class="section-field mb-20">
+                      <label class="mb-10" for="name">Target Pendukung </label>
+                      {!! Form::number('target_pendukung', null, ['class' => 'form-control rounded-pill border-primary', 'placeholder' => 'Target Pendukung']) !!}
+                     </div>
                     {{ Form::hidden('users_id', Auth::id()) }}
                      {{-- <div class="section-field mb-20 col-sm-6">
                      <label class="mb-10" for="name">Jenis Kandidat* </label>

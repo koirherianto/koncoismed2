@@ -13,7 +13,7 @@ class Dpt extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
     
-    public $table = 'dpt';
+    public $table = 'pendukung';
 
     public $fillable = [
         'nama',
