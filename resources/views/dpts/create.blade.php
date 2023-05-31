@@ -12,7 +12,7 @@
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="blue font-medium-5">Tambah DPT</span><br>
+                                    <span class="blue font-medium-5">Tambah Pendukung</span><br>
                                     <span style="margin-top: -5px">Membuat Data Baru</span>
                                 </div>
                             </div>

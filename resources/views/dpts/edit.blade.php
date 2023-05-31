@@ -12,8 +12,8 @@
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="indigo font-medium-5">Perubahan Dpt</span><br>
-                                    <span style="margin-top: -5px">Melakukan Perubahan Dpt </span>
+                                    <span class="indigo font-medium-5">Perubahan Pendukung</span><br>
+                                    <span style="margin-top: -5px">Melakukan Perubahan Pendukung </span>
                                 </div>
                             </div>
                         </div>

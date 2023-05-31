@@ -73,7 +73,7 @@
 
 
 <li class="{{ Request::is('dpts*') ? 'active' : '' }}">
-    <a href="{{ route('dpts.index') }}"><span data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">DPT</span></a>
+    <a href="{{ route('dpts.index') }}"><span data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">Pendukung</span></a>
 </li>
 <li class="{{''}}">
     <a href="/feedback"><span data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">FeedBack</span></a>

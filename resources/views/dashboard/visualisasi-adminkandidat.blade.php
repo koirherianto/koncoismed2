@@ -55,7 +55,7 @@
                             </div>
                             <div class="media-body text-white text-right">
                                 <h3 class="text-white">{{$jumlah_dpt}}</h3>
-                                <span>Total DPT</span>
+                                <span>Total Pendukung</span>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="media-body text-white text-right">
                                 <h3 class="text-white">{{$relawanNow}}</h3>
-                                <span>+ Relawan Hari ini</span>
+                                <span>+Relawan Hari ini</span>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="media-body text-white text-right">
                                 <h3 class="text-white">{{$dptNow}}</h3>
-                                <span>+ DPT Hari ini</span>
+                                <span>+Pendukung Hari ini</span>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
         <div class="col-xl-5 col-lg-12">
             <div class="card" style="">
                 <div class="card-header no-border">
-                    <h4 class="card-title"><i class="fa fa-trophy amber"></i>  Relawan Dengan DPT Terbanyak</h4>
+                    <h4 class="card-title"><i class="fa fa-trophy amber"></i>  Relawan Dengan Pendukung Terbanyak</h4>
                     <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -143,7 +143,7 @@
         <div class="col-xl-7 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-line-chart indigo"></i> Pertumbuhan Total DPT Setiap Bulan</h4>
+                    <h4 class="card-title"><i class="fa fa-line-chart indigo"></i> Pertumbuhan Total Pendukung Setiap Bulan</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -173,7 +173,7 @@
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-map indigo"></i>  DPT Wilayah</h4>
+                    <h4 class="card-title"><i class="fa fa-map indigo"></i>  Pendukung Wilayah</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -196,7 +196,7 @@
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-fire pink"></i>  DPT Suku</h4>
+                    <h4 class="card-title"><i class="fa fa-fire pink"></i>  Pendukung Suku</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -219,7 +219,7 @@
     </div>
 </section>
 
-<!-- Pie chart DPT jenis kelamin dan DPT Agama -->
+<!-- Pie chart Pendukung jenis kelamin dan Pendukung Agama -->
 
 <section id="chartjs-pie-charts">
 <div class="row match-height">
@@ -227,7 +227,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-user indigo"></i> DPT Jenis Kelamin</h4>
+                    <h4 class="card-title"><i class="fa fa-user indigo"></i> Pendukung Jenis Kelamin</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -251,7 +251,7 @@
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-star green"></i> DPT Agama</h4>
+                    <h4 class="card-title"><i class="fa fa-star green"></i> Pendukung Agama</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -381,7 +381,7 @@
         </div>
 </section>
 
-<!-- column charts range umur relawan dan range umur Dpt -->
+<!-- column charts range umur relawan dan range umur Pendukung -->
 <div class="row">
     <div class="col-xl-6 col-lg-12">
         <div class="card">
@@ -407,7 +407,7 @@
     <div class="col-xl-6 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">DPT Range Umur</h4>
+                <h4 class="card-title">Pendukung Range Umur</h4>
                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">

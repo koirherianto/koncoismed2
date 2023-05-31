@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-10 media-body mb-2">
                                         <div class="content-header-left breadcrumb-new">
-                                            <span class="content-header-title mb-0 d-inline-block font-medium-4"><b>DPT</b></span>
+                                            <span class="content-header-title mb-0 d-inline-block font-medium-4"><b>Pendukung</b></span>
                                             <div class="breadcrumbs-top d-inline-block">
                                                 <div class="breadcrumb-wrapper">
                                                     @include('layouts.breadcrumb')
