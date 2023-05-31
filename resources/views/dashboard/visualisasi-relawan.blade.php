@@ -59,7 +59,7 @@
                         </div>
                         <div class="media-body text-white text-right">
                             <h3 class="text-white">{{$jumlah_dpt}}</h3>
-                            <span>Total DPT</span>
+                            <span>Total Pendukung</span>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="media-body text-white text-right">
                             <h3 class="text-white">{{$dptNow}}</h3>
-                            <span>+ DPT Hari ini</span>
+                            <span>+ Pendukung Hari ini</span>
                         </div>
                     </div>
                 </div>
