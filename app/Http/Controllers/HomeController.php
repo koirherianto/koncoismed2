@@ -416,11 +416,48 @@ class HomeController extends Controller
             ],
         ];
 
+            //total relawan perempuan
+            $totalRelawanPerempuan = DB::table('relawan')
+            ->where('kandidat_id',$idKandidat)
+            ->where('jenis_kelamin','=','Perempuan')
+            ->count();
+
+            //total relawan laki-laki
+            $totalRelawanLakilaki = DB::table('relawan')
+            ->where('kandidat_id',$idKandidat)
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->count();
+
+             //total pendukung perempuan
+             $totalPendukungPerempuan = DB::table('pendukung')
+             ->where('kandidat_id',$idKandidat)
+             ->where('jenis_kelamin','=','Perempuan')
+             ->count();
+
+            //total pendukung laki-laki
+            $totalPendukungLakilaki = DB::table('pendukung')
+            ->where('kandidat_id',$idKandidat)
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->count();
+
+            //target dukungan
+            $targetDukungan = Auth::user()->kandidat->target_pendukung;
+
+            //percentage pemenangan
+            $totalPendukungAll = DB::table('pendukung')
+            ->where('kandidat_id',$idKandidat)
+            ->count();
+             
+            $targetDukunganKandidat = Auth::user()->kandidat->target_pendukung;
+
+            $winRate = (($totalPendukungAll/$targetDukunganKandidat)*100/100);
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawan'
-            , 'ketUmurDpt'));
+            , 'ketUmurDpt','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
+            ,'totalPendukungLakilaki','targetDukungan','winRate'));
         }
         else{ 
                 //dashboard milik relawan
