@@ -238,18 +238,23 @@ class HomeController extends Controller
             ->groupBy('jenis_kelamin')
             ->get();
 
-            // scater plot umur relawan
-            $scaterPlotUmurRelawan = DB::table('relawan')
+            // data relawan
+            $scaterPlotUmurRelawanP = DB::table('relawan')
             ->where('kandidat_id', $idKandidat)
+            ->where('jenis_kelamin','=','Perempuan')
             ->select('tanggal_lahir')
             ->get();
-            //return $scaterPlotUmurRelawan;
-
+            
+            $scaterPlotUmurRelawanL = DB::table('relawan')
+            ->where('kandidat_id', $idKandidat)
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->select('tanggal_lahir')
+            ->get();
 
             //get umur dari tanggal lahir pakai carbon
             $umurRelawan=[];
 
-            foreach($scaterPlotUmurRelawan as $data){
+            foreach($scaterPlotUmurRelawanP as $data){
                 $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
                 array_push($umurRelawan, $data);
             }
@@ -294,7 +299,7 @@ class HomeController extends Controller
                     }
             };
 
-            $ketUmurRelawan = [
+            $ketUmurRelawanP = [
                 [
                     'ket'   => "＜20",
                     'total' => $rangeUmurRelawan['<20']
@@ -329,93 +334,263 @@ class HomeController extends Controller
                 ],
             ];
 
-            //get tanggal lahir dpt
-            $tanggalLahirDpt = DB::table('pendukung')
+             //get umur dari tanggal lahir pakai carbon
+             $umurRelawanL=[];
+
+             foreach($scaterPlotUmurRelawanL as $data){
+                 $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+                 array_push($umurRelawanL, $data);
+             }
+ 
+             //return $umurRelawan;
+ 
+             $rangeUmurRelawanL = [];
+             $rangeUmurRelawanL['<20'] = 0;
+             $rangeUmurRelawanL['21-30'] = 0;
+             $rangeUmurRelawanL['31-40'] = 0;
+             $rangeUmurRelawanL['41-50'] = 0;
+             $rangeUmurRelawanL['51-60'] = 0;
+             $rangeUmurRelawanL['61-70'] = 0;
+             $rangeUmurRelawanL['71-80'] = 0;
+             $rangeUmurRelawanL['>80'] = 0;
+ 
+             foreach($umurRelawanL as $data){
+ 
+                 if($data->tanggal_lahir < 21){
+                     $rangeUmurRelawanL['<20'] += 1;   
+                 }
+                 elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                     $rangeUmurRelawanL['21-30'] += 1;
+                 }
+                 elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                     $rangeUmurRelawanL['31-40'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                     $rangeUmurRelawanL['41-50'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                     $rangeUmurRelawanL['51-60'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                     $rangeUmurRelawanL['61-70'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                     $rangeUmurRelawanL['71-80'] += 1; 
+                 }
+                 else{
+                     $rangeUmurRelawanL['>80'] += 1; 
+                     }
+             };
+ 
+             $ketUmurRelawanL = [
+                 [
+                     'ket'   => "＜20",
+                     'total' => $rangeUmurRelawanL['<20']
+                 ],
+                 [
+                     'ket' => "21-30",
+                     'total' => $rangeUmurRelawanL['21-30']
+                 ],
+                 [
+                     'ket' => "31-40",
+                     'total' => $rangeUmurRelawanL['31-40']
+                 ],
+                 [
+                     'ket' => "41-50",
+                     'total' => $rangeUmurRelawanL['41-50']
+                 ],
+                 [
+                     'ket' => "51-60",
+                     'total' => $rangeUmurRelawanL['51-60']
+                 ],
+                 [
+                     'ket' => "61-70",
+                     'total' => $rangeUmurRelawanL['61-70']
+                 ],
+                 [
+                     'ket' => "71-80",
+                     'total' => $rangeUmurRelawanL['71-80']
+                 ],
+                 [
+                     'ket' => "＞80",
+                     'total' => $rangeUmurRelawanL['>80']
+                 ],
+             ];
+
+            //get tanggal lahir pendukung Laki-laki
+            $tanggalLahirDptL = DB::table('pendukung')
             ->select(DB::raw('tanggal_lahir'))
             ->where('kandidat_id',$idKandidat)
+            ->where('jenis_kelamin','=','Laki-laki')
             ->get();
 
              //get umur dari tanggal lahir pakai carbon
-             $umurDpt=[];
+             $umurDptL=[];
 
-             foreach($tanggalLahirDpt as $data){
+             foreach($tanggalLahirDptL as $data){
                  $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
-                 array_push($umurDpt, $data);
+                 array_push($umurDptL, $data);
              }
 
-             $rangeUmurDpt = [];
-             $rangeUmurDpt['<20'] = 0;
-             $rangeUmurDpt['21-30'] = 0;
-             $rangeUmurDpt['31-40'] = 0;
-             $rangeUmurDpt['41-50'] = 0;
-             $rangeUmurDpt['51-60'] = 0;
-             $rangeUmurDpt['61-70'] = 0;
-             $rangeUmurDpt['71-80'] = 0;
-             $rangeUmurDpt['>80'] = 0;
+             $rangeUmurDptL = [];
+             $rangeUmurDptL['<20'] = 0;
+             $rangeUmurDptL['21-30'] = 0;
+             $rangeUmurDptL['31-40'] = 0;
+             $rangeUmurDptL['41-50'] = 0;
+             $rangeUmurDptL['51-60'] = 0;
+             $rangeUmurDptL['61-70'] = 0;
+             $rangeUmurDptL['71-80'] = 0;
+             $rangeUmurDptL['>80'] = 0;
 
-             foreach($umurDpt as $data){
+             foreach($umurDptL as $data){
 
                 if($data->tanggal_lahir < 21){
-                    $rangeUmurDpt['<20'] += 1;   
+                    $rangeUmurDptL['<20'] += 1;   
                 }
                 elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
-                    $rangeUmurDpt['21-30'] += 1;
+                    $rangeUmurDptL['21-30'] += 1;
                 }
                 elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
-                    $rangeUmurDpt['31-40'] += 1; 
+                    $rangeUmurDptL['31-40'] += 1; 
                 }
                 elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
-                    $rangeUmurDpt['41-50'] += 1; 
+                    $rangeUmurDptL['41-50'] += 1; 
                 }
                 elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
-                    $rangeUmurDpt['51-60'] += 1; 
+                    $rangeUmurDptL['51-60'] += 1; 
                 }
                 elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
-                    $rangeUmurDpt['61-70'] += 1; 
+                    $rangeUmurDptL['61-70'] += 1; 
                 }
                 elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
-                    $rangeUmurDpt['71-80'] += 1; 
+                    $rangeUmurDptL['71-80'] += 1; 
                 }
                 else{
-                    $rangeUmurDpt['>80'] += 1; 
+                    $rangeUmurDptL['>80'] += 1; 
                     }
         };
 
-        $ketUmurDpt = [
+        $ketUmurDptL = [
             [
                 'ket'   => "＜20",
-                'total' => $rangeUmurDpt['<20']
+                'total' => $rangeUmurDptL['<20']
             ],
             [
                 'ket' => "21-30",
-                'total' => $rangeUmurDpt['21-30']
+                'total' => $rangeUmurDptL['21-30']
             ],
             [
                 'ket' => "31-40",
-                'total' => $rangeUmurDpt['31-40']
+                'total' => $rangeUmurDptL['31-40']
             ],
             [
                 'ket' => "41-50",
-                'total' => $rangeUmurDpt['41-50']
+                'total' => $rangeUmurDptL['41-50']
             ],
             [
                 'ket' => "51-60",
-                'total' => $rangeUmurDpt['51-60']
+                'total' => $rangeUmurDptL['51-60']
             ],
             [
                 'ket' => "61-70",
-                'total' => $rangeUmurDpt['61-70']
+                'total' => $rangeUmurDptL['61-70']
             ],
             [
                 'ket' => "71-80",
-                'total' => $rangeUmurDpt['71-80']
+                'total' => $rangeUmurDptL['71-80']
             ],
             [
                 'ket' => "＞80",
-                'total' => $rangeUmurDpt['>80']
+                'total' => $rangeUmurDptL['>80']
             ],
         ];
+        //get tanggal lahir pendukung Perempuan
+        $tanggalLahirDptP = DB::table('pendukung')
+        ->select(DB::raw('tanggal_lahir'))
+        ->where('kandidat_id',$idKandidat)
+        ->where('jenis_kelamin','=','Laki-laki')
+        ->get();
 
+         //get umur dari tanggal lahir pakai carbon
+         $umurDptP=[];
+
+         foreach($tanggalLahirDptP as $data){
+             $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+             array_push($umurDptP, $data);
+         }
+
+         $rangeUmurDptP = [];
+         $rangeUmurDptP['<20'] = 0;
+         $rangeUmurDptP['21-30'] = 0;
+         $rangeUmurDptP['31-40'] = 0;
+         $rangeUmurDptP['41-50'] = 0;
+         $rangeUmurDptP['51-60'] = 0;
+         $rangeUmurDptP['61-70'] = 0;
+         $rangeUmurDptP['71-80'] = 0;
+         $rangeUmurDptP['>80'] = 0;
+
+         foreach($umurDptP as $data){
+
+            if($data->tanggal_lahir < 21){
+                $rangeUmurDptP['<20'] += 1;   
+            }
+            elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                $rangeUmurDptP['21-30'] += 1;
+            }
+            elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                $rangeUmurDptP['31-40'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                $rangeUmurDptP['41-50'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                $rangeUmurDptP['51-60'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                $rangeUmurDptP['61-70'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                $rangeUmurDptP['71-80'] += 1; 
+            }
+            else{
+                $rangeUmurDptP['>80'] += 1; 
+                }
+    };
+
+    $ketUmurDptP = [
+        [
+            'ket'   => "＜20",
+            'total' => $rangeUmurDptP['<20']
+        ],
+        [
+            'ket' => "21-30",
+            'total' => $rangeUmurDptP['21-30']
+        ],
+        [
+            'ket' => "31-40",
+            'total' => $rangeUmurDptP['31-40']
+        ],
+        [
+            'ket' => "41-50",
+            'total' => $rangeUmurDptP['41-50']
+        ],
+        [
+            'ket' => "51-60",
+            'total' => $rangeUmurDptP['51-60']
+        ],
+        [
+            'ket' => "61-70",
+            'total' => $rangeUmurDptP['61-70']
+        ],
+        [
+            'ket' => "71-80",
+            'total' => $rangeUmurDptP['71-80']
+        ],
+        [
+            'ket' => "＞80",
+            'total' => $rangeUmurDptP['>80']
+        ],
+    ];
             //total relawan perempuan
             $totalRelawanPerempuan = DB::table('relawan')
             ->where('kandidat_id',$idKandidat)
@@ -502,10 +677,11 @@ class HomeController extends Controller
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
-            ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawan'
-            , 'ketUmurDpt','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
+            ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
+            , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'));
+            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
+            ,'ketUmurRelawanL','ketUmurDpt L'));
         }
         else{ 
                 //dashboard milik relawan
