@@ -310,8 +310,53 @@
     </div>
 </div>
 </section>
-    
- 
+
+{{-- Demography usia relawan --}}
+<div class="row match-height">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Demography Usia Relawan</h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="height-400">
+                            <canvas id="column-double"></canvas>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Demography Usia Pendukung</h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="height-400">
+                            <canvas id="column-double-2"></canvas>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Most Relawan DPT Terbanyak dan Area chart pertumbuhan total DPT Setiap bulan-->
 
@@ -1305,170 +1350,10 @@ var areaChart = new Chart(ctx, config);
 </script>
 
 <script>
-    var ctx = $("#column-chart");
 
-// Chart Options
-var chartOptions = {
-    // Elements options apply to all of the options unless overridden in a dataset
-    // In this case, we are setting the border of each bar to be 2px wide and green
-    elements: {
-        rectangle: {
-            borderWidth: 2,
-            borderColor: 'rgb(0, 255, 0)',
-            borderSkipped: 'bottom'
-        }
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    responsiveAnimationDuration:500,
-    legend: {
-        position: 'top',
-    },
-    scales: {
-        xAxes: [{
-            display: true,
-            gridLines: {
-                color: "#f3f3f3",
-                drawTicks: false,
-            },
-            scaleLabel: {
-                display: true,
-                labelString: 'Range Umur'
-            }
-        }],
-        yAxes: [{
-            display: true,
-            gridLines: {
-                color: "#f3f3f3",
-                drawTicks: false,
-            },
-            scaleLabel: {
-                display: true,
-                // labelString: 'Total Relawan'
-            }
-        }]
-    },
-    title: {
-        display: true,
-        text: 'Range Umur Relawan'
-    }
-};
-
-// Chart Data
-var chartData = {
-    labels:[
-        @foreach($ketUmurRelawan as $data)
-            '{{ $data['ket']}}',
-            @endforeach
-    ],
-    datasets: [{
-        label: "Total Relawan",
-        data: [
-            @foreach($ketUmurRelawan as $data)
-            '{{ $data['total']}}',
-            @endforeach
-        ],
-        backgroundColor: "#3f51b5",
-        hoverBackgroundColor: "#45f34c",
-        borderColor: "transparent"
-    }]
-};
-
-var config = {
-    type: 'bar',
-
-    // Chart Options
-    options : chartOptions,
-
-    data : chartData
-};
-
-// Create the chart
-var lineChart = new Chart(ctx, config);
 </script>
 
-<script>
-    var ctx = $("#column-chart-dua");
 
-// Chart Options
-var chartOptions = {
-    // Elements options apply to all of the options unless overridden in a dataset
-    // In this case, we are setting the border of each bar to be 2px wide and green
-    elements: {
-        rectangle: {
-            borderWidth: 2,
-            borderColor: 'rgb(0, 255, 0)',
-            borderSkipped: 'bottom'
-        }
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    responsiveAnimationDuration:500,
-    legend: {
-        position: 'top',
-    },
-    scales: {
-        xAxes: [{
-            display: true,
-            gridLines: {
-                color: "#f3f3f3",
-                drawTicks: false,
-            },
-            scaleLabel: {
-                display: true,
-                labelString: 'Range Umur'
-            }
-        }],
-        yAxes: [{
-            display: true,
-            gridLines: {
-                color: "#f3f3f3",
-                drawTicks: false,
-            },
-            scaleLabel: {
-                display: true,
-                // labelString: 'Total DPT'
-            }
-        }]
-    },
-    title: {
-        display: true,
-        text: 'Range Umur DPT'
-    }
-};
-
-// Chart Data
-var chartData = {
-    labels:[
-        @foreach($ketUmurDpt as $data)
-            '{{ $data['ket']}}',
-            @endforeach
-    ],
-    datasets: [{
-        label: "Total DPT",
-        data: [
-            @foreach($ketUmurDpt as $data)
-            '{{ $data['total']}}',
-            @endforeach
-        ],
-        backgroundColor: "#eb4886",
-        hoverBackgroundColor: "#45f34c",
-        borderColor: "transparent"
-    }]
-};
-
-var config = {
-    type: 'bar',
-
-    // Chart Options
-    options : chartOptions,
-
-    data : chartData
-};
-
-// Create the chart
-var lineChart = new Chart(ctx, config);
-</script>
 <script>
     var ctx = $("#simple-doughnut-chart");
 
@@ -1510,5 +1395,192 @@ var lineChart = new Chart(ctx, config);
     // Create the chart
     var doughnutSimpleChart = new Chart(ctx, config);
 </script>
+<script>
+    var ctx = $("#column-double");
 
+    // Chart Options
+    var chartOptions = {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each bar to be 2px wide and green
+        elements: {
+            rectangle: {
+                borderWidth: 2,
+                borderColor: 'rgb(0, 255, 0)',
+                borderSkipped: 'bottom'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }]
+        },
+        title: {
+            display: true,
+            text: ''
+        }
+    };
+
+    // Chart Data
+    var chartData = 
+    {
+    labels:[
+        @foreach($ketUmurRelawanL as $data)
+            '{{ $data['ket']}}',
+            @endforeach
+    ],
+    datasets: [{
+        label: "Laki-laki",
+        data: [
+            @foreach($ketUmurRelawanL as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#00b0ef",
+        hoverBackgroundColor: "#45f34c",
+        borderColor: "transparent"
+    },
+    {
+        label: "Perempuan",
+        data: [
+            @foreach($ketUmurRelawanP as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#eb4886",
+        hoverBackgroundColor: "#45f34c",
+        borderColor: "transparent"
+    }
+
+]
+};
+
+    var config = {
+        type: 'bar',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#column-double-2");
+
+    // Chart Options
+    var chartOptions = {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each bar to be 2px wide and green
+        elements: {
+            rectangle: {
+                borderWidth: 2,
+                borderColor: 'rgb(0, 255, 0)',
+                borderSkipped: 'bottom'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }]
+        },
+        title: {
+            display: true,
+            text: ''
+        }
+    };
+
+    // Chart Data
+    var chartData = 
+    {
+    labels:[
+        @foreach($ketUmurDptL as $data)
+            '{{ $data['ket']}}',
+            @endforeach
+    ],
+    datasets: [{
+        label: "Laki-laki",
+        data: [
+            @foreach($ketUmurDptL as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#00b0ef",
+        hoverBackgroundColor: "#45f34c",
+        borderColor: "transparent"
+    },
+    {
+        label: "Perempuan",
+        data: [
+            @foreach($ketUmurDptP as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#eb4886",
+        hoverBackgroundColor: "#45f34c",
+        borderColor: "transparent"
+    }
+
+]
+};
+
+    var config = {
+        type: 'bar',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var lineChart = new Chart(ctx, config);
+</script>
 @endsection
