@@ -452,6 +452,7 @@ class HomeController extends Controller
 
             $winRate = (($totalPendukungAll/$targetDukunganKandidat)*100/100);
 
+            //monitoring wilayah pendukung
             $monitoringWilayahPendukung = DB::table('pendukung')
             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->where('pendukung.kandidat_id', $idKandidat)
@@ -460,6 +461,7 @@ class HomeController extends Controller
             ->orderBy('id_wilayah','desc')
             ->get();
 
+            //monitoring wilayah relawan
             $monitoringWilayahRelawan = DB::table('relawan')
             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
             ->where('relawan.kandidat_id', $idKandidat)
@@ -468,13 +470,42 @@ class HomeController extends Controller
             ->orderBy('id_wilayah','desc')
             ->get();
 
+            //sebaran wilayah relawan dengan informasi gender P
+             $sebaranWilayahP = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->where('kandidat_id',$idKandidat)
+             ->where('jenis_kelamin', '=', 'Perempuan')
+             ->groupBy('id_wilayah')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+            
+             //sebaran wilayah relawan dengan informasi gender L
+             $sebaranWilayahL = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->where('kandidat_id',$idKandidat)
+             ->where('jenis_kelamin', '=', 'Laki-laki')
+             ->groupBy('id_wilayah')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+             
+             //sebaran wilayah total 1
+             $sebaranWilayahTotal = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->where('kandidat_id',$idKandidat)
+             ->groupBy('id_wilayah')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawan'
             , 'ketUmurDpt','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung'));
+            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'));
         }
         else{ 
                 //dashboard milik relawan

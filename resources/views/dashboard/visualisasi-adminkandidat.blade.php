@@ -29,20 +29,17 @@
 
 <div class="row">
     <div class="col-xl-4 col-lg-12 col-md-12">
-        <div class="card">
+        <div class="card bg-amber">
             <div class="card-content">
                 <div class="card-body">
                     <div class="media">
-                        <div class="media-body text-left">
-                            <h3 class="amber">{{$winRate}}%</h3>
+                        <div class="media-left media-middle">
+                            <i class="fa fa-trophy white font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body white text-right">
+                            <h3 class="white">23%</h3>
                             <span>Progress Pemenangan</span>
                         </div>
-                        <div class="media-right media-middle">
-                            <i class="fa fa-trophy amber font-large-2 float-right"></i>
-                        </div>
-                    </div>
-                    <div class="progress mt-1 mb-0" style="height: 7px;">
-                        <div class="progress-bar bg-amber" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -155,53 +152,170 @@
         </div>
     </div>
 </div>
+
+{{-- monitoring wilayah dan history dukungan --}}
 <div class="row match-height">
-<div class="col-lg-6 col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Monitoring Wilayah</h4>
-            <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
-            <div class="heading-elements">
-                <ul class="list-inline mb-0">
-                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                </ul>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">MONITORING WILAYAH</h4>
+                <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <p>Informasi mengenai wilayah<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
+                </div>
+                <div class="table-responsive">
+                    <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
+                        <thead>
+                            <tr>
+                                <th class="table-success">Kel/Desa</th>
+                                <th class="table-success">DPT</th>
+                                <th class="table-success">TPS</th>
+                                <th class="table-success">Dukungan</th>
+                                <th class="table-success">Relawan</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                                <tr>
+                                    @foreach($monitoringWilayahPendukung as $data)
+                                    <td>{{$data->id_wilayah}}</td>
+                                    <td>12.394</td>
+                                    <td>379</td>
+                                    <td>{{$data->total}}</td>
+                                    @endforeach
+                                    @foreach($monitoringWilayahRelawan as $item)
+                                    <td>{{$item->total}}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th>461.767</th>
+                                    <th>4.277</th>
+                                    <th>34.6276</th>
+                                    <th>374</th>
+                                </tr>
+                        </tbody>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
+                </div>
             </div>
         </div>
-        <div class="card-content">
-            <div class="card-body">
-                <p>Informasi mengenai wilayah<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
+    </div>
+    <div class="col-xl-6 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fa fa-line-chart indigo"></i> History Dukungan Setiap Bulan</h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="table-responsive">
-                <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
-                    <thead>
-                        <tr>
-                            <th>Kel/Desa</th>
-                            <th>Dukungan</th>
-                            <th>Relawan</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                            <tr>
-                                @foreach($monitoringWilayahPendukung as $data)
-                                <td>{{$data->id_wilayah}}</td>
-                                <td>{{$data->total}}</td>
-                                @endforeach
-                                @foreach($monitoringWilayahRelawan as $item)
-                                <td>{{$item->total}}</td>
-                                @endforeach
-                            </tr>  
-                    </tbody>
-                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
+            <div class="card-content collapse show">
+                <div class="card-body chartjs">
+                    <div class="height-300"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                            <canvas id="area-chart" width="979" height="750" style="display: block; height: 500px; width: 653px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+{{-- relawan sebaran wilayah & jenis kelamin --}}
+<div class="row match-height">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Sebaran Wilayah</h4>
+                <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <p>Informasi mengenai relawan<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
+                </div>
+                <div class="table-responsive">
+                    <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
+                        <thead>
+                            <tr>
+                                <th class="table-primary">Nama Wilayah</th>
+                                <th class="table-primary">P</th>
+                                <th class="table-primary">L</th>
+                                <th class="table-primary">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                                <tr>
+                                    @foreach($sebaranWilayahP as $data)
+                                    <td>{{$data->id_wilayah}}</td>
+                                    <td>{{$data->total}}</td>
+                                    @endforeach
+                                    @foreach($sebaranWilayahL as $item)
+                                    <td>{{$item->total}}</td>
+                                    @endforeach
+                                    @foreach($sebaranWilayahTotal as $data)
+                                    <td>{{$data->total}}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th>461.767</th>
+                                    <th>4.277</th>
+                                    <th>34.6276</th>
+                                </tr>
+                        </tbody>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Demography Gender Relawan</h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-1"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="height-300">
+                        <canvas id="simple-doughnut-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </section>
+    
  
-<!-- Most Relawan DPT Terbanyak dan Area chart pertumbuhan total DPT Setiap bulan-->
-<section id="chartjs-pie-charts">
+
+    <!-- Most Relawan DPT Terbanyak dan Area chart pertumbuhan total DPT Setiap bulan-->
+
+    <section id="chartjs-pie-charts">
     <div class="row match-height">
         <div class="col-xl-5 col-lg-12">
             <div class="card" style="">
@@ -1149,7 +1263,7 @@ var chartOptions = {
     },
     title: {
         display: true,
-        text: 'Total DPT Setiap Bulan'
+        text: 'Total Dukungan'
     }
 };
 
