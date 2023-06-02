@@ -452,12 +452,29 @@ class HomeController extends Controller
 
             $winRate = (($totalPendukungAll/$targetDukunganKandidat)*100/100);
 
+            $monitoringWilayahPendukung = DB::table('pendukung')
+            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
+            ->where('pendukung.kandidat_id', $idKandidat)
+            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
+            ->groupBy('pendukung.id_wilayah')
+            ->orderBy('id_wilayah','desc')
+            ->get();
+
+            $monitoringWilayahRelawan = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->where('relawan.kandidat_id', $idKandidat)
+            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
+            ->groupBy('relawan.id_wilayah')
+            ->orderBy('id_wilayah','desc')
+            ->get();
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawan'
             , 'ketUmurDpt','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
-            ,'totalPendukungLakilaki','targetDukungan','winRate'));
+            ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
+            ,'monitoringWilayahPendukung'));
         }
         else{ 
                 //dashboard milik relawan

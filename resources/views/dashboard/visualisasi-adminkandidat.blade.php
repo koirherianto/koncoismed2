@@ -155,81 +155,50 @@
         </div>
     </div>
 </div>
-
-
-
-    {{-- <div class="row">
-        <div class="col-xl-3 col-lg-6 col-12">
-            <div class="card bg-indigo">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="media d-flex">
-                            <div class="align-self-center">
-                                <i class="icon-user text-white font-large-2 float-left"></i>
-                            </div>
-                            <div class="media-body text-white text-right">
-                                <h3 class="text-white">{{$jumlah_relawan}}</h3>
-                                <span> Total Relawan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="row match-height">
+<div class="col-lg-6 col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Monitoring Wilayah</h4>
+            <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-12">
-            <div class="card bg-blue">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="media d-flex">
-                            <div class="align-self-center">
-                                <i class="icon-pencil text-white font-large-2 float-left"></i>
-                            </div>
-                            <div class="media-body text-white text-right">
-                                <h3 class="text-white">{{$jumlah_dpt}}</h3>
-                                <span>Total Pendukung</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-content">
+            <div class="card-body">
+                <p>Informasi mengenai wilayah<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
             </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-12">
-            <div class="card bg-pink bg-lighten-2">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="media d-flex">
-                            <div class="align-self-center">
-                                <i class="icon-graph text-white font-large-2 float-left"></i>
-                            </div>
-                            <div class="media-body text-white text-right">
-                                <h3 class="text-white">{{$relawanNow}}</h3>
-                                <span>+Relawan Hari ini</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-12">
-            <div class="card bg-orange">
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="media d-flex">
-                            <div class="align-self-center">
-                                <i class="icon-rocket text-white font-large-2 float-left"></i>
-                            </div>
-                            <div class="media-body text-white text-right">
-                                <h3 class="text-white">{{$dptNow}}</h3>
-                                <span>+Pendukung Hari ini</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="table-responsive">
+                <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
+                    <thead>
+                        <tr>
+                            <th>Kel/Desa</th>
+                            <th>Dukungan</th>
+                            <th>Relawan</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                            <tr>
+                                @foreach($monitoringWilayahPendukung as $data)
+                                <td>{{$data->id_wilayah}}</td>
+                                <td>{{$data->total}}</td>
+                                @endforeach
+                                @foreach($monitoringWilayahRelawan as $item)
+                                <td>{{$item->total}}</td>
+                                @endforeach
+                            </tr>  
+                    </tbody>
+                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
             </div>
         </div>
     </div>
-    </
-</section> --}}
+</div>
+</div>
+</section>
  
 <!-- Most Relawan DPT Terbanyak dan Area chart pertumbuhan total DPT Setiap bulan-->
 <section id="chartjs-pie-charts">
