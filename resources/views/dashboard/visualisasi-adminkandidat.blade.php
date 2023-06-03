@@ -311,7 +311,7 @@
 </div>
 </section>
 
-{{-- Demography usia relawan --}}
+{{-- Demography usia relawan dan usia pendukung --}}
 <div class="row match-height">
         <div class="col-lg-6 col-md-12">
             <div class="card">
@@ -356,83 +356,17 @@
             </div>
         </div>
     </div>
-</div>
 
-    <!-- Most Relawan DPT Terbanyak dan Area chart pertumbuhan total DPT Setiap bulan-->
-
-    <section id="chartjs-pie-charts">
-    <div class="row match-height">
-        <div class="col-xl-5 col-lg-12">
-            <div class="card" style="">
-                <div class="card-header no-border">
-                    <h4 class="card-title"><i class="fa fa-trophy amber"></i>  Relawan Dengan Pendukung Terbanyak</h4>
-                    <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-content">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="table-primary">Relawan</th>
-                                    @hasanyrole('admin-kandidat-free|admin-kandidat-premium')
-                                    <th class="table-primary">Wilayah</th>
-                                    @endhasanyrole
-                                    <th class="table-primary">Total DPT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($mostDpt as $data)
-                                <tr>
-                                    <td>{{$data->relawan_id}}</td>
-                                    @hasanyrole('admin-kandidat-free|admin-kandidat-premium')
-                                    <td>{{$data->id_wilayah}}</td>
-                                    @endhasanyrole
-                                    <td>{{$data->total}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        <div class="col-xl-7 col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-line-chart indigo"></i> Pertumbuhan Total Pendukung Setiap Bulan</h4>
-                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-content collapse show">
-                    <div class="card-body chartjs">
-                        <div class="height-300"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                            <canvas id="area-chart" width="979" height="750" style="display: block; height: 500px; width: 653px;" class="chartjs-render-monitor"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Bar charts DPT Wilayah dan DPT Suku -->
+
 <section id="chartjs-bar-charts">
     <!-- Bar Chart -->
     <div class="row match-height">
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-map indigo"></i>  Pendukung Wilayah</h4>
+                    <h4 class="card-title"> Pendukung Berdasarkan Wilayah</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -455,7 +389,7 @@
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-fire pink"></i>  Pendukung Suku</h4>
+                    <h4 class="card-title"> Pendukung Berdasarkan Suku</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -479,14 +413,13 @@
 </section>
 
 <!-- Pie chart Pendukung jenis kelamin dan Pendukung Agama -->
-
 <section id="chartjs-pie-charts">
 <div class="row match-height">
     <!-- Simple Pie Chart -->
     <div class="col-md-6 col-sm-12">
         <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-user indigo"></i> Pendukung Jenis Kelamin</h4>
+                    <h4 class="card-title"> Demography Gender Pendukung</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -510,7 +443,7 @@
         <div class="col-xl-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-star green"></i> Pendukung Agama</h4>
+                    <h4 class="card-title"> Pendukung Berdasarkan Agama</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -533,14 +466,14 @@
     </div>
 </section>
 
-<!-- Pie Chart Relawan Status Perkawinan dan Pie chart Relawan Jenis Kelamin -->
+<!-- Pie Chart Relawan Status Perkawinan -->
 <section id="chartjs-pie-charts">
     <div class="row match-height">
         <!-- Simple Pie Chart -->
         <div class="col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa fa-heart pink"></i> Relawan Status Perkawinan</h4>
+                    <h4 class="card-title"> Relawan Berdasarkan Status Perkawinan</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -555,30 +488,6 @@
                     <div class="card-body">
                         <div class="height-300">
                             <canvas id="simple-pie-chart-empat"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Simple Doughnut Chart -->
-        <div class="col-md-6 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Relawan Jenis Kelamin</h4>
-                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-1"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-content collapse show">
-                    <div class="card-body">
-                        <div class="height-300">
-                            <canvas id="simple-doughnut-chart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -639,51 +548,6 @@
             </div>
         </div>
 </section>
-
-<!-- column charts range umur relawan dan range umur Pendukung -->
-<div class="row">
-    <div class="col-xl-6 col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Relawan Range Umur</h4>
-                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-content collapse show">
-                <div class="height-400"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                        <canvas id="column-chart" width="1066" height="600" style="display: block; height: 400px; width: 711px;" class="chartjs-render-monitor"></canvas>
-                    </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6 col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Pendukung Range Umur</h4>
-                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-content collapse show">
-                <div class="height-400"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                        <canvas id="column-chart-dua" width="1066" height="600" style="display: block; height: 400px; width: 711px;" class="chartjs-render-monitor"></canvas>
-                    </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 {{-- @livewire('livewire-charts') --}}
@@ -745,13 +609,13 @@ var chartData = {
         @endforeach
     ],
     datasets: [{
-        label: "Jumlah DPT",
+        label: "Jumlah Pendukung",
         data: [
             @foreach($barChartDptIdWilayah as $data)
         '{{ $data->total}}',
         @endforeach
     ],
-        backgroundColor: "#875ec0",
+        backgroundColor: "#4CAF50",
         hoverBackgroundColor: "#ffb92d",
         borderColor: "transparent"
     }]
@@ -791,7 +655,7 @@ var chartData = {
         @endforeach
     ],
     datasets: [{
-        label: "Jumlah DPT",
+        label: "Jumlah Pendukung",
         data: [
         @foreach($pieChartDptAgama as $data)
         '{{ $data->total}}',
@@ -870,14 +734,14 @@ var pieSimpleChart = new Chart(ctx, config);
             @endforeach
         ],
         datasets: [{
-            label: "Jumlah DPT",
+            label: "Jumlah Pendukung",
             data: [
                 @foreach($barChartDptSuku as $data)
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#eb4886",
-            hoverBackgroundColor: "#ffb92d",
+            backgroundColor: "#FFC107",
+            hoverBackgroundColor: "#4CAF50",
             borderColor: "transparent"
         }]
     };
@@ -1086,7 +950,7 @@ var pieSimpleChart = new Chart(ctx, config);
             '{{ $item->total}}',
             @endforeach
         ],
-            backgroundColor: ['#9128df','#ef2da6','#f4be3b'],
+            backgroundColor: ['#4CAF50','#FFC107','#212121'],
         }]
     };
     
@@ -1132,7 +996,7 @@ var pieSimpleChart = new Chart(ctx, config);
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Total Relawan'
+                    labelString: 'Jumlah Relawan'
                 }
             }],
             yAxes: [{
@@ -1167,8 +1031,8 @@ var pieSimpleChart = new Chart(ctx, config);
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#46c5f1",
-            hoverBackgroundColor: "#47f24b",
+            backgroundColor: "#4CAF50",
+            hoverBackgroundColor: "#FFC107",
             borderColor: "transparent"
         }]
     };
@@ -1215,7 +1079,7 @@ var pieSimpleChart = new Chart(ctx, config);
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Total Relawan'
+                    labelString: 'Jumlah Relawan'
                 }
             }],
             yAxes: [{
@@ -1250,8 +1114,8 @@ var pieSimpleChart = new Chart(ctx, config);
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#fec940",
-            hoverBackgroundColor: "#47f24b",
+            backgroundColor: "#FFC107",
+            hoverBackgroundColor: "#4CAF50",
             borderColor: "transparent"
         }]
     };
