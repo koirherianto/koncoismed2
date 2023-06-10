@@ -153,7 +153,100 @@
 
 {{-- pie chart gender pendukung dan column chart range umur pendukung --}}
 
+<div class="row match-height">
+<div class="col-md-6 col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Demography Gender Pendukung</h4>
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    {{-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li> --}}
+                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
+                </ul>
+            </div>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body">
+                <div class="height-300">
+                    <canvas id="simple-doughnut-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6 col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Demography Usia Pendukung</h4>
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    {{-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li> --}}
+                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
+                </ul>
+            </div>
+        </div>
+        <div class="card-content collapse show">
+            <div class="height-300">
+                    <canvas id="column-double"></canvas>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
 
+{{-- bar chart suku pendukung dan column chart berdasarkan agama --}}
+<div class="row match-height">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Pendukung Berdasarkan Suku</h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        {{-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li> --}}
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="height-300">
+                        <canvas id="bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Pendukung Berdasarkan Agama</h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        {{-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li> --}}
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="height-300">
+                        <canvas id="column-chart-dua"></canvas>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section('scripts')
 
 <script>
@@ -284,6 +377,260 @@ var chartOptions = {
             data: [65, 59, 80, 81, 56],
             backgroundColor: "##616161",
             hoverBackgroundColor: "rgba(22,211,154,.9)",
+            borderColor: "transparent"
+        }]
+    };
+
+    var config = {
+        type: 'bar',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#simple-doughnut-chart");
+
+    // Chart Options
+    var chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+    };
+
+    // Chart Data
+    var chartData = {
+        labels: ["January", "February", "March", "April", "May"],
+        datasets: [{
+            label: "My First dataset",
+            data: [65, 35, 24, 45, 85],
+            backgroundColor: ['#00A5A8', '#626E82', '#FF7D4D','#FF4558', '#28D094'],
+        }]
+    };
+
+    var config = {
+        type: 'doughnut',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var doughnutSimpleChart = new Chart(ctx, config);
+</script>
+<script>
+     var ctx = $("#column-double");
+
+    // Chart Options
+    var chartOptions = {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each bar to be 2px wide and green
+        elements: {
+            rectangle: {
+                borderWidth: 2,
+                borderColor: 'rgb(0, 255, 0)',
+                borderSkipped: 'bottom'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }]
+        },
+        title: {
+            display: true,
+            text: ''
+        }
+    };
+
+    // Chart Data
+    var chartData = {
+        labels: ["January", "February", "March", "April", "May"],
+        datasets: [{
+            label: "My First dataset",
+            data: [65, 59, 80, 81, 56],
+            backgroundColor: "#2196F3",
+            hoverBackgroundColor: "rgba(22,211,154,.9)",
+            borderColor: "transparent"
+        }, {
+            label: "My Second dataset",
+            data: [28, 48, 40, 19, 86],
+            backgroundColor: "#E91E63",
+            hoverBackgroundColor: "rgba(249,142,118,.9)",
+            borderColor: "transparent"
+        }]
+    };
+
+    var config = {
+        type: 'bar',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#bar-chart");
+
+    // Chart Options
+    var chartOptions = {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each horizontal bar to be 2px wide and green
+        elements: {
+            rectangle: {
+                borderWidth: 2,
+                borderColor: 'rgb(0, 255, 0)',
+                borderSkipped: 'left'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }]
+        },
+        title: {
+            display: false,
+            text: 'Chart.js Horizontal Bar Chart'
+        }
+    };
+
+    // Chart Data
+    var chartData = {
+        labels: ["January", "February", "March", "April"],
+        datasets: [{
+            label: "My First dataset",
+            data: [65, 59, 80, 81],
+            backgroundColor: "#2196F3",
+            hoverBackgroundColor: "#616161",
+            borderColor: "transparent"
+        }]
+    };
+
+    var config = {
+        type: 'horizontalBar',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#column-chart-dua");
+
+    // Chart Options
+    var chartOptions = {
+        // Elements options apply to all of the options unless overridden in a dataset
+        // In this case, we are setting the border of each bar to be 2px wide and green
+        elements: {
+            rectangle: {
+                borderWidth: 2,
+                borderColor: 'rgb(0, 255, 0)',
+                borderSkipped: 'bottom'
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    color: "#f3f3f3",
+                    drawTicks: false,
+                },
+                scaleLabel: {
+                    display: true,
+                }
+            }]
+        },
+        title: {
+            display: true,
+            text: ''
+        }
+    };
+
+    // Chart Data
+    var chartData = {
+        labels: ["January", "February", "March", "April", "May"],
+        datasets: [{
+            label: "My Second dataset",
+            data: [28, 48, 40, 19, 86],
+            backgroundColor: "#4CAF50",
+            hoverBackgroundColor: "#FFC107",
             borderColor: "transparent"
         }]
     };
