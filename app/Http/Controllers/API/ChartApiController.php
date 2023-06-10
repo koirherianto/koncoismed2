@@ -46,7 +46,7 @@ class ChartApiController extends AppBaseController
     {
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
-            $pieChartDptJenisKelamin = DB::table('dpt')
+            $pieChartDptJenisKelamin = DB::table('pendukung')
                 ->select(DB::raw('count(*) as jumlah, jenis_kelamin as nama'))
                 ->where('kandidat_id',$idKandidat)
                 ->groupBy('jenis_kelamin')
@@ -122,7 +122,7 @@ class ChartApiController extends AppBaseController
     {   //berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
-            $pieChartDptAgama = DB::table('dpt')
+            $pieChartDptAgama = DB::table('pendukung')
             ->join('agama', 'dpt.agama_id', '=', 'agama.id')
             ->select(DB::raw('count(*) as jumlah, agama.nama as nama'))
             ->where('kandidat_id',$idKandidat)
@@ -192,7 +192,7 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
 
-            $barChartDptSuku = DB::table('dpt')
+            $barChartDptSuku = DB::table('pendukung')
             ->join('suku', 'dpt.suku_id', '=', 'suku.id')
             ->select(DB::raw('count(*) as jumlah, suku.nama as nama'))
             ->where('kandidat_id',$idKandidat)
@@ -281,7 +281,7 @@ class ChartApiController extends AppBaseController
         //berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
-            $chartWilayahDpt = DB::table('dpt')
+            $chartWilayahDpt = DB::table('pendukung')
                     ->select(DB::raw('count(*) as total, id_wilayah'))
                     ->where('kandidat_id',$idKandidat)
                     ->groupBy('id_wilayah')
@@ -330,13 +330,29 @@ class ChartApiController extends AppBaseController
     public function getJumlahDpt()
     {
         $countDpt['jumlah'] = 0;
+        $countDpt['jumlahPerempuan'] = 0;
+        $countDpt['jumlahPria'] = 0;
         //berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
-            $jumlahDpt = DB::table('dpt')
+            $jumlahDpt = DB::table('pendukung')
                         ->select(DB::raw('count(*) as total'))
                         ->where('kandidat_id',$idKandidat)
                         ->first();
+
+            // Menghitung jumlah perempuan dan laki-laki
+            $jumlahPerempuan = DB::table('pendukung')
+            ->where('kandidat_id', $idKandidat)
+            ->where('jenis_kelamin', 'Perempuan')
+            ->count();
+
+            $jumlahPria = DB::table('pendukung')
+                ->where('kandidat_id', $idKandidat)
+                ->where('jenis_kelamin', 'Laki-laki')
+                ->count();
+
+            $countDpt['jumlahPerempuan'] += $jumlahPerempuan;
+            $countDpt['jumlahPria'] += $jumlahPria;
 
             $countDpt['jumlah'] += $jumlahDpt->total;
         }
@@ -345,19 +361,26 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole('relawan-free','relawan-premium')){
 
             $dptTree = 0;
+            $jumlahPerempuan = 0;
+            $jumlahPria = 0;
             $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
 
             foreach($relawanku->dpts as $dpt){
+                $dpt['jenis_kelamin'] == 'Perempuan' ? $jumlahPerempuan++ :  $jumlahPria++;
                 $dptTree++;
             }
 
             foreach ($relawanku->descendants as $relawans) {
-                foreach($relawans->dpts as $dpt){      
+                foreach($relawans->dpts as $dpt){   
+                    $dpt['jenis_kelamin'] == 'Perempuan' ? $jumlahPerempuan++ :  $jumlahPria++;   
                     $dptTree++;
                 }
             }
 
             $countDpt['jumlah'] += $dptTree;
+            $countDpt['jumlahPerempuan'] += $jumlahPerempuan;
+            $countDpt['jumlahPria'] += $jumlahPria;
+
         }
         return $this->sendResponse($countDpt, 'Get jumlah dpt Succes');
     }
@@ -379,7 +402,7 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium'))
         {
             $idKandidat = Auth::user()->kandidat->id;
-            $dpts = DB::table('dpt')
+            $dpts = DB::table('pendukung')
             ->select(DB::raw('tanggal_lahir'))
             ->where('kandidat_id',$idKandidat)
             ->get();

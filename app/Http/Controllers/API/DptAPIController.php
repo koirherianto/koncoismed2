@@ -84,6 +84,9 @@ class DptAPIController extends AppBaseController
     public function store(Request $request)
     {
         $input = $request->all();
+
+        $input['suku_id'] = $input['suku_id'] != 0 ? $input['suku_id'] : null;
+        $input['agama_id'] = $input['agama_id'] != 0 ? $input['agama_id'] : null;
         
         $input['relawan_id'] = Auth::user()->relawan->id;
         $input['kandidat_id'] = Auth::user()->relawan->kandidat_id;
@@ -91,20 +94,20 @@ class DptAPIController extends AppBaseController
 
         $validator = Validator::make($input, [
             'nama' => 'required|min:3|max:250',
-            'nik' => 'required|unique:dpt,nik',
+            'nik' => 'required|unique:pendukung,nik',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
             'email' => '',
             'kontak' => '',
-            'suku_id' => '',
+            'suku_id' => 'required',
             'tps' => 'required',
             'rt' => '',
             'rw' => '',
             'alamat' => 'required',
             'keterangan' => '',
             'agama_id' => 'required',          
-            'id_wilayah' => 'required',//otomatis
+            'id_wilayah' => 'required', //otomatis
             'kandidat_id' => 'required',//otomatis
             'relawan_id' => 'required',//otomatis
         ],[
@@ -184,6 +187,9 @@ class DptAPIController extends AppBaseController
         $dpt = Dpt::find($id);
         $nikValidation = "$dpt->nik" == "$request->nik" ? '' : '|unique:dpt,nik';
 
+        $input['suku_id'] = $input['suku_id'] != 0 ? $input['suku_id'] : null;
+        $input['agama_id'] = $input['agama_id'] != 0 ? $input['agama_id'] : null;
+
         $validator = Validator::make($input, [
             'nama' => 'required|min:3|max:250',
             'nik' => 'required' . $nikValidation,
@@ -192,7 +198,7 @@ class DptAPIController extends AppBaseController
             'jenis_kelamin' => 'required',
             'email' => '',
             'kontak' => '',
-            'suku_id' => '',
+            'suku_id' => 'required',
             'tps' => 'required',
             'rt' => '',
             'rw' => '',
@@ -251,6 +257,10 @@ class DptAPIController extends AppBaseController
         if (empty($dpt)) {
             return $this->sendError('Dpt not found');
         }
+
+        $dpt->getMedia()->each(function ($media) {
+            $media->delete();
+        });
 
         $deletedData = $dpt;
         $dpt->delete();

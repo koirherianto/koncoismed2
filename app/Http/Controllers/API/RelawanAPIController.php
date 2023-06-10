@@ -44,7 +44,8 @@ class RelawanAPIController extends AppBaseController
         $dataRelawans =  $dataRelawans->relawans;
 
         foreach ($dataRelawans as $relawan) {
-            $relawan['wilayah'] = $this->wilayahById($relawan->id_wilayah);
+            // return $relawan->id_wilayah;
+            $relawan['wilayah'] = $this->wilayahById((int)$relawan->id_wilayah);
         }
         return $this->sendResponse($dataRelawans, 'Relawan saved successfully');
     }
@@ -59,11 +60,11 @@ class RelawanAPIController extends AppBaseController
             'password' => 'required|min:6',
             'passwordConfirm' => 'required|same:password',
             'id_wilayah' => 'required',
-            'no_kta' => '',
-            'nik' => '',
-            'jenis_kelamin' => '',
-            'tempat_lahir' => '',
-            'tanggal_lahir' => $request->all()['tanggal_lahir'] == '' ? '' : 'date',
+            'no_kta' => 'required',
+            'nik' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'date|required',
             'status_perkawinan' => '',
             'kandidat_id' => '',
             'users_id' => ''
