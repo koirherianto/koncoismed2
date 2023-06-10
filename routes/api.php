@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('chart/agama', [ChartApiController::class, 'getChartAgama']);
     Route::get('chart/suku', [ChartApiController::class, 'getChartSuku']);
     Route::get('chart/wilayah', [ChartApiController::class, 'getChartWilayah']);
+    Route::get('chart/wilayahgender', [ChartApiController::class, 'getChartWilayahGender']);
     Route::get('chart/jumlahdpt', [ChartApiController::class, 'getJumlahDpt']);
     Route::get('chart/rangeumurdpt', [ChartApiController::class, 'getRangeUmurDpt']);
     

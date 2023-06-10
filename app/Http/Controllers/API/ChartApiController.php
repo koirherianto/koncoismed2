@@ -276,6 +276,69 @@ class ChartApiController extends AppBaseController
         
     }
 
+    public function getChartWilayahGender()
+    {
+        // Berlaku untuk admin kandidat
+        if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
+            $idKandidat = Auth::user()->kandidat->id;
+            $chartWilayahDpt = DB::table('pendukung')
+                ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
+                ->where('kandidat_id', $idKandidat)
+                ->groupBy('id_wilayah')
+                ->get();
+    
+            foreach ($chartWilayahDpt as $wilayah) {
+                $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
+            }
+        }
+
+        // Berlaku untuk admin relawan
+        if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
+            $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
+
+            $wilayahs = [];
+            foreach($relawanku->dpts as $dpt){
+                if(!array_key_exists($dpt['id_wilayah'], $wilayahs)){
+                    $wilayahs[$dpt['id_wilayah']] = [
+                        'Laki-laki' => 0,
+                        'Perempuan' => 0,
+                    ];
+                }
+                $wilayahs[$dpt['id_wilayah']][$dpt['jenis_kelamin']]++;
+            }
+
+            foreach ($relawanku->descendants as $relawans) {
+                foreach($relawans->dpts as $dpt){
+                    if(!array_key_exists($dpt['id_wilayah'], $wilayahs)){
+                        $wilayahs[$dpt['id_wilayah']] = [
+                            'Laki-laki' => 0,
+                            'Perempuan' => 0,
+                        ];
+                    }
+                    $wilayahs[$dpt['id_wilayah']][$dpt['jenis_kelamin']]++;
+                }
+            }
+
+            $chartWilayahDpt = [];
+            foreach ($wilayahs as $key => $value) {
+                $chartWilayahDpt[] = [
+                    'id_wilayah' => $key,
+                    'wilayah' => $this->wilayahById($key),
+                    'totalLakiLaki' => $value['Laki-laki'],
+                    'totalPerempuan' => $value['Perempuan'],
+                    'total'  => $value['Perempuan'] + $value['Laki-laki']
+                ];
+            }
+        }
+
+        if (empty($chartWilayahDpt)) {
+            $this->response['success'] = false;
+            return response()->json($this->response, 200);
+        }
+
+        return $this->sendResponse($chartWilayahDpt, 'Get Chart wilayah Success');
+    }
+
     public function getChartWilayah()
     {
         //berlaku untuk admin kandidat
@@ -326,6 +389,9 @@ class ChartApiController extends AppBaseController
 
         return $this->sendResponse($chartWilayahDpt, 'Get Chart wilayah Succes');
     }
+
+    
+
 
     public function getJumlahDpt()
     {
@@ -388,44 +454,55 @@ class ChartApiController extends AppBaseController
     public function getRangeUmurDpt(Request $request)
     {
         $rangeUmurDpt = [
-            '<20' => 0,
-            '21-30' => 0,
-            '31-40' => 0,
-            '41-50' => 0,
-            '51-60' => 0,
-            '61-70' => 0,
-            '71-80' => 0,
-            '>80' => 0,
+            '<20' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '20-35' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '36-45' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '46-55' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '>55' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ]
         ];
 
-        //berlaku untuk admin kandidat
-        if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium'))
-        {
+        // Berlaku untuk admin kandidat
+        if (Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')) {
             $idKandidat = Auth::user()->kandidat->id;
+
             $dpts = DB::table('pendukung')
-            ->select(DB::raw('tanggal_lahir'))
-            ->where('kandidat_id',$idKandidat)
-            ->get();
+                        ->select(DB::raw('tanggal_lahir, jenis_kelamin'))
+                        ->where('kandidat_id', $idKandidat)
+                        ->get();
 
-            $umurDpt=[];
-            foreach($dpts as $dpt){
-                $dpt->tanggal_lahir = Carbon::parse($dpt->tanggal_lahir)->age;
-                array_push($umurDpt, $dpt);
+            foreach ($dpts as $dpt) {
+                $umur = Carbon::parse($dpt->tanggal_lahir)->age;
+
+                if ($umur < 20) {
+                    $rangeUmurDpt['<20'][$dpt->jenis_kelamin]++;
+                } elseif ($umur >= 20 && $umur <= 35) {
+                    $rangeUmurDpt['20-35'][$dpt->jenis_kelamin]++;
+                } elseif ($umur >= 36 && $umur <= 45) {
+                    $rangeUmurDpt['36-45'][$dpt->jenis_kelamin]++;
+                } elseif ($umur >= 46 && $umur <= 55) {
+                    $rangeUmurDpt['46-55'][$dpt->jenis_kelamin]++;
+                } elseif ($umur > 55) {
+                    $rangeUmurDpt['>55'][$dpt->jenis_kelamin]++;
+                }
             }
-
-            foreach($umurDpt as $data){
-                $tanggalLahir = $data->tanggal_lahir;
-                $tanggalLahir < 21 ? $rangeUmurDpt['<20']++ : null;   
-                $tanggalLahir >=21 && $tanggalLahir <=30 ? $rangeUmurDpt['21-30']++ : null;
-                $tanggalLahir >=31 && $tanggalLahir <=40 ? $rangeUmurDpt['31-40']++ : null;
-                $tanggalLahir >=41 && $tanggalLahir <=50 ? $rangeUmurDpt['41-50']++ : null;
-                $tanggalLahir >=51 && $tanggalLahir <=60 ? $rangeUmurDpt['51-60']++ : null;
-                $tanggalLahir >=61 && $tanggalLahir <=70 ? $rangeUmurDpt['61-70']++ : null;
-                $tanggalLahir >=71 && $tanggalLahir <=80 ? $rangeUmurDpt['71-80']++ : null;
-                $tanggalLahir >80 ? $rangeUmurDpt['>80']++ : null;
-            };
         }
 
+        //berlaku untuk relawan
         if(Auth::user()->hasAnyRole('relawan-free','relawan-premium'))
         {
             $umurDpt=[];
@@ -433,26 +510,31 @@ class ChartApiController extends AppBaseController
 
             foreach($relawanku->dpts as $dpt){
                 $umur = Carbon::parse($dpt->tanggal_lahir)->age;
-                array_push($umurDpt, ['tanggal_lahir' => $umur]);
+                array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
             }
             
             foreach ($relawanku->descendants as $relawans) {
                 foreach($relawans->dpts as $dpt){    
                     $umur = Carbon::parse($dpt->tanggal_lahir)->age;  
-                    array_push($umurDpt, ['tanggal_lahir' => $umur]);
+                    array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
                 }
             }
             
             foreach($umurDpt as $data){
                 $tanggalLahir = $data['tanggal_lahir'];
-                $tanggalLahir < 21 ? $rangeUmurDpt['<20']++ : null;   
-                $tanggalLahir >=21 && $tanggalLahir <=30 ? $rangeUmurDpt['21-30']++ : null;
-                $tanggalLahir >=31 && $tanggalLahir <=40 ? $rangeUmurDpt['31-40']++ : null;
-                $tanggalLahir >=41 && $tanggalLahir <=50 ? $rangeUmurDpt['41-50']++ : null;
-                $tanggalLahir >=51 && $tanggalLahir <=60 ? $rangeUmurDpt['51-60']++ : null;
-                $tanggalLahir >=61 && $tanggalLahir <=70 ? $rangeUmurDpt['61-70']++ : null;
-                $tanggalLahir >=71 && $tanggalLahir <=80 ? $rangeUmurDpt['71-80']++ : null;
-                $tanggalLahir >80 ? $rangeUmurDpt['>80']++ : null;
+                $jenisKelamin = $data['jenis_kelamin'];
+                
+                if ($tanggalLahir < 20) {
+                    $rangeUmurDpt['<20'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 20 && $tanggalLahir <= 35) {
+                    $rangeUmurDpt['20-35'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 36 && $tanggalLahir <= 45) {
+                    $rangeUmurDpt['36-45'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 46 && $tanggalLahir <= 55) {
+                    $rangeUmurDpt['46-55'][$jenisKelamin]++;
+                } elseif ($tanggalLahir > 55) {
+                    $rangeUmurDpt['>55'][$jenisKelamin]++;
+                }
             };
         }
 
@@ -461,10 +543,13 @@ class ChartApiController extends AppBaseController
         foreach ($rangeUmurDpt as $key => $value) {
             $chartRangeUmur[] = [
                 'ket' => $key,
-                'total' => $value
+                'totalPerempuan' => $value['Perempuan'],
+                'totalLakiLaki' => $value['Laki-laki'],
+                'total' => $value['Perempuan'] + $value['Laki-laki']
             ];
         }
 
         return $this->sendResponse($chartRangeUmur, 'Get Range umur DPT Succes');
     }
+
 }
