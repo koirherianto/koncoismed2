@@ -280,17 +280,17 @@ class ChartApiController extends AppBaseController
     {
         // Berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
-            $idKandidat = Auth::user()->kandidat->id;
-            $chartWilayahDpt = DB::table('pendukung')
-                ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
-                ->where('kandidat_id', $idKandidat)
-                ->groupBy('id_wilayah')
-                ->get();
-    
-            foreach ($chartWilayahDpt as $wilayah) {
-                $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
-            }
+        $idKandidat = Auth::user()->kandidat->id;
+        $chartWilayahDpt = DB::table('pendukung')
+            ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
+            ->where('kandidat_id', $idKandidat)
+            ->groupBy('id_wilayah')
+            ->get();
+
+        foreach ($chartWilayahDpt as $wilayah) {
+            $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
         }
+    }
 
         // Berlaku untuk admin relawan
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
