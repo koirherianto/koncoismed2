@@ -13,29 +13,77 @@ use DB;
 
 class ChartRelawanApiController extends AppBaseController
 {
-    public function getJumlahRelawan(){
+    public function getChartPertumbuhanRelawan()
+    {
+        $time_series_dpt = Relawan::select(DB::raw("concat(YEAR(created_at), '-',MONTH(created_at)) as monthyear"), DB::raw('count(*) as jumlah'))
+            ->groupBy('monthyear')
+            ->get('jumlah');
 
+        if (empty($time_series_dpt)) {
+            $this->response['success'] = false;
+            return response()->json($this->response,200);
+        }
+
+        foreach ($time_series_dpt as $time) {
+            $yearMonth = explode('-',$time["monthyear"]);
+            $year = reset($yearMonth);
+            $month = end($yearMonth);
+            if(strlen($month) == 1){
+                $month = '0' . $month;
+            }
+            $time['monthyear'] = $year . '-' . $month . '-01';
+        }
+        return $this->sendResponse($time_series_dpt, 'Get Chart Pertumbuhan Relawan Succes');
+    }
+
+    public function getJumlahRelawan()
+    {
         $countRelawan['jumlah'] = 0;
+        $countRelawan['jumlahPerempuan'] = 0;
+        $countRelawan['jumlahPria'] = 0;
 
-        //berlaku untuk admin kandidat
-        if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
+        // Berlaku untuk admin kandidat
+        if (Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')) {
             $idKandidat = Auth::user()->kandidat->id;
             $jumlahRelawan = DB::table('relawan')
-                        ->select(DB::raw('count(*) as total'))
-                        ->where('kandidat_id',$idKandidat)
-                        ->first();    
+                ->select(DB::raw('count(*) as total'))
+                ->where('kandidat_id', $idKandidat)
+                ->first();
+
+            // Menghitung jumlah perempuan dan laki-laki
+            $jumlahPerempuan = DB::table('relawan')
+                ->where('kandidat_id', $idKandidat)
+                ->where('jenis_kelamin', 'Perempuan')
+                ->count();
+
+            $jumlahPria = DB::table('relawan')
+                ->where('kandidat_id', $idKandidat)
+                ->where('jenis_kelamin', 'Laki-laki')
+                ->count();
+
+            $countRelawan['jumlahPerempuan'] += $jumlahPerempuan;
+            $countRelawan['jumlahPria'] += $jumlahPria;
+
             $countRelawan['jumlah'] += $jumlahRelawan->total;
         }
 
-        //berlaku untuk relawan
-        if(Auth::user()->hasAnyRole('relawan-free','relawan-premium')){
-            $relawanTree = 0;
-            $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
-            $countRelawan['jumlah'] += count($relawanku->descendants);
+        // Berlaku untuk relawan
+        if (Auth::user()->hasAnyRole('relawan-free', 'relawan-premium')) {
+            $relawanku = Relawan::where('id', Auth::user()->relawan->id)->first();
+            $descendants = $relawanku->descendants;
+            foreach ($descendants as $descendant) {
+                if ($descendant->jenis_kelamin == 'Perempuan') {
+                    $countRelawan['jumlahPerempuan']++;
+                } elseif ($descendant->jenis_kelamin == 'Laki-laki') {
+                    $countRelawan['jumlahPria']++;
+                }
+            }
+            $countRelawan['jumlah'] += count($descendants);
         }
 
-        return $this->sendResponse($countRelawan, 'Get jumlah relawan Succes');        
+        return $this->sendResponse($countRelawan, 'Get jumlah relawan Success');
     }
+
 
     public function getChartGenderRelawan()
     {
@@ -152,7 +200,7 @@ class ChartRelawanApiController extends AppBaseController
             return $this->sendResponse($chartStatusPerkawinan, 'Get Chart Status Penikahan Relawan Succes');
         }
     }
-
+    
     public function getRangeUmurRelawan()
     {
         $rangeUmurRelawan = [
@@ -228,4 +276,153 @@ class ChartRelawanApiController extends AppBaseController
 
         return $this->sendResponse($chartRangeUmur, 'Get Range umur Relawan Succes');
     }
+
+    public function getUsiaGender()
+    {
+        $rangeUmurRelawan = [
+            '<20' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '20-35' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '36-45' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '46-55' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ],
+            '>55' => [
+                'Perempuan' => 0,
+                'Laki-laki' => 0
+            ]
+        ];
+
+        // Berlaku untuk admin kandidat
+        if (Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')) {
+            $idKandidat = Auth::user()->kandidat->id;
+            $relawans = DB::table('relawan')
+                ->select(DB::raw('tanggal_lahir, jenis_kelamin'))
+                ->where('kandidat_id', $idKandidat)
+                ->get();
+
+            $umurRelawan = [];
+            foreach ($relawans as $relawan) {
+                $relawan->tanggal_lahir = Carbon::parse($relawan->tanggal_lahir)->age;
+                array_push($umurRelawan, $relawan);
+            }
+
+            foreach ($umurRelawan as $data) {
+                $tanggalLahir = $data->tanggal_lahir;
+                $jenisKelamin = $data->jenis_kelamin;
+                if ($tanggalLahir < 20) {
+                    $rangeUmurRelawan['<20'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 20 && $tanggalLahir <= 35) {
+                    $rangeUmurRelawan['20-35'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 36 && $tanggalLahir <= 45) {
+                    $rangeUmurRelawan['36-45'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 46 && $tanggalLahir <= 55) {
+                    $rangeUmurRelawan['46-55'][$jenisKelamin]++;
+                } elseif ($tanggalLahir > 55) {
+                    $rangeUmurRelawan['>55'][$jenisKelamin]++;
+                }
+            }
+        }
+
+        // Berlaku untuk relawan
+        if (Auth::user()->hasAnyRole('relawan-free', 'relawan-premium')) {
+            $umurRelawan = [];
+            $relawanku = Relawan::where('id', Auth::user()->relawan->id)->first();
+
+            foreach ($relawanku->descendants as $relawans) {
+                $umur = Carbon::parse($relawans->tanggal_lahir)->age;
+                $jenisKelamin = $relawans->jenis_kelamin;
+                array_push($umurRelawan, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $jenisKelamin]);
+            }
+
+            foreach ($umurRelawan as $data) {
+                $tanggalLahir = $data['tanggal_lahir'];
+                $jenisKelamin = $data['jenis_kelamin'];
+                if ($tanggalLahir < 20) {
+                    $rangeUmurRelawan['<20'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 20 && $tanggalLahir <= 35) {
+                    $rangeUmurRelawan['20-35'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 36 && $tanggalLahir <= 45) {
+                    $rangeUmurRelawan['36-45'][$jenisKelamin]++;
+                } elseif ($tanggalLahir >= 46 && $tanggalLahir <= 55) {
+                    $rangeUmurRelawan['46-55'][$jenisKelamin]++;
+                } elseif ($tanggalLahir > 55) {
+                    $rangeUmurRelawan['>55'][$jenisKelamin]++;
+                }
+            }
+        }
+
+        // Output
+        $chartRangeUmur = [];
+        foreach ($rangeUmurRelawan as $key => $value) {
+            $chartRangeUmur[] = [
+                'ket' => $key,
+                'totalPerempuan' => $value['Perempuan'],
+                'totalLakiLaki' => $value['Laki-laki'],
+                'total' => $value['Perempuan'] + $value['Laki-laki']
+            ];
+        }
+
+        return $this->sendResponse($chartRangeUmur, 'Get Range umur Relawan Success');
+    }
+
+    public function getChartWilayahGender()
+    {
+        // Berlaku untuk admin kandidat
+        if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
+            $idKandidat = Auth::user()->kandidat->id;
+            $chartWilayahRelawan = DB::table('relawan')
+                ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
+                ->where('kandidat_id', $idKandidat)
+                ->groupBy('id_wilayah')
+                ->get()->toArray();
+
+            // return $chartWilayahRelawan;
+
+            foreach ($chartWilayahRelawan as $key => $wilayah) {
+                if ($wilayah->id_wilayah != null) {
+                    $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
+                } else {
+                    unset($chartWilayahRelawan[$key]); // Menghapus elemen dengan id_wilayah null
+                }
+            }
+    
+            $chartWilayahRelawan = array_values($chartWilayahRelawan);
+        }
+        
+
+        // Berlaku untuk admin relawan
+        if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
+            
+            $chartWilayahRelawan = DB::table('relawan')
+            ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
+            ->where('relawan_id', Auth::user()->relawan->id)
+            ->groupBy('id_wilayah')
+            ->get();
+
+            
+            foreach ($chartWilayahRelawan as $key => $wilayah) {
+                if ($wilayah->id_wilayah != null) {
+                    $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
+                } 
+            }
+        }
+
+        if (empty($chartWilayahRelawan)) {
+            $this->response['success'] = false;
+            return response()->json($this->response, 200);
+        }
+
+        return $this->sendResponse($chartWilayahRelawan, 'Get Chart wilayah Gender Success');
+    }
+
 }

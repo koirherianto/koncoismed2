@@ -37,7 +37,6 @@ class ChartApiController extends AppBaseController
                 $month = '0' . $month;
             }
             $time['monthyear'] = $year . '-' . $month . '-01';
-            // $time['jumlah'] = (float)sprintf("%.2f",$time['jumlah']);
         }
         return $this->sendResponse($time_series_dpt, 'Get Chart Pertumbuhan Dpt Succes');
     }
@@ -280,17 +279,17 @@ class ChartApiController extends AppBaseController
     {
         // Berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
-        $idKandidat = Auth::user()->kandidat->id;
-        $chartWilayahDpt = DB::table('pendukung')
-            ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
-            ->where('kandidat_id', $idKandidat)
-            ->groupBy('id_wilayah')
-            ->get();
+            $idKandidat = Auth::user()->kandidat->id;
+            $chartWilayahDpt = DB::table('pendukung')
+                ->select(DB::raw('id_wilayah, SUM(CASE WHEN jenis_kelamin = "Laki-laki" THEN 1 ELSE 0 END) AS totalLakiLaki, SUM(CASE WHEN jenis_kelamin = "Perempuan" THEN 1 ELSE 0 END) AS totalPerempuan, COUNT(*) AS total'))
+                ->where('kandidat_id', $idKandidat)
+                ->groupBy('id_wilayah')
+                ->get();
 
-        foreach ($chartWilayahDpt as $wilayah) {
-            $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
+            foreach ($chartWilayahDpt as $wilayah) {
+                $wilayah->wilayah = $this->wilayahById($wilayah->id_wilayah);
+            }
         }
-    }
 
         // Berlaku untuk admin relawan
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
@@ -389,9 +388,6 @@ class ChartApiController extends AppBaseController
 
         return $this->sendResponse($chartWilayahDpt, 'Get Chart wilayah Succes');
     }
-
-    
-
 
     public function getJumlahDpt()
     {

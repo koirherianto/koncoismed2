@@ -226,7 +226,7 @@ class AuthApiController extends AppBaseController
         if (!$hash) {
             $this->response['status'] = 'failed';
             $this->response['error'] = ['passwordLama' => ['Password Anda Tidak Sesuai']];
-            return response()->json($this->response,404);
+            return response()->json($this->response);
         }
 
         $validator = Validator::make($request->all(), [
@@ -263,6 +263,7 @@ class AuthApiController extends AppBaseController
         }else{
             $contactValidate = 'required|max:255|unique:users,contact';
         }
+        
 
         if($user->email == $request->email){
             $emailValidate = 'required|max:250|email:dns';

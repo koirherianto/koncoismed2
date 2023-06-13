@@ -45,7 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('chart/jumlahdpt', [ChartApiController::class, 'getJumlahDpt']);
     Route::get('chart/rangeumurdpt', [ChartApiController::class, 'getRangeUmurDpt']);
     
+    Route::get('chart/relawan/pertumbuhanrelawan', [ChartRelawanApiController::class, 'getChartPertumbuhanRelawan']);
     Route::get('chart/relawan/gender', [ChartRelawanApiController::class, 'getChartGenderRelawan']);
+    Route::get('chart/relawan/getusiagender', [ChartRelawanApiController::class, 'getUsiaGender']);
+    Route::get('chart/relawan/getwilayahgender', [ChartRelawanApiController::class, 'getChartWilayahGender']);
     Route::get('chart/relawan/jumlahrelawan', [ChartRelawanApiController::class, 'getJumlahRelawan']);
     Route::get('chart/relawan/statuspernikahan', [ChartRelawanApiController::class, 'getStatusPerkawinanRelawan']);
     Route::get('chart/relawan/rangeumur', [ChartRelawanApiController::class, 'getRangeUmurRelawan']);
