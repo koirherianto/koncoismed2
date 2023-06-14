@@ -985,46 +985,62 @@ class HomeController extends Controller
                 else{
                     $rangeUmurDptP['>80'] += 1; 
                     }
-        };
+            };
 
-        $ketUmurDptP = [
-            [
-                'ket'   => "＜20",
-                'total' => $rangeUmurDptP['<20']
-            ],
-            [
-                'ket' => "21-30",
-                'total' => $rangeUmurDptP['21-30']
-            ],
-            [
-                'ket' => "31-40",
-                'total' => $rangeUmurDptP['31-40']
-            ],
-            [
-                'ket' => "41-50",
-                'total' => $rangeUmurDptP['41-50']
-            ],
-            [
-                'ket' => "51-60",
-                'total' => $rangeUmurDptP['51-60']
-            ],
-            [
-                'ket' => "61-70",
-                'total' => $rangeUmurDptP['61-70']
-            ],
-            [
-                'ket' => "71-80",
-                'total' => $rangeUmurDptP['71-80']
-            ],
-            [
-                'ket' => "＞80",
-                'total' => $rangeUmurDptP['>80']
-            ],
-        ];
-                return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
-                ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
-                ,'dptNow','ketJKRelawan','ketSPRelawan','jumlahPendukung','pendukungGender','ketUmurDptL'
-                ,'ketUmurDptP'));
+            $ketUmurDptP = [
+                [
+                    'ket'   => "＜20",
+                    'total' => $rangeUmurDptP['<20']
+                ],
+                [
+                    'ket' => "21-30",
+                    'total' => $rangeUmurDptP['21-30']
+                ],
+                [
+                    'ket' => "31-40",
+                    'total' => $rangeUmurDptP['31-40']
+                ],
+                [
+                    'ket' => "41-50",
+                    'total' => $rangeUmurDptP['41-50']
+                ],
+                [
+                    'ket' => "51-60",
+                    'total' => $rangeUmurDptP['51-60']
+                ],
+                [
+                    'ket' => "61-70",
+                    'total' => $rangeUmurDptP['61-70']
+                ],
+                [
+                    'ket' => "71-80",
+                    'total' => $rangeUmurDptP['71-80']
+                ],
+                [
+                    'ket' => "＞80",
+                    'total' => $rangeUmurDptP['>80']
+                ],
+            ];
+
+        $pendukungSuku = DB::table('pendukung')
+        ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
+        ->select(DB::raw('count(*) as total, suku.nama as suku'))
+        ->where('relawan_id', $idRelawan)
+        ->groupBy('suku')
+        ->take(10)
+        ->get();
+
+        $pendukungAgama = DB::table('pendukung')
+        ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
+        ->select(DB::raw('count(*) as total, agama.nama as agama'))
+        ->where('relawan_id', $idRelawan)
+        ->groupBy('agama')
+        ->get();
+
+        return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
+        ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
+        ,'dptNow','ketJKRelawan','ketSPRelawan','jumlahPendukung','pendukungGender','ketUmurDptL'
+        ,'ketUmurDptP','pendukungSuku','pendukungAgama'));
         }
        
     }

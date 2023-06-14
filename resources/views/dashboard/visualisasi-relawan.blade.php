@@ -576,12 +576,20 @@ var chartOptions = {
 
     // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April"],
+        labels: [
+            @foreach($pendukungSuku as $data)
+            '{{ $data->suku}}',
+            @endforeach
+        ],
         datasets: [{
-            label: "My First dataset",
-            data: [65, 59, 80, 81],
-            backgroundColor: "#2196F3",
-            hoverBackgroundColor: "#616161",
+            label: "Jumlah Relawan",
+            data: [
+                @foreach($pendukungSuku as $data)
+            '{{ $data->total}}',
+            @endforeach
+        ],
+            backgroundColor: "#FFC107",
+            hoverBackgroundColor: "#FF6F00",
             borderColor: "transparent"
         }]
     };
@@ -648,12 +656,20 @@ var chartOptions = {
 
     // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
+        labels: [
+            @foreach($pendukungAgama as $data)
+            '{{ $data->agama}}',
+            @endforeach
+        ],
         datasets: [{
-            label: "My Second dataset",
-            data: [28, 48, 40, 19, 86],
+            label: "Jumlah Relawan",
+            data: [
+                @foreach($pendukungAgama as $data)
+            '{{ $data->total}}',
+            @endforeach
+        ],
             backgroundColor: "#4CAF50",
-            hoverBackgroundColor: "#FFC107",
+            hoverBackgroundColor: "#1B5E20",
             borderColor: "transparent"
         }]
     };
