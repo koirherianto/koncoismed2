@@ -127,14 +127,6 @@ class HomeController extends Controller
             ->get();
 
             //visualisasi dpt berdasarkan wilayah
-            // $barChartDptWilayah = DB::table('dpt')
-            // ->join('wilayah', 'dpt.wilayah_id', '=', 'wilayah.id')
-            // ->select(DB::raw('count(*) as total, wilayah.nama as wilayah_id'))
-            // ->groupBy('wilayah.nama')
-            // ->orderBy('total', 'desc')
-            // ->get();
-
-            //visualisasi dpt berdasarkan wilayah
             $barChartDptIdWilayah = DB::table('pendukung')
             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
@@ -150,7 +142,7 @@ class HomeController extends Controller
             ->where('kandidat_id',$idKandidat)
             ->groupBy('suku.nama')
             ->orderBy('total', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
 
             //visualisasi dpt berdasarkan agama dengan pie chart
@@ -168,32 +160,32 @@ class HomeController extends Controller
             ->groupBy('jenis_kelamin')
             ->get();
             
-             //pie chart Relawan berdasarkan status_perkawinan
-             $pieChartRelawanStatusPerkawinan = DB::table('relawan')
-             ->select(DB::raw('count(*) as total, status_perkawinan'))
-             ->where('kandidat_id',$idKandidat)
-             ->groupBy('status_perkawinan')
-             ->get();
+            //pie chart Relawan berdasarkan status_perkawinan
+            $pieChartRelawanStatusPerkawinan = DB::table('relawan')
+            ->select(DB::raw('count(*) as total, status_perkawinan'))
+            ->where('kandidat_id',$idKandidat)
+            ->groupBy('status_perkawinan')
+            ->get();
 
             
-             //barchart relawan berdasarkan kecamatan
-             $barChartRelawanKecamatan = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->join('kecamatan', 'desa.kecamatan_id', '=', 'kecamatan.id')
-             ->select(DB::raw('count(*) as total, kecamatan.nama as kecamatan_id'))
-             ->where('kandidat_id',$idKandidat)
-             ->groupBy('kecamatan_id')
-             ->orderBy('total','desc')
-             ->get();
+            //barchart relawan berdasarkan kecamatan
+            $barChartRelawanKecamatan = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->join('kecamatan', 'desa.kecamatan_id', '=', 'kecamatan.id')
+            ->select(DB::raw('count(*) as total, kecamatan.nama as kecamatan_id'))
+            ->where('kandidat_id',$idKandidat)
+            ->groupBy('kecamatan_id')
+            ->orderBy('total','desc')
+            ->get();
             
-            //barchart relawan berdasarkan desa
-             $barChartRelawanDesa = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('kandidat_id',$idKandidat)
-             ->groupBy('id_wilayah')
-             ->orderBy('total','desc')
-             ->get();            
+        //barchart relawan berdasarkan desa
+            $barChartRelawanDesa = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+            ->where('kandidat_id',$idKandidat)
+            ->groupBy('id_wilayah')
+            ->orderBy('total','desc')
+            ->get();            
 
             //tabel most count DPT
             $mostDpt = DB::table('pendukung')
@@ -625,7 +617,7 @@ class HomeController extends Controller
              
             $targetDukunganKandidat = Auth::user()->kandidat->target_pendukung;
 
-            $winRate = (($totalPendukungAll/$targetDukunganKandidat)*100/100);
+            $winRate = $totalPendukungAll/$targetDukunganKandidat*100;
 
             //monitoring wilayah pendukung
             $monitoringWilayahPendukung = DB::table('pendukung')
@@ -661,10 +653,9 @@ class HomeController extends Controller
              ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
              ->where('kandidat_id',$idKandidat)
              ->where('jenis_kelamin', '=', 'Laki-laki')
-             ->groupBy('id_wilayah')
              ->orderBy('id_wilayah','desc')
              ->get();
-             
+
              //sebaran wilayah total 1
              $sebaranWilayahTotal = DB::table('relawan')
              ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
@@ -1022,26 +1013,45 @@ class HomeController extends Controller
                 ],
             ];
 
-        $pendukungSuku = DB::table('pendukung')
-        ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
-        ->select(DB::raw('count(*) as total, suku.nama as suku'))
-        ->where('relawan_id', $idRelawan)
-        ->groupBy('suku')
-        ->take(10)
-        ->get();
+            $pendukungSuku = DB::table('pendukung')
+            ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
+            ->select(DB::raw('count(*) as total, suku.nama as suku'))
+            ->where('relawan_id', $idRelawan)
+            ->groupBy('suku')
+            ->orderBy('total', 'desc')
+            ->take(10)
+            ->get();
 
-        $pendukungAgama = DB::table('pendukung')
-        ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
-        ->select(DB::raw('count(*) as total, agama.nama as agama'))
-        ->where('relawan_id', $idRelawan)
-        ->groupBy('agama')
-        ->get();
+            $pendukungAgama = DB::table('pendukung')
+            ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
+            ->select(DB::raw('count(*) as total, agama.nama as agama'))
+            ->where('relawan_id', $idRelawan)
+            ->orderBy('total', 'desc')
+            ->groupBy('agama')
+            ->get();
 
-        return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
-        ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
-        ,'dptNow','ketJKRelawan','ketSPRelawan','jumlahPendukung','pendukungGender','ketUmurDptL'
-        ,'ketUmurDptP','pendukungSuku','pendukungAgama'));
-        }
+            //Line chart Pertumbuhan pendukung Berdasarkan bulan tahun
+            $time_series_pendukung = DB::table('pendukung')
+            ->select(DB::raw("concat(MONTH(created_at), '-',YEAR(created_at)) as monthyear"), 
+            DB::raw('count(*) as jumlah'))
+            ->where('relawan_id',$idRelawan)
+            ->groupBy('monthyear')
+            ->get();
+
+            $areaChart30 = DB::table('pendukung')
+            ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+            ->where('relawan_id',$idRelawan)
+            ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            ->groupBy('created_at')
+            ->get();
+
+            //return $areaChart30;
+
+            return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
+            ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
+            ,'dptNow','ketJKRelawan','ketSPRelawan','jumlahPendukung','pendukungGender','ketUmurDptL'
+            ,'ketUmurDptP','pendukungSuku','pendukungAgama','time_series_pendukung','areaChart30'));
+            }
        
     }
     public function createKandidat()
@@ -1629,7 +1639,7 @@ class HomeController extends Controller
              
             //$targetDukunganKandidat = Auth::user()->kandidat->target_pendukung;
 
-            $winRate = (($totalPendukungAll/$targetDukungan)*100/100);
+            $winRate = $totalPendukungAll/$targetDukungan*100;
 
             //monitoring wilayah pendukung
             $monitoringWilayahPendukung = DB::table('pendukung')

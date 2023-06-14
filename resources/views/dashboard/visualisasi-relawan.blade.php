@@ -293,13 +293,21 @@ var chartOptions = {
 
 // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: [
+            @foreach($areaChart30 as $data)
+            '{{ $data->created_at}}',
+            @endforeach
+        ],
         datasets: [{
             label: "Dukungan",
-            data: [0, 150, 140, 105, 190, 230, 270],
-            backgroundColor: "#66BB6A",
+            data: [
+                @foreach($areaChart30 as $data)
+            '{{ $data->total}}',
+            @endforeach
+        ],
+            backgroundColor: "#4CAF50",
             borderColor: "transparent",
-            pointBorderColor: "#8BC34A",
+            pointBorderColor: "#64DD17",
             pointBackgroundColor: "#FFF",
             pointBorderWidth: 2,
             pointHoverBorderWidth: 2,
@@ -370,12 +378,19 @@ var chartOptions = {
 
     // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
+        labels: [
+            @foreach($time_series_pendukung as $data)
+            '{{ $data->monthyear}}',
+            @endforeach
+        ],
         datasets: [{
             label: "Dukungan",
-            data: [65, 59, 80, 81, 56],
-            backgroundColor: "##616161",
-            hoverBackgroundColor: "rgba(22,211,154,.9)",
+            data: [
+                @foreach($time_series_pendukung as $data)
+            '{{ $data->jumlah}}',
+            @endforeach
+        ],
+            backgroundColor: "#424242",
             borderColor: "transparent"
         }]
     };
