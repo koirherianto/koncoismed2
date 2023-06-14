@@ -43,7 +43,7 @@
                     <td>{{ $dataDpt->rw }}</td>
                     <td>{{ $dataDpt->alamat }}</td>
                     <td>{{ $dataDpt->keterangan }}</td> --}}
-                    <td>{{ $dataDpt->id_wilayah }}</td>
+                    <td>{{ $dataDpt->relawan->desa->nama }}</td>
                     <td>{{ $dataDpt->relawan->users->name }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['dpts.destroy', $dataDpt->id], 'method' => 'delete']) !!}

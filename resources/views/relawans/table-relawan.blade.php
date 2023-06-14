@@ -5,10 +5,8 @@
             <tr>
                 <th>Nama</th>
                 <th>Atasan</th>
-                {{-- <th>Turunan</th> --}}
-                <th>Kandidat Id</th>
-                <th>Wilayah</th>
-                {{-- <th colspan="3">Action</th> --}}
+                <th>NIK</th>
+                <th>KTA</th>
             </tr>
             </thead>
             <tbody>
@@ -25,8 +23,8 @@
                         </ul> --}}
                         
                     {{-- </td> --}}
-                    <td>{{ $dataRelawan->kandidat->id }}</td>
-                    <td>{{ $dataRelawan->id_wilayah}}</td>
+                    <td>{{ $dataRelawan->nik}}</td>
+                    <td>{{ $dataRelawan->no_kta}}</td>
                     <td  style="width: 120px">  
                         {!! Form::open(['route' => ['relawans.destroy', $dataRelawan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

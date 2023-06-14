@@ -12,8 +12,8 @@
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="blue font-medium-5">Input Relawans</span><br>
-                                    <span style="margin-top: -5px">Membuat Relawans Baru</span>
+                                    <span class="blue font-medium-5">Tambah Relawan</span><br>
+                                    <span style="margin-top: -5px">Membuat Relawan Baru</span>
                                 </div>
                             </div>
                         </div>

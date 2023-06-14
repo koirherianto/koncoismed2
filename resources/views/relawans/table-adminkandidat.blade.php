@@ -5,10 +5,8 @@
             <tr>
                 <th>Nama</th>
                 <th>Atasan</th>
-                {{-- <th>Turunan</th> --}}
                 <th>NIK</th>
                 <th>KTA</th>
-                {{-- <th>Wilayah</th> --}}
                 <th colspan="3">Action</th>
             </tr>
             </thead>

@@ -31,7 +31,6 @@
 </section>
 
 {{-- timeseries dpt total setiap bulan &  dpt 30 hari terakhir--}}
-
 <div class="row match-height">
     <div class="col-lg-8 col-md-12">
         <div class="card">
@@ -90,7 +89,7 @@
                             <i class="ft ft-package text-white font-large-2 float-left"></i>
                         </div>
                         <div class="media-body text-white text-right">
-                            <h3 class="text-white">{{$jumlah_dpt}}</h3>
+                            <h3 class="text-white">{{$jumlahPendukung}}</h3>
                             <span>Total Dukungan</span>
                         </div>
                     </div>

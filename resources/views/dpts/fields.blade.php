@@ -12,7 +12,7 @@
      <!-- Jenis Kelamin Field -->
      <div class="form-group col-sm-4">
         {!! Form::label('jenis_kelamin', 'Jenis Kelamin:') !!}
-        {!! Form::select('jenis_kelamin', [''=>'- Pilih - ','pria'=>'Pria','wanita'=>'Wanita'],null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::select('jenis_kelamin', [''=>'- Pilih - ','Laki-laki'=>'Laki-laki','Perempuan'=>'Perempuan'],null, ['class' => 'form-control border-info round']) !!}
     </div>
 </div>
 <div class="row">

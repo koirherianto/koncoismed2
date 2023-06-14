@@ -837,9 +837,12 @@ class HomeController extends Controller
                 ->whereDate('created_at', Carbon::today())
                 ->count();
 
-        return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
-        ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
-        ,'dptNow','ketJKRelawan','ketSPRelawan'));
+                //take count pendukung by relawan_id
+                $jumlahPendukung = Dpt::where('relawan_id', $idRelawan)->count();
+
+                return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
+                ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
+                ,'dptNow','ketJKRelawan','ketSPRelawan','jumlahPendukung'));
         }
        
     }
