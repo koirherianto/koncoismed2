@@ -404,11 +404,21 @@ var chartOptions = {
 
     // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
+        labels: [
+            @foreach($pendukungGender as $data)
+            '{{ $data->jenis_kelamin}}',
+            @endforeach
+        ],
         datasets: [{
-            label: "My First dataset",
-            data: [65, 35, 24, 45, 85],
-            backgroundColor: ['#00A5A8', '#626E82', '#FF7D4D','#FF4558', '#28D094'],
+            label: "Jumlah Pendukung",
+            data: [
+                @foreach($pendukungGender as $data)
+            '{{ $data->total}}',
+            @endforeach
+        ],
+        backgroundColor:  ['#E91E63','#2196F3'],
+            hoverBackgroundColor: "#880E4F",
+            borderColor: "transparent"
         }]
     };
 
@@ -474,20 +484,34 @@ var chartOptions = {
 
     // Chart Data
     var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: "My First dataset",
-            data: [65, 59, 80, 81, 56],
-            backgroundColor: "#2196F3",
-            hoverBackgroundColor: "rgba(22,211,154,.9)",
-            borderColor: "transparent"
-        }, {
-            label: "My Second dataset",
-            data: [28, 48, 40, 19, 86],
-            backgroundColor: "#E91E63",
-            hoverBackgroundColor: "rgba(249,142,118,.9)",
-            borderColor: "transparent"
-        }]
+        labels: [
+        @foreach($ketUmurDptL as $data)
+            '{{ $data['ket']}}',
+            @endforeach
+    ],
+    datasets: [{
+        label: "Laki-laki",
+        data: [
+            @foreach($ketUmurDptL as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#2196F3",
+        hoverBackgroundColor: "#0D47A1",
+        borderColor: "transparent"
+    },
+    {
+        label: "Perempuan",
+        data: [
+            @foreach($ketUmurDptP as $data)
+            '{{ $data['total']}}',
+            @endforeach
+        ],
+        backgroundColor: "#E91E63",
+        hoverBackgroundColor: "#880E4F",
+        borderColor: "transparent"
+    }
+    ]
     };
 
     var config = {
