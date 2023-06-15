@@ -51,7 +51,9 @@ class DptAPIController extends AppBaseController
                 for ($k=0; $k < $i; $k++) { 
                     $dptx = $value[$k]->load(['agama','sukus']);
                     $dptx['wilayah'] = $this->wilayahById($dptx->id_wilayah);
-                    $dptx->getFirstMediaUrl();
+                    $dptx['url_ktp'] = $dptx->getFirstMediaUrl('gambar_ktp');
+                    $dptx['url_selfie'] = $dptx->getFirstMediaUrl('gambar_selfie');
+                    $dptx['url_profil'] = $dptx->getFirstMediaUrl('gambar_profil');
                     $tampungData[] = $dptx;
                 }
             }
@@ -61,7 +63,9 @@ class DptAPIController extends AppBaseController
             $dpts = Dpt::where('relawan_id',Auth::user()->relawan->id)->with(['agama','sukus'])->get();
 
             foreach ($dpts as $dpt) {
-                $dpt->getFirstMediaUrl();
+                $dpt['url_ktp'] = $dpt->getFirstMediaUrl('gambar_ktp');
+                $dpt['url_selfie'] = $dpt->getFirstMediaUrl('gambar_selfie');
+                $dpt['url_profil'] = $dpt->getFirstMediaUrl('gambar_profil');
                 $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
             }
         }
@@ -90,6 +94,7 @@ class DptAPIController extends AppBaseController
         
         $input['relawan_id'] = Auth::user()->relawan->id;
         $input['kandidat_id'] = Auth::user()->relawan->kandidat_id;
+        // return  Auth::user()->relawan->id_wilayah;
         $input['id_wilayah'] = Auth::user()->relawan->id_wilayah;
 
         $validator = Validator::make($input, [
@@ -135,15 +140,25 @@ class DptAPIController extends AppBaseController
             $dpt->load(['agama','sukus']);
             $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
 
+            //  gambar selfie
             if($request->hasFile('gambar_ktp')){
-                // $image = $request->file('gambar_ktp');
-                // $dpt->addMedia($image)->toMediaCollection();
-                // $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();
-                // $dpt['url_ktp'] = $media->getUrl();
-
                 $image = $request->file('gambar_ktp');
-                $media = $dpt->addMedia($image)->toMediaCollection();
-                $dpt['url_ktp'] = $media->getUrl();
+                $media = $dpt->addMedia($image)->toMediaCollection('gambar_ktp');
+                $dpt['url_ktp'] = $dpt->getFirstMediaUrl('gambar_ktp');
+            }
+
+            //  gambar selfie
+            if ($request->hasFile('gambar_selfie')) {
+                $file = $request->file('gambar_selfie');
+                $dpt->addMedia($file)->toMediaCollection('gambar_selfie');
+                $dpt['url_selfie'] = $dpt->getFirstMediaUrl('gambar_ktp');
+            }
+
+            // gambar profile
+            if ($request->hasFile('gambar_profil')) {
+                $file = $request->file('gambar_profil');
+                $dpt->addMedia($file)->toMediaCollection('gambar_profil');
+                $dpt['url_profil'] = $dpt->getFirstMediaUrl('gambar_profil');
             }
             return $this->sendResponse($dpt->toArray(), 'DPT Berhasil ditambahkan');
         }
@@ -168,18 +183,43 @@ class DptAPIController extends AppBaseController
         $dpt = $this->dptRepository->find($id);
         // return $dpt->id_wilayah;
         if (empty($dpt)) {
-            return $this->sendError('Dpt not found');
+            return $this->sendError('Gambar not found');
+        }
+
+        if($request->hasFile('gambar_selfie')){
+            // Hapus gambar KTP yang ada
+            $dpt->clearMediaCollection('gambar_selfie');
+
+            // Unggah gambar KTP yang baru
+            $file = $request->file('gambar_selfie');
+            $media = $dpt->addMedia($file)->toMediaCollection('gambar_selfie');
+
+            $dpt['url_ktp'] = $dpt->getFirstMediaUrl('gambar_ktp');
+            
         }
 
         if($request->hasFile('gambar_ktp')){
-            $image = $request->file('gambar_ktp');
-            // $media = $dpt->addMedia($image)->toMediaCollection();
-            // $media = $dpt->syncMedia($image)->toMediaCollection();
-            $media = $dpt->clearMediaCollection()->addMedia($image)->toMediaCollection();
-            $dpt['url_ktp'] = $media->getUrl();
-            return $this->sendResponse($dpt, 'Gambar success di update');
+            $dpt->clearMediaCollection('gambar_ktp');
+
+            $file = $request->file('gambar_ktp');
+            $media = $dpt->addMedia($file)->toMediaCollection('gambar_ktp');
+
+            $dpt['url_selfie'] = $dpt->getFirstMediaUrl('gambar_ktp');
+            
         }
+        if($request->hasFile('gambar_profil')){
+            $dpt->clearMediaCollection('gambar_profil');
+
+            $file = $request->file('gambar_profil');
+            $media = $dpt->addMedia($file)->toMediaCollection('gambar_profil');
+
+            $dpt['url_profil'] = $dpt->getFirstMediaUrl('gambar_profil');
+            
+        }
+        return $this->sendResponse($dpt, 'Gambar success di update');
     }
+
+    
 
     public function update($id, Request $request)
     {
@@ -240,13 +280,17 @@ class DptAPIController extends AppBaseController
         $dpt->load(['agama','sukus']);
         $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
 
-        $mediaItems = $dpt->getMedia(); // Mendapatkan koleksi media dari entitas DPT
-        // Mendapatkan URL gambar pertama dalam koleksi media (jika ada)
-        if ($mediaItems->isNotEmpty()) {
-            $dpt['url_ktp'] = $mediaItems->first()->getUrl();
-        } else {
-            $dpt['url_ktp'] = null; // Atau dapatkan URL default jika tidak ada gambar
-        }
+        // $mediaItems = $dpt->getMedia(); // Mendapatkan koleksi media dari entitas DPT
+        // // Mendapatkan URL gambar pertama dalam koleksi media (jika ada)
+        // if ($mediaItems->isNotEmpty()) {
+        //     $dpt['url_ktp'] = $mediaItems->first()->getUrl();
+        // } else {
+        //     $dpt['url_ktp'] = ''; // Atau dapatkan URL default jika tidak ada gambar
+        // }
+
+        $dpt['url_ktp']  = $dpt->getFirstMediaUrl('gambar_ktp');
+        $dpt['url_selfie']  = $dpt->getFirstMediaUrl('gambar_selfie');
+        $dpt['url_profil']  = $dpt->getFirstMediaUrl('gambar_profil');
         return $this->sendResponse($dpt, 'Update DPT success');
     }
 
@@ -257,6 +301,15 @@ class DptAPIController extends AppBaseController
         if (empty($dpt)) {
             return $this->sendError('Dpt not found');
         }
+
+        // Menghapus semua gambar dalam kumpulan media "gambar_ktp"
+        $dpt->clearMediaCollection('gambar_ktp');
+
+        // Menghapus semua gambar dalam kumpulan media "gambar_selfie"
+        $dpt->clearMediaCollection('gambar_selfie');
+
+        // Menghapus semua gambar dalam kumpulan media "gambar_profil"
+        $dpt->clearMediaCollection('gambar_profil');
 
         $dpt->getMedia()->each(function ($media) {
             $media->delete();

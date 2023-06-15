@@ -73,6 +73,13 @@ class Dpt extends Model implements HasMedia
         'kandidat_id' => 'required'
     ];
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('gambar_ktp');
+        $this->addMediaCollection('gambar_selfie');
+        $this->addMediaCollection('gambar_profil');
+    }
+
     public function agama(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Agama::class, 'agama_id');
