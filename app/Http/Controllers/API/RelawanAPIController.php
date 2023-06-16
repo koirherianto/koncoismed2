@@ -45,6 +45,7 @@ class RelawanAPIController extends AppBaseController
 
         foreach ($dataRelawans as $relawan) {
             // return $relawan->id_wilayah;
+            $relawan['url_profil'] = $relawan->getFirstMediaUrl();
             $relawan['wilayah'] = $this->wilayahById((int)$relawan->id_wilayah);
         }
         return $this->sendResponse($dataRelawans, 'Relawan saved successfully');
@@ -134,6 +135,12 @@ class RelawanAPIController extends AppBaseController
             'status_perkawinan' => $request['status_perkawinan'],
         ]);
         $relawan->save();
+        //input profil relawan
+        if ($request->hasFile('gambar_profil')) {
+            $file = $request->file('gambar_profil');
+            $relawan->addMedia($file)->toMediaCollection();
+            $relawan['url_profil'] = $relawan->getFirstMediaUrl();
+        }
         $relawan->load(['users']);
         $relawan['wilayah'] = $this->wilayahById($relawan->id_wilayah);
         DB::commit();
@@ -198,6 +205,25 @@ class RelawanAPIController extends AppBaseController
         return response()->json($this->response,200);
     }
 
+    public function updateImage($id, Request $request)
+    {
+        $relawan = $this->relawanRepository->find($id);
+        if (empty($relawan)) {
+            return $this->sendError('relawan not found');
+        }
+
+        if($request->hasFile('gambar_profil')){
+            $relawan->clearMediaCollection();
+
+            $file = $request->file('gambar_profil');
+            $media = $relawan->addMedia($file)->toMediaCollection();
+
+            $relawan['url_profil'] = $relawan->getFirstMediaUrl();
+            
+        }
+        return $this->sendResponse($relawan, 'Gambar success di update');
+    }
+
     public function update($id,request $request)
     {
 
@@ -254,7 +280,7 @@ class RelawanAPIController extends AppBaseController
             DB::rollBack();
             Flash::error($e);   
         }    
-        
+        $relawan['url_profil'] = $relawan->getFirstMediaUrl();
         $relawan['status_perkawinan'] = $this->statusPernikahanById($relawan['status_perkawinan']);
         $relawan['jenis_kelamin'] = $this->genderRelawanById($relawan['jenis_kelamin']);
         $relawan['wilayah'] = $this->wilayahById($relawan->id_wilayah);

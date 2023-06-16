@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 
 
-class Relawan extends Model
+class Relawan extends Model implements HasMedia
 {
-    use NodeTrait;
+    use NodeTrait, HasFactory, InteractsWithMedia;
     public $table = 'relawan';
 
     public function getLftName()
@@ -31,8 +34,6 @@ class Relawan extends Model
     {
         $this->setParentIdAttribute($value);
     }
-
-   
     
     public $fillable = [
         'users_id',

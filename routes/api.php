@@ -57,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('dpts', DptAPIController::class)->except(['create', 'edit']);
     Route::post('dpts/updateimage/{id}', [DptAPIController::class, 'updateImage']);
 
+    Route::post('relawans/updateimage/{id}', [RelawanAPIController::class, 'updateImage']);
     Route::put('relawanpassword/{id}',[RelawanAPIController::class,"updatePass"]);
     Route::resource('relawans', RelawanAPIController::class)
     ->except(['create', 'edit']);
