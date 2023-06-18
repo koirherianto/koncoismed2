@@ -25,4 +25,10 @@ class DptMaster extends Model implements HasMedia
     public static $rules = [
         'nik' => 'required|string'
     ];
+
+    public static function countDptMaster()
+    {
+        return self::count();
+    }
+
 }

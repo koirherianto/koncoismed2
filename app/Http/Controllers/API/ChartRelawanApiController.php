@@ -9,6 +9,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Carbon\Carbon;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Relawan;
+use App\Models\DptMaster;
+use App\Models\Dpt;
 use DB;
 
 class ChartRelawanApiController extends AppBaseController
@@ -80,6 +82,24 @@ class ChartRelawanApiController extends AppBaseController
             }
             $countRelawan['jumlah'] += count($descendants);
         }
+
+        //jumlah dpt & pendukung
+        $countRelawan['jumlahDpt'] = DptMaster::countDptMaster();
+        $jumlahPendukung = $countRelawan['jumlahPendukung'] = Dpt::countDukungan();
+
+        //win rate
+        $targetDukunganKandidat = Auth::user()->relawan->kandidat->target_pendukung;
+        $countRelawan['targetSuara'] = $jumlahPendukung/$targetDukunganKandidat*100;
+
+        //kinerja relawan perhari
+        $countRelawan['kinerjaRelawanHarian'] = Dpt::kinerjaRelawanPerhari();
+        $countRelawan['kinerjaRelawanHarian'] = number_format($countRelawan['kinerjaRelawanHarian'], 1);
+        //kinerja relawan perminggu
+        $countRelawan['kinerjaRelawanMingguan'] = Dpt::kinerjaRelawanPerminggu();
+        $countRelawan['kinerjaRelawanMingguan'] = number_format($countRelawan['kinerjaRelawanMingguan'], 1);
+        // kinerja relawan perminggu
+        $countRelawan['kinerjaRelawanBulan'] = Dpt::kinerjaRelawanPerbulan();
+        $countRelawan['kinerjaRelawanBulan'] = number_format($countRelawan['kinerjaRelawanBulan'], 1);
 
         return $this->sendResponse($countRelawan, 'Get jumlah relawan Success');
     }

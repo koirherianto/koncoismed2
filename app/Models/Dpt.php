@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NestedSet;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model\Suku;
 
@@ -79,6 +80,67 @@ class Dpt extends Model implements HasMedia
         $this->addMediaCollection('gambar_selfie');
         $this->addMediaCollection('gambar_profil');
     }
+
+    
+    public static function countDukungan()
+    {
+        return self::count();
+    }
+
+    public static function kinerjaRelawanPerhari()
+    {
+        // Hitung jumlah total DPT
+        $totalDpt = self::count();
+
+        // Hitung jumlah hari sejak pertama kali DPT ditambahkan
+        $tanggalPertama = self::orderBy('created_at', 'asc')->first()->created_at->startOfDay();
+        $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
+
+        // Pengecekan jika hari sama dengan nol
+        $jumlahHari == 0 ? $jumlahHari = 1 : null;
+
+        // Hitung rata-rata per hari ditambahkan
+        $rataRataPerHari = $totalDpt / $jumlahHari;
+
+        return $rataRataPerHari;
+    }
+
+    public static function kinerjaRelawanPerminggu()
+    {
+        // Hitung jumlah total DPT
+        $totalDpt = self::count();
+
+        // Hitung jumlah minggu sejak pertama kali DPT ditambahkan
+        $tanggalPertama = self::orderBy('created_at', 'asc')->first()->created_at->startOfWeek();
+        $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
+
+        // Pengecekan jika minggu  sama dengan nol
+        $jumlahMinggu == 0 ? $jumlahMinggu = 1 : null;
+
+        // Hitung rata-rata per minggu ditambahkan
+        $rataRataPerMinggu = $totalDpt / $jumlahMinggu;
+
+        return $rataRataPerMinggu;
+    }
+
+    public static function kinerjaRelawanPerbulan()
+    {
+        // Hitung jumlah total DPT
+        $totalDpt = self::count();
+
+        // Hitung jumlah bulan sejak pertama kali DPT ditambahkan
+        $tanggalPertama = self::orderBy('created_at', 'asc')->first()->created_at->startOfMonth();
+        $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
+
+         // Pengecekan jika jumlah bulan sama dengan nol
+        $jumlahBulan == 0 ? $jumlahBulan = 1 : null;
+
+        // Hitung rata-rata per bulan ditambahkan
+        $rataRataPerBulan = $totalDpt / $jumlahBulan;
+
+        return $rataRataPerBulan;
+    }
+
 
     public function agama(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
