@@ -178,7 +178,7 @@ class HomeController extends Controller
             ->orderBy('total','desc')
             ->get();
             
-        //barchart relawan berdasarkan desa
+            //barchart relawan berdasarkan desa
             $barChartRelawanDesa = DB::table('relawan')
             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
@@ -665,6 +665,52 @@ class HomeController extends Controller
              ->orderBy('id_wilayah','desc')
              ->get();
 
+
+            //Kinerja relawan perhari
+            $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfDay();
+
+            $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
+
+            // Pengecekan jika hari sama dengan nol
+            $jumlahHari == 0 ? $jumlahHari = 1 : null;
+
+            // Hitung rata-rata per hari ditambahkan
+            $rataRataPerHari = ROUND($jumlah_dpt / $jumlahHari);
+
+            //kinerja relawan perminggu
+            $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfWeek();
+
+            $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
+
+            // Pengecekan jika minggu  sama dengan nol
+            $jumlahMinggu == 0 ? $jumlahMinggu = 1 : null;
+
+            // Hitung rata-rata per minggu ditambahkan
+            $rataRataPerMinggu = ROUND($jumlah_dpt / $jumlahMinggu);
+
+            //kinerja relawan perbulan
+            $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfMonth();
+
+            $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
+
+            // Pengecekan jika jumlah bulan sama dengan nol
+            $jumlahBulan == 0 ? $jumlahBulan = 1 : null;
+
+            // Hitung rata-rata per bulan ditambahkan
+            $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
@@ -672,7 +718,7 @@ class HomeController extends Controller
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
-            ,'ketUmurRelawanL','ketUmurDptL'));
+            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'));
         }
         else{ 
                 //dashboard milik relawan
@@ -1688,6 +1734,51 @@ class HomeController extends Controller
              ->orderBy('id_wilayah','desc')
              ->get();
 
+             //Kinerja relawan perhari
+            $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfDay();
+
+            $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
+
+            // Pengecekan jika hari sama dengan nol
+            $jumlahHari == 0 ? $jumlahHari = 1 : null;
+
+            // Hitung rata-rata per hari ditambahkan
+            $rataRataPerHari = ROUND($jumlah_dpt / $jumlahHari);
+
+            //kinerja relawan perminggu
+            $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfWeek();
+
+            $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
+
+            // Pengecekan jika minggu  sama dengan nol
+            $jumlahMinggu == 0 ? $jumlahMinggu = 1 : null;
+
+            // Hitung rata-rata per minggu ditambahkan
+            $rataRataPerMinggu = ROUND($jumlah_dpt / $jumlahMinggu);
+
+            //kinerja relawan perbulan
+            $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at
+            ->startOfMonth();
+
+            $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
+
+            // Pengecekan jika jumlah bulan sama dengan nol
+            $jumlahBulan == 0 ? $jumlahBulan = 1 : null;
+
+            // Hitung rata-rata per bulan ditambahkan
+            $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
+
             return view('dashboard.visualisasi-relawan2', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
@@ -1695,7 +1786,7 @@ class HomeController extends Controller
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
-            ,'ketUmurRelawanL','ketUmurDptL'));
+            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'));
         }
     }
 }
