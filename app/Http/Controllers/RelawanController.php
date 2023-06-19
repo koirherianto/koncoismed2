@@ -114,6 +114,10 @@ class RelawanController extends AppBaseController
         ]);
         $relawan->save();
         
+        if(isset($request->relawan)){
+            $relawan->addFromMediaLibraryRequest($request->relawan)->toMediaCollection();
+        }
+
         DB::commit();
         Flash::success("Data berhasil ditambahkan");
         // return $user;
@@ -173,6 +177,10 @@ class RelawanController extends AppBaseController
         }
 
         $relawan = $this->relawanRepository->update($request->all(), $id);
+
+        if(isset($request->relawan)){
+            $relawan->syncFromMediaLibraryRequest($request->relawan)->toMediaCollection();
+        }
 
         Flash::success('Relawan updated successfully.');
 

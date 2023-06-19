@@ -8,11 +8,11 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-blue p-2 media-middle">
+                                <div class="bg-light-green bg-darken-4 p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="blue font-medium-5">Tambah Relawan</span><br>
+                                    <span class=" font-medium-5">Tambah Relawan</span><br>
                                     <span style="margin-top: -5px">Membuat Relawan Baru</span>
                                 </div>
                             </div>
@@ -22,15 +22,15 @@
                 <div class="col-md-12">
                     @include('adminlte-templates::common.errors')
                     <div class="card">
-                        <div class= "border-left-light-blue border-left-6 box-shadow-1 rounded">
+                        <div class= "border-light-green border-darken-4 border-left-6 box-shadow-1 rounded">
                         <div class="card-content collpase show">
                             <div class="card-body">
                                 {!! Form::open(['route' => 'relawans.store']) !!}
                                 <div class="form-body">
                                     @include('relawans.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('users.index') }}" class="btn btn-danger">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+                                        <a href="{{ route('users.index') }}" class="btn btn-danger mr-2">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

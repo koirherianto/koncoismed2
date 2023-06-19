@@ -3,13 +3,13 @@
         <!-- Status Field -->
             <div class="form-group">
             {!! Form::label('status', 'Status',['class'=>' text-uppercase']) !!}
-            {!! Form::select('status', ['' => 'Pilih Status Relawan','kab/kota' => 'Kab/Kota', 'kecamatan' => 'Kecamatan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
+            {!! Form::select('status', ['' => 'Pilih Status Relawan','kab/kota' => 'Kab/Kota', 'kecamatan' => 'Kecamatan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
             </div>
         </div>
     <div class="form-group row">
         <label for="provinsi">Provinsi</label>
         <div class="col-13">
-            <select wire:model="selectedProvinsi" class="form-control border-left-pink border-left-6 text-bold-600 black font-medium-2">
+            <select wire:model="selectedProvinsi" class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2">
                 <option value="" selected>Pilih Provinsi</option>
                 @foreach($provinsis as $provinsi)
                     <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
@@ -24,7 +24,7 @@
             <label for="id_wilayah">Kab/Kota</label>
   
             <div class="col-13">
-                <select class="form-control border-left-pink border-left-6 text-bold-600 black font-medium-2"wire:model="selectedKabkota" name="id_wilayah">
+                <select class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2"wire:model="selectedKabkota" name="id_wilayah">
                     <option value="" selected>Pilih Kab/Kota</option>
                     @foreach($kabkotas as $kabkota)
                         <option value="{{ $kabkota->id }}">{{ $kabkota->kabkota }}</option>

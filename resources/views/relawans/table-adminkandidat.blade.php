@@ -3,6 +3,7 @@
         <table class="table table-hover table-borderless mb-1" id="relawans-table">
             <thead>
             <tr>
+                <th>Foto</th>
                 <th>Nama</th>
                 <th>Atasan</th>
                 <th>NIK</th>
@@ -13,6 +14,7 @@
             <tbody>
             @foreach($relawans as $relawan)
                 <tr>
+                    <td><img src="{{$relawan->getFirstMediaUrl()}}"width="80px"></td>
                     <td>{{ $relawan->users->name }}</td>
                     <td>{{ isset($relawan->relawanParent)?$relawan->relawanParent->users->name:"" }}</td>
                     {{-- <td> --}}

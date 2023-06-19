@@ -79,9 +79,10 @@
                         <h3 class="font-large-2 grey darken-1 text-bold-200">{{$jumlah_dpt}}</h3>
                     </div>
                     <div class="card-content">
-                        <div class="height-155">
+                        <div class="height-150">
                             {{-- <canvas id="simple-doughnut-chart-dua"></canvas> --}}
                             <canvas id ="simple-doughnut-chart-dua" width="225" height="225" style="width: 150px; height: 150px;"></canvas>
+                            {{-- <i class="knob-center-icon ft-trending-up" style="width: 79px; height: 50px; position: absolute; vertical-align: middle; margin-top: 50px; margin-left: -114px; border: 0px; background: none; font: normal 30px Arial; text-align: center; color: rgb(225, 225, 225); padding: 0px; appearance: none;font-size: 50px;"></i> --}}
                         </div>
                         {{-- <div style="display:inline;width:150px;height:150px;">
                             <canvas width="225" height="225" style="width: 150px; height: 150px;"></canvas>
