@@ -711,6 +711,8 @@ class HomeController extends Controller
             // Hitung rata-rata per bulan ditambahkan
             $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
 
+            $selisihTargetPendukung = 100 - $winRate;
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
@@ -718,7 +720,8 @@ class HomeController extends Controller
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
-            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'));
+            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'
+            ,'totalPendukungAll','selisihTargetPendukung'));
         }
         else{ 
                 //dashboard milik relawan
@@ -1779,6 +1782,8 @@ class HomeController extends Controller
             // Hitung rata-rata per bulan ditambahkan
             $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
 
+            $selisihTargetPendukung = 100 - $winRate;
+        
             return view('dashboard.visualisasi-relawan2', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
@@ -1786,7 +1791,8 @@ class HomeController extends Controller
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
-            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'));
+            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'
+            ,'totalPendukungAll','selisihTargetPendukung'));
         }
     }
 }

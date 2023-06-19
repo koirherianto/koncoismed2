@@ -74,12 +74,20 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-body text-center">
-                    <div class="card-header mb-2">
+                    <div class="card mt-1 mb-1">
                         <span class="green darken-1">Total Dukungan</span>
                         <h3 class="font-large-2 grey darken-1 text-bold-200">{{$jumlah_dpt}}</h3>
                     </div>
                     <div class="card-content">
-                        <div style="display:inline;width:150px;height:150px;"><canvas width="225" height="225" style="width: 150px; height: 150px;"></canvas><input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleoffset="0" data-thickness=".15" data-linecap="round" data-width="150" data-height="150" data-inputcolor="#e1e1e1" data-readonly="true" data-fgcolor="#37BC9B" data-knob-icon="ft-trending-up" readonly="readonly" style="width: 79px; height: 50px; position: absolute; vertical-align: middle; margin-top: 50px; margin-left: -114px; border: 0px; background: none; font: bold 30px Arial; text-align: center; color: rgb(225, 225, 225); padding: 0px; appearance: none; display: none;"><i class="knob-center-icon ft-trending-up" style="width: 79px; height: 50px; position: absolute; vertical-align: middle; margin-top: 50px; margin-left: -114px; border: 0px; background: none; font: normal 30px Arial; text-align: center; color: rgb(225, 225, 225); padding: 0px; appearance: none;font-size: 50px;"></i></div>
+                        <div class="height-155">
+                            {{-- <canvas id="simple-doughnut-chart-dua"></canvas> --}}
+                            <canvas id ="simple-doughnut-chart-dua" width="225" height="225" style="width: 150px; height: 150px;"></canvas>
+                        </div>
+                        {{-- <div style="display:inline;width:150px;height:150px;">
+                            <canvas width="225" height="225" style="width: 150px; height: 150px;"></canvas>
+                            <input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleoffset="0" data-thickness=".15" data-linecap="round" data-width="150" data-height="150" data-inputcolor="#e1e1e1" data-readonly="true" data-fgcolor="#37BC9B" data-knob-icon="ft-trending-up" readonly="readonly" style="width: 79px; height: 50px; position: absolute; vertical-align: middle; margin-top: 50px; margin-left: -114px; border: 0px; background: none; font: bold 30px Arial; text-align: center; color: rgb(225, 225, 225); padding: 0px; appearance: none; display: none;">
+                            <i class="knob-center-icon ft-trending-up" style="width: 79px; height: 50px; position: absolute; vertical-align: middle; margin-top: 50px; margin-left: -114px; border: 0px; background: none; font: normal 30px Arial; text-align: center; color: rgb(225, 225, 225); padding: 0px; appearance: none;font-size: 50px;"></i>
+                        </div> --}}
                         <ul class="list-inline clearfix mt-2 mb-0">
                             <li class="border-right-grey border-right-lighten-2 pr-2">
                                 <h2 class="grey darken-1 text-bold-400">{{$totalPendukungLakilaki}}</h2>
@@ -1505,5 +1513,51 @@ var areaChart = new Chart(ctx, config);
 
     // Create the chart
     var lineChart = new Chart(ctx, config);
+</script>
+<script>
+    var ctx = $("#simple-doughnut-chart-dua");
+
+    // Chart Options
+    var chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration:500,
+        cutoutPercentage: 88,
+        tooltips: {
+            enabled: false
+        },
+        legend: {
+            display: false
+        }  
+    };
+    
+
+    // Chart Data
+    var chartData = {
+        labels: [
+            // console.log($item);
+            '{{''}}',
+        ],
+        datasets: [{
+            label: "",
+            data: [
+            '{{ $winRate}}',
+            '{{ $selisihTargetPendukung}}'
+        ],
+            backgroundColor:  ['#e1e1e1', '#4CAF50'],
+        }]
+    };
+
+    var config = {
+        type: 'doughnut',
+
+        // Chart Options
+        options : chartOptions,
+
+        data : chartData
+    };
+
+    // Create the chart
+    var doughnutSimpleChart = new Chart(ctx, config);
 </script>
 @endsection
