@@ -6,7 +6,7 @@
                 @include('flash::message')
                 <div class="clearfix"></div>
                 <div class="card">
-                    <div class="border-left-light-blue border-left-6 box-shadow-1 rounded">
+                    <div class="border-left-green border-left-6 box-shadow-1 rounded">
                         <div class="card-content ">
                             <div class="card-body card-dashboard">
                                 <div class="row">
@@ -21,13 +21,21 @@
                                         </div>
                                     </div>
                                     @hasanyrole('admin-kandidat-free|admin-kandidat-premium|relawan-free|relawan-premium')
-                                    <div class="col-2 text-right">
-                                        <a href="{{ route('importRelawan') }}" class="btn btn-sm btn-info">Import Excel
-                                        </a>
-                                    </div>
-                                    <div class="col-2 text-right">
-                                        <a href="{{ route('relawans.create') }}" class="btn btn-sm btn-green">Tambah Data
-                                        </a>
+                                    <div class="form-group right">
+                                        <a href="{{ route('relawans.create') }}" class="btn btn-sm btn-green btn-min-width mr-1 mb-1 float-right">+ Tambah Data</a>
+                                        {{-- <a href="{{ route('importRelawan') }}" class="btn btn-sm btn-amber round btn-min-width mr-1 mb-1 float-right">Import Excel</a> --}}
+                                            <button type="button" class="btn btn-amber dropdown-toggle dropdown-menu-right btn-sm float-right mr-1 mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ft-download-cloud white"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a href="{{ route('importRelawan') }}" class="dropdown-item"><i class="ft-upload"></i> Import</a>
+                                                <a href="#" class="dropdown-item"><i class="ft-download"></i> Export</a>
+                                            </div>
+                                        {{-- <span class="dropdown show">
+                                            <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-amber dropdown-toggle dropdown-menu-right btn-sm float-right mr-1 mb-1"><i class="ft-download-cloud white"></i></button>
+                                            <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right show" x-placement="bottom-end" style="position: absolute; transform: translate3d(-106px, 25px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                <a href="{{ route('importRelawan') }}" class="dropdown-item"><i class="ft-upload"></i> Import</a>
+                                                <a href="#" class="dropdown-item"><i class="ft-download"></i> Export</a>
+                                            </span>
+                                        </span> --}}
                                     </div>
                                     @endhasanyrole
                                 </div>

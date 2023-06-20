@@ -3,7 +3,6 @@
         <table class="table table-hover table-borderless mb-1" id="relawans-table">
             <thead>
             <tr>
-                <th>Foto</th>
                 <th>Nama</th>
                 <th>Atasan</th>
                 <th>NIK</th>
@@ -13,9 +12,24 @@
             </thead>
             <tbody>
             @foreach($relawans as $relawan)
-                <tr>
-                    <td><img src="{{$relawan->getFirstMediaUrl()}}"width="80px"></td>
-                    <td>{{ $relawan->users->name }}</td>
+                <tr> 
+                    {{-- <td><img src="{{$relawan->getFirstMediaUrl()}}"width="80px"></td> --}}
+                    <td>
+                        <div class="media">
+                            <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle">
+                                @if(empty($relawan->users->foto))
+                                    <img src="{{ asset('image/avatar.png') }}" alt="avatar"><i></i>
+                                @else
+                                    <img src="{{ asset($relawan->users->foto) }}" alt="avatar"><i></i>
+                                @endif
+                            </span>
+                            </div>
+                            <div class="media-body media-middle">
+                                <a href="" class="text-dark">{{ $relawan->users->name }}</a>
+                            </div>
+                        </div>
+                    </td>
+                    {{-- <td>{{ $relawan->users->name }}</td> --}}
                     <td>{{ isset($relawan->relawanParent)?$relawan->relawanParent->users->name:"" }}</td>
                     {{-- <td> --}}
                         {{-- {{$relawan->descendants}} untuk mengambil turunan di bawahnya--}}
