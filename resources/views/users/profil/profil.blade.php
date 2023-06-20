@@ -14,7 +14,7 @@
                                 <img src="{{ asset(Auth::user()->foto) }}" class="rounded-circle img-fluid ">
                             @endif
                             <div class="font-medium-2 text-bold-700 black mt-2">{{ Auth::user()['username'] }}</div>
-                            <div class="font-medium-1 black">{{ Auth::user()->email }}</div>
+                            <div class="font-medium-1 black">{{ Auth::user()->name }}</div>
                             <a data-target="#editProfil" data-toggle="modal" href="javascript:void(0)"  class="btn btn-primary btn-sm mt-2">Ubah Profil</a>
                             @include('users.modal.edit_profile')
                         </div>

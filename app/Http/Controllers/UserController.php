@@ -239,10 +239,6 @@ class UserController extends AppBaseController
 
         $input=$request->except('foto');
         
-        // $user
-        //     ->addFromMediaLibraryRequest($request->avatar)
-        //     ->toMediaCollection('avatar');
-
         if($input['current_password']==='' || $input['current_password']===null){
             unset($input['password']);
         }
@@ -253,7 +249,7 @@ class UserController extends AppBaseController
 
             if ($request->hasFile('foto')) {
                 $file = $request->file('foto');
-                $filename = $user->username.'_'.'fotoProfil.'.$file->getClientOriginalExtension();
+                $filename = $user->id.'_'.'fotoProfil.'.$file->getClientOriginalExtension();
                 $path = $request['foto']->storeAs('public/fotoProfil', $filename, 'local');
                 $user->foto = 'storage' . substr($path, strpos($path, '/'));
             }
