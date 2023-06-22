@@ -8,11 +8,11 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-indigo p-2 media-middle">
+                                <div class="bg-amber p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="indigo font-medium-5">Perubahan Kandidat</span><br>
+                                    <span class="amber font-medium-5">Perubahan Kandidat</span><br>
                                     <span style="margin-top: -5px">Melakukan Perubahan Kandidat </span>
                                 </div>
                             </div>
@@ -28,8 +28,8 @@
                                 <div class="form-body">
                                     @include('kandidats.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('kandidats.index') }}" class="btn btn-default">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        <a href="{{ route('kandidats.index') }}" class="btn btn-red">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

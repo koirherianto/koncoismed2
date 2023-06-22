@@ -10,7 +10,7 @@
             <th><code>#</code></th>
             <th>Nama</th>
             <th>Akses</th>
-            <th>No HP</th>
+            <th>No HP & Email</th>
             <th style="text-align: center">Aksi</th>
         </tr>
         </thead>

@@ -6,7 +6,7 @@
                 @include('flash::message')
                 <div class="clearfix"></div>
                 <div class="card">
-                    <div class="border-left-light-blue border-left-6 box-shadow-1 rounded">
+                    <div class="border-left-green border-left-6 box-shadow-1 rounded">
                         <div class="card-content ">
                             <div class="card-body card-dashboard">
                                 <div class="row">
@@ -44,7 +44,7 @@
                                         <input type="file" name="file" class="form-control">
                                     </div>
                                     <div class="form-actions center">
-                                        <button class="btn btn-info"><i class="icon-cloud-upload"></i> Import Data</button>
+                                        <button class="btn btn-green"><i class="ft-upload"></i> Import Data</button>
                                     </div>  
                                 </form>
                             </div>
