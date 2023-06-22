@@ -8,9 +8,9 @@
         <thead>
         <tr>
             <th><code>#</code></th>
-            <th>Nama/Username</th>
+            <th>Nama</th>
             <th>Akses</th>
-            <th>Email</th>
+            <th>No HP</th>
             <th style="text-align: center">Aksi</th>
         </tr>
         </thead>
@@ -28,12 +28,12 @@
                 <td>
                     @if(!empty($items->roles))
                         @foreach($items->roles as $item)
-                            <span class="badge badge-blue" style="margin: 2px" title="{{ $item->desc }}">{!! $item->name !!}</span>
+                            <span class="badge badge-warning" style="margin: 2px" title="{{ $item->desc }}">{!! $item->name !!}</span>
                         @endforeach
                     @endif
                 </td>
                 <td>
-                    {!! $items->no_hp !!}<br>
+                    {!! $items->contact !!}<br>
                     {!! $items->email !!}
                 </td>
                 <td>

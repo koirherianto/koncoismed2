@@ -115,7 +115,7 @@
         <div class="col-lg-6 align-self-center">
         </div>
         <div class="col-lg-6 text-right">
-            <a href="{!! route('users.index') !!}" class="btn btn-pink rounded-2"> <i class="fa fa-close"></i> Batal</a>
+            <a href="{!! route('users.index') !!}" class="btn btn-danger rounded-2"> <i class="fa fa-close"></i> Batal</a>
             {!! Form::submit('Simpan', ['class' => 'btn btn-green rounded-2 btn-glow mr-1']) !!}
         </div>
     </div>
