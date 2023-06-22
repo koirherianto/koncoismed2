@@ -19,7 +19,7 @@
         </div>
         <div class="content-header-right col-md-4 col-12 mb-2">
             <div class="btn-group float-md-right">
-              <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-settings mr-1"></i>Dashboard</button>
+              <button class="btn btn-green btn-round dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-settings mr-1"></i>Dashboard</button>
               <div class="dropdown-menu arrow">
                 <a class="dropdown-item" href="{{ route('home') }}" ><i class="fa fa-user mr-1"></i>Relawan</a>
             </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card" data-appear="appear" data-animation="animation">
             <div class="card-content">
                 <div class="card-body text-center">
                     <div class="p-1 text-center">

@@ -18,7 +18,7 @@
         </div>
         <div class="content-header-right col-md-4 col-12 mb-2">
           <div class="btn-group float-md-right">
-            <button class="btn btn-grey dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-settings mr-1"></i>Dashboard</button>
+            <button class="btn btn-green btn-round dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-settings mr-1"></i>Dashboard</button>
             <div class="dropdown-menu arrow">
                 {{-- <a class="dropdown-item" href="#"> --}}
                    <a class="dropdown-item" href="{{ route('visualisasikandidat') }}" ><i class="fa fa-users mr-1"></i> Kandidat</a>
@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="col-lg-4 col-md-12">
-        <div class="card bg-amber">
+        <div class="card bg-lime">
             <div class="card-header">
                 <h4 class="card-title">Total Dukungan</h4>
                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -81,7 +81,7 @@
 <!-- Headline Dashboard -->
 <div class="row">
     <div class="col-xl-3 col-lg-6 col-12">
-        <div class="card bg-amber">
+        <div class="card bg-grey bg-darken-4">
             <div class="card-content">
                 <div class="card-body">
                     <div class="media d-flex">
@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-lg-6 col-12">
-        <div class="card bg-green">
+        <div class="card bg-lime">
             <div class="card-content">
                 <div class="card-body">
                     <div class="media d-flex">
@@ -115,7 +115,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-lg-6 col-12">
-        <div class="card bg-blue">
+        <div class="card bg-light-green">
             <div class="card-content">
                 <div class="card-body">
                     <div class="media d-flex">
@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-lg-6 col-12">
-        <div class="card bg-grey bg-darken-2">
+        <div class="card bg-yellow bg-darken-2">
             <div class="card-content">
                 <div class="card-body">
                     <div class="media d-flex">
@@ -305,7 +305,7 @@ var chartOptions = {
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#4CAF50",
+            backgroundColor: "#8BC34A",
             borderColor: "transparent",
             pointBorderColor: "#64DD17",
             pointBackgroundColor: "#FFF",
@@ -352,7 +352,7 @@ var chartOptions = {
             xAxes: [{
                 display: true,
                 gridLines: {
-                    color: "#FFC107",
+                    color: "#CDDC39",
                     drawTicks: false,
                 },
                 scaleLabel: {
@@ -362,7 +362,7 @@ var chartOptions = {
             yAxes: [{
                 display: true,
                 gridLines: {
-                    color: "#FFC107",
+                    color: "#CDDC39",
                     drawTicks: false,
                 },
                 scaleLabel: {

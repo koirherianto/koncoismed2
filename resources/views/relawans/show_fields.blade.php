@@ -3,10 +3,10 @@
         <div class="card">
             <div class="text-center">
                 <div class="card-body">
-                    @if(empty(Auth::user()->foto))
+                    @if(empty($relawan->users->foto))
                     <img src="{{ asset('image/avatar.png') }}" alt="avatar" class="rounded-circle  height-150" alt="Card image"><i></i>
                     @else
-                        <img src="{{ asset(Auth::user()->foto) }}" alt="avatar" class="rounded-circle  height-150" alt="Card image" ><i></i>
+                        <img src="{{ asset($relawan->users->foto) }}" alt="avatar" class="rounded-circle  height-150" alt="Card image" ><i></i>
                     @endif
                 </div>
                 <div class="card-body">
@@ -30,8 +30,8 @@
             </div>
             <!-- Relawan ID Field -->
             <div class="col-xl-3 col-md-6 col-6">
-                {!! Form::label('relawan_id', 'Id Relawan:') !!}
-                <p class="font-weight-bold">{{ $relawan->id }}</p>
+                {!! Form::label('relawan_id', 'Atasan:') !!}
+                <p class="font-weight-bold">{{ isset($relawan->relawanParent)?$relawan->relawanParent->users->name:"" }}</p>
             </div>
             <!-- Status Relawan Field -->
             <div class="col-xl-3 col-md-6 col-6">
