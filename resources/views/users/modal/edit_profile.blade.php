@@ -30,28 +30,28 @@
                                 <!-- Name Field -->
                                 <div class="form-group">
                                     {!! Form::label('name', 'Nama Lengkap',['class'=>' text-uppercase']) !!}
-                                    {!! Form::text('name', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black']) !!}
+                                    {!! Form::text('name', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2']) !!}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <!-- No Hp Field -->
                                 <div class="form-group">
                                     {!! Form::label('contact', 'No Hp/Telephone',['class'=>' text-uppercase']) !!}
-                                    {!! Form::number('contact', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black']) !!}
+                                    {!! Form::number('contact', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2']) !!}
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <!-- Email Field -->
                                 <div class="form-group">
                                     {!! Form::label('email', 'Email Aktif',['class'=>' text-uppercase']) !!}
-                                    {!! Form::email('email', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black']) !!}
+                                    {!! Form::email('email', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2']) !!}
                                 </div>
                             </div>
                             <div class="col-12">
                                 <!-- Alamat Field -->
                                 <div class="form-group">
                                     {!! Form::label('alamat', 'Alamat Lengkap',['class'=>' text-uppercase']) !!}
-                                    {!! Form::textarea('alamat', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black','rows'=>'3','maxlength'=>'255']) !!}
+                                    {!! Form::textarea('alamat', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','rows'=>'3','maxlength'=>'255']) !!}
                                 </div>
 
                             </div>
@@ -62,25 +62,25 @@
                                     <!-- Nama Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('nama', 'Nama Unit',['class'=>'text-uppercase']) !!}
-                                        <input name="nama" id="nama" type="text" class="form-control border-left-pink border-left-6 text-bold-600 black " value="{{ $user['unit']->nama }}">
+                                        <input name="nama" id="nama" type="text" class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2 " value="{{ $user['unit']->nama }}">
                                     </div>
 
                                     <!-- Alamat Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('alamat', 'Alamat Lengkap',['class'=>'text-uppercase']) !!}
-                                        <textarea name="alamat" id="alamat" class="form-control border-left-pink border-left-6 text-bold-600 black" rows="3">{{ $user['unit']->alamat }}</textarea>
+                                        <textarea name="alamat" id="alamat" class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" rows="3">{{ $user['unit']->alamat }}</textarea>
                                     </div>
 
                                     <!-- No Telp Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('no_telp', 'No Telp/Hp',['class'=>'text-uppercase']) !!}
-                                        <input name="no_telp" id="no_telp" type="number" class="form-control border-left-pink border-left-6 text-bold-600 black" value="{{ $user['unit']->no_telp }}">
+                                        <input name="no_telp" id="no_telp" type="number" class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" value="{{ $user['unit']->no_telp }}">
                                     </div>
 
                                     <!-- Unit Type Id Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('unit_type_id', 'Tipe Unit',['class'=>'text-uppercase']) !!}
-                                        <select class="form-control border-left-pink border-left-6 text-bold-600 black" name="unit_type_id" id="unit_type_id">
+                                        <select class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" name="unit_type_id" id="unit_type_id">
                                             @foreach($unitType as $item)
                                                 <option value="{{ $item->id }}"
                                                         @if($user['unit']->unit_type_id == $item->id)
@@ -95,12 +95,12 @@
                                     <!-- Tujuan Umum Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('tujuan_umum', 'Tujuan Umum',['class'=>'text-uppercase']) !!}
-                                        <textarea class="form-control border-left-pink border-left-6 text-bold-600 black" name="tujuan_umum" id="tujuan_umum" rows="6">{{ $user['unit']->tujuan_umum }}</textarea>
+                                        <textarea class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" name="tujuan_umum" id="tujuan_umum" rows="6">{{ $user['unit']->tujuan_umum }}</textarea>
                                     </div>
                                     <!-- Tujuan Khusus Field -->
                                     <div class="form-group mb-1">
                                         {!! Form::label('tujuan_khusus', 'Tujuan Khusus',['class'=>'text-uppercase']) !!}
-                                        <textarea class="form-control border-left-pink border-left-6 text-bold-600 black" name="tujuan_khusus" id="tujuan_khusus" rows="6">{{ $user['unit']->tujuan_khusus }}</textarea>
+                                        <textarea class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" name="tujuan_khusus" id="tujuan_khusus" rows="6">{{ $user['unit']->tujuan_khusus }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -119,7 +119,7 @@
                                                     <div class="form-group col-12">
                                                         {!! Form::label('current_password', 'Password Lama',['class'=>' text-uppercase']) !!}
                                                         <div class="position-relative has-icon-right">
-                                                            {!! Form::password('current_password', ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                                                            {!! Form::password('current_password', ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                                                             <div class="form-control-position">
                                                                 <i class="fa fa-eye font-medium-3 toggle-password" toggle="#current_password"></i>
                                                             </div>
@@ -128,7 +128,7 @@
                                                     <div class="form-group col-6">
                                                         {!! Form::label('password', 'Password Baru',['class'=>' text-uppercase']) !!}
                                                         <div class="position-relative has-icon-right">
-                                                            {!! Form::password('password', ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                                                            {!! Form::password('password', ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                                                             <div class="form-control-position">
                                                                 <i class="fa fa-eye font-medium-3 toggle-password" toggle="#password"></i>
                                                             </div>
@@ -137,7 +137,7 @@
                                                     <div class="form-group col-6">
                                                         {!! Form::label('password_confirmation', 'Konfirmasi Password Baru',['class'=>' text-uppercase']) !!}
                                                         <div class="position-relative has-icon-right">
-                                                            {!! Form::password('password_confirmation', ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                                                            {!! Form::password('password_confirmation', ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                                                             <div class="form-control-position">
                                                                 <i class="fa fa-eye font-medium-3 toggle-password" toggle="#password_confirmation"></i>
                                                             </div>

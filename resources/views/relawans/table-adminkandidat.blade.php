@@ -5,8 +5,9 @@
             <tr>
                 <th>Nama</th>
                 <th>Atasan</th>
-                <th>NIK</th>
+                <th>No HP</th>
                 <th>KTA</th>
+                <th>Wilayah</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -25,7 +26,7 @@
                             </span>
                             </div>
                             <div class="media-body media-middle">
-                                <a href="" class="text-dark">{{ $relawan->users->name }}</a>
+                                <a href="{{ route('relawans.show', [$relawan->id]) }}" class="text green darken-4">{{ $relawan->users->name }}</a>
                             </div>
                         </div>
                     </td>
@@ -42,6 +43,7 @@
                     {{-- </td> --}}
                     <td>{{ $relawan->users->contact }}</td>
                     <td>{{ $relawan->no_kta}}</td>
+                    <td>{{ isset($relawan->desa->nama)?$relawan->desa->nama:"" }}</td>
                     {{-- <td>{{ $relawan->id_wilayah}}</td> --}}
                     <td  style="width: 120px">
                         {{-- {!! Form::open(['route' => ['relawans.destroy', $relawan->id], 'method' => 'delete']) !!} --}}

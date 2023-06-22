@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
-                <div class="border-left-light-blue border-left-6 box-shadow-1 rounded">
+                <div class="border-left-amber border-left-6 box-shadow-1 rounded">
 				<div class="card-header">
 					<h4 class="card-title">Detail Informasi Person</h4>
 					<a class="heading-elements-toggle"><i class="ft-ellipsis-h font-medium-3"></i></a>
@@ -19,7 +19,7 @@
 						</ul>
 					</div> --}}
                     <div class="col-sm-12">
-                        <a class="btn btn-info float-right"
+                        <a class="btn btn-green float-right"
                            href="{{ route('people.index') }}">
                                                         @lang('Kembali')
                                                 </a>

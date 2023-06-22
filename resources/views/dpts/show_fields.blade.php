@@ -76,7 +76,7 @@
     <!-- Wilayah Id Field -->
     <div class="col-sm-4">
         {!! Form::label('id_wilayah', 'Wilayah:') !!}
-        <p>{{ $dpt->desa->desa }}</p>
+        <p>{{ $dpt->relawan->desa->nama }}</p>
     </div>
 
     <!-- Relawan Id Field -->
