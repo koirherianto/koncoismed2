@@ -112,7 +112,7 @@ class DptController extends AppBaseController
             $dpt->addFromMediaLibraryRequest($request->dpt)->toMediaCollection();
         }
 
-        Flash::success('Dpt saved successfully.');
+        Flash::success('Data pendukung berhasil ditambahkan.');
 
         return redirect(route('dpts.index'));
     }

@@ -713,6 +713,14 @@ class HomeController extends Controller
 
             $selisihTargetPendukung = 100 - $winRate;
 
+            //chart dukungan 30 hari
+            $areaChart30 = DB::table('pendukung')
+            ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+            ->where('kandidat_id',$idKandidat)
+            ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            ->groupBy('created_at')
+            ->get();
+
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
@@ -721,7 +729,7 @@ class HomeController extends Controller
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
             ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'
-            ,'totalPendukungAll','selisihTargetPendukung'));
+            ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
         }
         else{ 
                 //dashboard milik relawan
@@ -1145,26 +1153,8 @@ class HomeController extends Controller
                     $dpts[] = $item->dpts;
                 }
             }
-            //menarik total DPT
-            // $tampungdata = [];
-            // $i = 0;
-            $jumlah_dpt = Dpt::where('kandidat_id',$idKandidat)->count();
-            // $jumlah_dpt = 0;
-            // foreach ($dpts as $value) {
-            //    $i = count($value);
-            //    $tampungdata[] = $value;
-            //    for ($k=0; $k < $i; $k++) { 
-            //        $jumlah_dpt++;
-            //    }
-            // }
 
-            //visualisasi dpt berdasarkan wilayah
-            // $barChartDptWilayah = DB::table('dpt')
-            // ->join('wilayah', 'dpt.wilayah_id', '=', 'wilayah.id')
-            // ->select(DB::raw('count(*) as total, wilayah.nama as wilayah_id'))
-            // ->groupBy('wilayah.nama')
-            // ->orderBy('total', 'desc')
-            // ->get();
+            $jumlah_dpt = Dpt::where('kandidat_id',$idKandidat)->count();
 
             //visualisasi dpt berdasarkan sukunya
             $barChartDptSuku = DB::table('pendukung')
@@ -1183,18 +1173,6 @@ class HomeController extends Controller
             ->where('kandidat_id',$idKandidat)
             ->groupBy('agama.nama')
             ->get();
-
-            //tabel most count DPT
-            // $mostDpt = DB::table('dpt')
-            // ->join('wilayah', 'dpt.wilayah_id', '=', 'wilayah.id')
-            // ->join('relawan', 'dpt.relawan_id', '=', 'relawan.id')
-            // ->join('users', 'relawan.users_id', '=', 'users.id')
-            // ->where('kandidat_id', $idKandidat)
-            // ->select(DB::raw('count(*) as total , users.name as  relawan_id, wilayah.nama as wilayah_id'))
-            // ->groupBy('relawan_id','wilayah.nama')
-            // ->orderBy('total', 'desc')
-            // ->take(5)
-            // ->get();
 
             //Pertumbuhan DPT Berdasarkan bulan tahun
             $time_series_dpt = DB::table('pendukung')
@@ -1228,16 +1206,15 @@ class HomeController extends Controller
                }
              }
 
-             //visualisasi dpt berdasarkan wilayah
+             //visualisasi dpt berdasarkan wilayah desa
             $barChartDptIdWilayah = DB::table('pendukung')
-            ->select(DB::raw('count(*) as total, id_wilayah'))
+            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('id_wilayah')
             ->orderBy('total','desc')
             ->get();
-            //kembalikan variabel  ke home
 
-             //tabel most count DPT
             //ambil data dpt
             $mostDpt = DB::table('pendukung')
             //join ke relawan, dimana relawan_id dpt = relawan id
@@ -1783,6 +1760,14 @@ class HomeController extends Controller
             $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
 
             $selisihTargetPendukung = 100 - $winRate;
+
+             //chart dukungan 30 hari
+             $areaChart30 = DB::table('pendukung')
+             ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+             ->where('kandidat_id',$idKandidat)
+             ->where('created_at', '>', now()->subDays(30)->endOfDay())
+             ->groupBy('created_at')
+             ->get();
         
             return view('dashboard.visualisasi-relawan2', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
@@ -1792,7 +1777,7 @@ class HomeController extends Controller
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
             ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
             ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'
-            ,'totalPendukungAll','selisihTargetPendukung'));
+            ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
         }
     }
 }

@@ -415,7 +415,6 @@ var chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         responsiveAnimationDuration:500,
-        cutoutPercentage: 60,
     };
 
     // Chart Data
