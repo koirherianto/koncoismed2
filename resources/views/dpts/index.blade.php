@@ -22,7 +22,7 @@
                                     </div>
                                     @hasanyrole('relawan-free|relawan-premium')
                                     <div class="col-5 text-right">
-                                        <a href="{{ route('dpts.create') }}" class="btn btn-sm btn-green">Tambah Data
+                                        <a href="{{ route('dpts.create') }}" class="btn btn-green btn-round btn-sm">Tambah Data
                                         </a>
                                     </div>
                                     @endhasanyrole

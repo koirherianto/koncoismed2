@@ -603,8 +603,8 @@ var chartOptions = {
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#FFC107",
-            hoverBackgroundColor: "#FF6F00",
+            backgroundColor: "#CDDC39",
+            hoverBackgroundColor: "#8BC34A",
             borderColor: "transparent"
         }]
     };
@@ -683,8 +683,8 @@ var chartOptions = {
             '{{ $data->total}}',
             @endforeach
         ],
-            backgroundColor: "#4CAF50",
-            hoverBackgroundColor: "#1B5E20",
+        backgroundColor: "#8BC34A",
+            hoverBackgroundColor: "#CDDC39",
             borderColor: "transparent"
         }]
     };

@@ -2,35 +2,35 @@
     <!-- Nama Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('nama', 'Nama Lengkap:') !!}
-        {!! Form::text('nama', null, ['class' => 'form-control border-info round round']) !!}
+        {!! Form::text('nama', null, ['class' => 'form-control border-light-green border-darken-4 round round']) !!}
     </div>
     <!-- Nik Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('nik', 'NIK:') !!}
-        {!! Form::text('nik', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::text('nik', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
      <!-- Jenis Kelamin Field -->
      <div class="form-group col-sm-4">
         {!! Form::label('jenis_kelamin', 'Jenis Kelamin:') !!}
-        {!! Form::select('jenis_kelamin', [''=>'- Pilih - ','Laki-laki'=>'Laki-laki','Perempuan'=>'Perempuan'],null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::select('jenis_kelamin', [''=>'- Pilih - ','Laki-laki'=>'Laki-laki','Perempuan'=>'Perempuan'],null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
 </div>
 <div class="row">
     <!-- Tempat Lahir Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('tempat_lahir', 'Tempat Lahir:') !!}
-        {!! Form::text('tempat_lahir', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::text('tempat_lahir', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
 
     <!-- Tanggal Lahir Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('tanggal_lahir', 'Tanggal Lahir:') !!}
-        {!! Form::date('tanggal_lahir', null, ['class' => 'form-control border-info round','id'=>'tanggal_lahir']) !!}
+        {!! Form::date('tanggal_lahir', null, ['class' => 'form-control border-light-green border-darken-4 round','id'=>'tanggal_lahir']) !!}
     </div>
      <!-- Agama Id Field -->
      <div class="form-group col-sm-4">
         {!! Form::label('agama', 'Agama:') !!}
-        {!! Form::select('agama_id',$agamas ,null, ['class' => 'form-control border-info round','placeholder'=>'- Pilih - ']) !!}
+        {!! Form::select('agama_id',$agamas ,null, ['class' => 'form-control border-light-green border-darken-4 round','placeholder'=>'- Pilih - ']) !!}
     </div>
 </div>
 
@@ -44,17 +44,17 @@
      <!-- Suku Field -->
      <div class="form-group col-sm-4">
         {!! Form::label('suku_id', 'Suku:') !!}
-        {!! Form::select('suku_id', $sukus, null, ['class' => 'form-control border-info round','id'=>'suku','placeholder'=>'- Pilih - ']) !!}
+        {!! Form::select('suku_id', $sukus, null, ['class' => 'form-control border-light-green border-darken-4 round','id'=>'suku','placeholder'=>'- Pilih - ']) !!}
     </div>
     <!-- Kontak Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('kontak', 'No Telepon:') !!}
-        {!! Form::text('kontak', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::text('kontak', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
      <!-- Email Field -->
      <div class="form-group col-sm-4">
         {!! Form::label('email', 'Email:') !!}
-        {!! Form::email('email', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::email('email', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
    
 </div>
@@ -62,25 +62,25 @@
     <!-- Tps Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('tps', 'TPS:') !!}
-        {!! Form::number('tps', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::number('tps', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
     <!-- Rt Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('rt', 'RT:') !!}
-        {!! Form::number('rt', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::number('rt', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
 
     <!-- Rw Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('rw', 'RW:') !!}
-        {!! Form::number('rw', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::number('rw', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
 </div>
 <div class="row">
     {{-- <!-- Keterangan Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('keterangan', 'Keterangan:') !!}
-        {!! Form::textarea('keterangan', null, ['class' => 'form-control border-info round']) !!}
+        {!! Form::textarea('keterangan', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div> --}}
 <div class="form-group col-sm-6">
     {!! Form::label('dpt', 'Foto KTP :') !!}
@@ -95,7 +95,7 @@
  <!-- Alamat Field -->
  <div class="form-group col-sm-6">
     {!! Form::label('alamat', 'Alamat:') !!}
-    {!! Form::textarea('alamat', null, ['class' => 'form-control border-info round']) !!}
+    {!! Form::textarea('alamat', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
 </div>
 </div>
 

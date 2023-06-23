@@ -11,14 +11,14 @@
                     <!-- Name Field -->
                     <div class="form-group">
                         {!! Form::label('name', 'Nama Lengkap',['class'=>' text-uppercase']) !!}
-                        {!! Form::text('name', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2']) !!}
                     </div>
                 </div>
                 <div class="col-6">
                     <!-- No HP Field -->
                     <div class="form-group">
                         {!! Form::label('contact', 'No HP Aktif',['class'=>' text-uppercase']) !!}
-                        {!! Form::text('contact', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                        {!! Form::text('contact', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                     </div>
                 </div>
             </div>
@@ -27,14 +27,14 @@
                         <!-- Email Field -->
                         <div class="form-group">
                             {!! Form::label('email', 'Email',['class'=>' text-uppercase']) !!}
-                            {!! Form::text('email', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2']) !!}
+                            {!! Form::text('email', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2']) !!}
                         </div>
                     </div>
                     <div class="col-6">
                         <!-- Alamat Field -->
                         <div class="form-group">
                             {!! Form::label('alamat', 'Alamat',['class'=>' text-uppercase']) !!}
-                            {!! Form::text('alamat', null, ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                            {!! Form::text('alamat', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                         <div class="form-group col-6">
                                             {!! Form::label('password', 'Password',['class'=>' text-uppercase']) !!}
                                             <div class="position-relative has-icon-right">
-                                                {!! Form::password('password', ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                                                {!! Form::password('password', ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                                                 <div class="form-control-position">
                                                     <i class="fa fa-eye font-medium-3 toggle-password" toggle="#password"></i>
                                                 </div>
@@ -61,7 +61,7 @@
                                         <div class="form-group col-6">
                                             {!! Form::label('password_confirmation', 'Konfirmasi Password',['class'=>' text-uppercase']) !!}
                                             <div class="position-relative has-icon-right">
-                                                {!! Form::password('password_confirmation', ['class' => 'form-control border-left-pink border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                                                {!! Form::password('password_confirmation', ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                                                 <div class="form-control-position">
                                                     <i class="fa fa-eye font-medium-3 toggle-password" toggle="#password_confirmation"></i>
                                                 </div>

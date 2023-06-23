@@ -5,14 +5,30 @@
             <tr>
                 <th>Nama</th>
                 <th>Atasan</th>
-                <th>NIK</th>
+                <th>No HP</th>
                 <th>KTA</th>
+                <th>Wilayah</th>
             </tr>
             </thead>
             <tbody>
                 @foreach($dataRelawanRelawan->descendants as $dataRelawan)
                 <tr>
-                    <td>{{ $dataRelawan->users->name }}</td>
+                    <td>
+                        <div class="media">
+                            <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle">
+                                @if(empty($dataRelawan->users->foto))
+                                    <img src="{{ asset('image/avatar.png') }}" alt="avatar"><i></i>
+                                @else
+                                    <img src="{{ asset($dataRelawan->users->foto) }}" alt="avatar"><i></i>
+                                @endif
+                            </span>
+                            </div>
+                            <div class="media-body media-middle">
+                                <a href="{{ route('relawans.show', [$dataRelawan->id]) }}" class="text green darken-4">{{ $dataRelawan->users->name }}</a>
+                            </div>
+                        </div>
+                    </td>
+                    {{-- <td>{{ $dataRelawan->users->name }}</td> --}}
                     <td>{{ isset($dataRelawan->relawanParent)?$dataRelawan->relawanParent->users->name:"" }}</td>
                     {{-- <td> --}}
                         {{-- {{$relawan->descendants}} untuk mengambil turunan di bawahnya--}}
@@ -23,8 +39,9 @@
                         </ul> --}}
                         
                     {{-- </td> --}}
-                    <td>{{ $dataRelawan->nik}}</td>
+                    <td>{{ $dataRelawan->users->contact}}</td>
                     <td>{{ $dataRelawan->no_kta}}</td>
+                    <td>{{ $dataRelawan->desa->nama}}</td>
                     <td  style="width: 120px">  
                         {!! Form::open(['route' => ['relawans.destroy', $dataRelawan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

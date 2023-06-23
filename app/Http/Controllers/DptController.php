@@ -172,7 +172,7 @@ class DptController extends AppBaseController
             $dpt->syncFromMediaLibraryRequest($request->dpt)->toMediaCollection();
         }
 
-        Flash::success('Dpt updated successfully.');
+        Flash::success('Data pendukung berhasil diubah.');
 
         return redirect(route('dpts.index'));
     }

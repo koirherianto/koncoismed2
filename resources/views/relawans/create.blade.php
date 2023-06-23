@@ -29,8 +29,8 @@
                                 <div class="form-body">
                                     @include('relawans.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('users.index') }}" class="btn btn-danger mr-2">Batal</a>
-                                        {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+                                        <a href="{{ route('users.index') }}" class="btn btn-red mr-2">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
