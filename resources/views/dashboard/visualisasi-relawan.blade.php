@@ -415,6 +415,7 @@ var chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         responsiveAnimationDuration:500,
+        cutoutPercentage: 60,
     };
 
     // Chart Data
@@ -432,7 +433,7 @@ var chartOptions = {
             @endforeach
         ],
         backgroundColor:  ['#E91E63','#2196F3'],
-            hoverBackgroundColor: "#880E4F",
+            hoverBackgroundColor: ['#880E4F','#0D47A1'],
             borderColor: "transparent"
         }]
     };

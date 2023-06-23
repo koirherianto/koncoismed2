@@ -102,7 +102,7 @@ class DptController extends AppBaseController
         ->where('kandidat_id', $idKandidatku)
         ->exists()){
 
-            Flash::warning('Dpt can not input.');
+            Flash::warning('Data pendukung berhasil ditambahkan.');
             return redirect(route('dpts.index'));
         }else{
 

@@ -22,14 +22,14 @@
                 <div class="col-md-12">
                     @include('adminlte-templates::common.errors')
                     <div class="card">
-                        <div class="card-content collpase show border-left-light-blue border-left-6 box-shadow-1 rounded">
+                        <div class="card-content collpase show border-left-green border-left-6 box-shadow-1 rounded">
                             <div class="card-body">
                                 {!! Form::open(['route' => 'dpts.store']) !!}
                                 <div class="form-body">
                                     @include('dpts.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('dpts.index') }}" class="btn btn-danger">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+                                        <a href="{{ route('dpts.index') }}" class="btn btn-red">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
