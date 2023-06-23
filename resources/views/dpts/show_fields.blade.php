@@ -1,102 +1,92 @@
     <!-- Nama Field -->
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('nama', 'Nama:') !!}
-        <p>{{ $dpt->nama }}</p>
+        <p class="font-weight-bold">{{ $dpt->nama }}</p>
     </div>
     <!-- Nik Field -->
-    <div class="col-sm-4">
-        {!! Form::label('nik', 'Nik:') !!}
-        <p>{{ $dpt->nik }}</p>
+    <div class="col-md-3">
+        {!! Form::label('nik', 'NIK:') !!}
+        <p class="font-weight-bold">{{ $dpt->nik }}</p>
     </div>
     <!-- Tempat Lahir Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('tempat_lahir', 'Tempat Lahir:') !!}
-        <p>{{ $dpt->tempat_lahir }}</p>
+        <p class="font-weight-bold">{{ $dpt->tempat_lahir }}</p>
     </div>
-</div>
-<div class="row">
     <!-- Tanggal Lahir Field -->
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         {!! Form::label('tanggal_lahir', 'Tanggal Lahir:') !!}
-        <p>{{ $dpt->tanggal_lahir }} - </p>
-    </div>
-
-    <!-- Email Field -->
-    <div class="col-sm-4">
-        {!! Form::label('email', 'Email:') !!}
-        <p>{{ $dpt->email }}</p>
-    </div>
-
-    <!-- Kontak Field -->
-    <div class="col-sm-4">
-        {!! Form::label('kontak', 'Kontak:') !!}
-        <p>{{ $dpt->kontak }}</p>
+        <p class="font-weight-bold">{{ $dpt->tanggal_lahir }} - </p>
     </div>
 </div>
 <div class="row">
-    <!-- Jenis Kelamin Field -->
-    <div class="col-sm-4">
+      <!-- Jenis Kelamin Field -->
+      <div class="col-md-3">
         {!! Form::label('jenis_kelamin', 'Jenis Kelamin:') !!}
-        <p>{{ $dpt->jenis_kelamin }}</p>
+        <p class="font-weight-bold">{{ $dpt->jenis_kelamin }}</p>
     </div>
-
-    <!-- Agama Id Field -->
-    <div class="col-sm-4">
-        {!! Form::label('agama_id', 'Agama Id:') !!}
-        <p>{{ $dpt->agama->nama}}</p>
+     <!-- Agama Id Field -->
+     <div class="col-md-3">
+        {!! Form::label('agama_id', 'Agama:') !!}
+        <p class="font-weight-bold">{{ $dpt->agama->nama}}</p>
     </div>
-
-    <!-- Suku Field -->
-    <div class="col-sm-4">
+     <!-- Suku Field -->
+     <div class="col-md-3">
         {!! Form::label('suku', 'Suku:') !!}
-        <p>{{ $dpt->suku->nama}}</p>
+        <p class="font-weight-bold">{{ $dpt->suku->nama}}</p>
     </div>
+     <!-- Kontak Field -->
+     <div class="col-md-3">
+        {!! Form::label('kontak', 'Kontak:') !!}
+        <p class="font-weight-bold">{{ $dpt->kontak }}</p>
+    </div> 
 </div>
 <div class="row">
+       <!-- Email Field -->
+       <div class="col-md-3">
+        {!! Form::label('email', 'Email:') !!}
+        <p class="font-weight-bold">{{ $dpt->email }}</p>
+    </div>
     <!-- Tps Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('tps', 'Tps:') !!}
-        <p>{{ $dpt->tps }}</p>
+        <p class="font-weight-bold">{{ $dpt->tps }}</p>
     </div>
-
     <!-- Rt Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('rt', 'Rt:') !!}
-        <p>{{ $dpt->rt }}</p>
+        <p class="font-weight-bold">{{ $dpt->rt }}</p>
     </div>
-
     <!-- Rw Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('rw', 'Rw:') !!}
-        <p>{{ $dpt->rw }}</p>
+        <p class="font-weight-bold">{{ $dpt->rw }}</p>
     </div>
 </div>
 <div class="row">
     <!-- Wilayah Id Field -->
-    <div class="col-sm-4">
-        {!! Form::label('id_wilayah', 'Wilayah:') !!}
-        <p>{{ $dpt->relawan->desa->nama }}</p>
+    <div class="col-md-3">
+        {!! Form::label('id_wilayah', 'Desa:') !!}
+        <p class="font-weight-bold">{{ $dpt->relawan->desa->nama }}</p>
+    </div>
+    <!-- Wilayah Id Field -->
+    <div class="col-md-3">
+        {!! Form::label('id_wilayah', 'Kecamatan:') !!}
+        <p class="font-weight-bold">{{ $dpt->relawan->desa->kecamatan->nama }}</p>
     </div>
 
     <!-- Relawan Id Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('relawan_id', 'Relawan:') !!}
-        <p>{{ $dpt->relawan->users->name }}</p>
+        <p class="font-weight-bold">{{ $dpt->relawan->users->name }}</p>
     </div>
     <!-- Alamat Field -->
-    <div class="col-sm-4">
+    <div class="col-md-3">
         {!! Form::label('alamat', 'Alamat:') !!}
-        <p>{{ $dpt->alamat }}</p>
+        <p class="font-weight-bold">{{ $dpt->alamat }}</p>
     </div>
 </div>
-
-
-{{-- <!-- Keterangan Field -->
-<div class="col-sm-12">
-    {!! Form::label('keterangan', 'Keterangan:') !!}
-    <p>{{ $dpt->keterangan }}</p>
-</div> --}}
 
 
 

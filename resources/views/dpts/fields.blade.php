@@ -1,26 +1,27 @@
 <div class="row">
     <!-- Nama Field -->
-    <div class="form-group col-sm-4">
+    <div class="form-group col-md-3">
         {!! Form::label('nama', 'Nama Lengkap:') !!}
         {!! Form::text('nama', null, ['class' => 'form-control border-light-green border-darken-4 round round']) !!}
     </div>
     <!-- Nik Field -->
-    <div class="form-group col-sm-4">
+    <div class="form-group col-md-3">
         {!! Form::label('nik', 'NIK:') !!}
         {!! Form::text('nik', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
      <!-- Jenis Kelamin Field -->
-     <div class="form-group col-sm-4">
+     <div class="form-group col-md-3">
         {!! Form::label('jenis_kelamin', 'Jenis Kelamin:') !!}
         {!! Form::select('jenis_kelamin', [''=>'- Pilih - ','Laki-laki'=>'Laki-laki','Perempuan'=>'Perempuan'],null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
     </div>
+        <!-- Tempat Lahir Field -->
+        <div class="form-group col-md-3">
+            {!! Form::label('tempat_lahir', 'Tempat Lahir:') !!}
+            {!! Form::text('tempat_lahir', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
+        </div>
 </div>
 <div class="row">
-    <!-- Tempat Lahir Field -->
-    <div class="form-group col-sm-4">
-        {!! Form::label('tempat_lahir', 'Tempat Lahir:') !!}
-        {!! Form::text('tempat_lahir', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
-    </div>
+
 
     <!-- Tanggal Lahir Field -->
     <div class="form-group col-sm-4">
