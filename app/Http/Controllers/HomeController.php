@@ -670,8 +670,8 @@ class HomeController extends Controller
             $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
             ->orderBy('created_at', 'asc')
             ->first()
-            ->created_at
-            ->startOfDay();
+            ->created_at;
+            //return $tanggalPertama;
 
             $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
 
@@ -685,8 +685,7 @@ class HomeController extends Controller
             $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
             ->orderBy('created_at', 'asc')
             ->first()
-            ->created_at
-            ->startOfWeek();
+            ->created_at;
 
             $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
 
@@ -700,8 +699,7 @@ class HomeController extends Controller
             $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
             ->orderBy('created_at', 'asc')
             ->first()
-            ->created_at
-            ->startOfMonth();
+            ->created_at;
 
             $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
 
@@ -715,10 +713,11 @@ class HomeController extends Controller
 
             //chart dukungan 30 hari
             $areaChart30 = DB::table('pendukung')
-            ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
-            ->where('kandidat_id',$idKandidat)
+            ->select(DB::raw('DATE(created_at) as created_date, COUNT(*) as total'))
+            ->where('kandidat_id', $idKandidat)
             ->where('created_at', '>', now()->subDays(30)->endOfDay())
-            ->groupBy('created_at')
+            ->groupBy('created_date')
+            ->orderBy('created_date')
             ->get();
 
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
@@ -1774,7 +1773,7 @@ class HomeController extends Controller
             ->orderBy('created_date')
             ->get();
 
-            // return $areaChart30;
+            //return $areaChart30;
         
             return view('dashboard.visualisasi-relawan2', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
