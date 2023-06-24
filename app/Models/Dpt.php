@@ -13,6 +13,8 @@ use App\Model\Suku;
 class Dpt extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
+    protected $date = ['created_at'];
     
     public $table = 'pendukung';
 
@@ -34,7 +36,8 @@ class Dpt extends Model implements HasMedia
         'keterangan',
         'relawan_id',
         'id_wilayah',
-        'kandidat_id'
+        'kandidat_id',
+        'created_at'
     ];
 
     protected $casts = [
@@ -172,4 +175,8 @@ class Dpt extends Model implements HasMedia
         return $this->belongsTo(\App\Models\Desa::class, 'id_wilayah');
     }
 
+    public function getCreatedAtAttribute($date)
+{
+    return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+}
 }

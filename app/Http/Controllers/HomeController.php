@@ -1716,12 +1716,11 @@ class HomeController extends Controller
 
              //Kinerja relawan perhari
             $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->select('created_at')
             ->orderBy('created_at', 'asc')
-            ->first()
-            ->created_at
-            ->startOfDay();
-
-            $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
+            ->first();
+            
+            $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama['created_at']);
 
             // Pengecekan jika hari sama dengan nol
             $jumlahHari == 0 ? $jumlahHari = 1 : null;
@@ -1731,12 +1730,11 @@ class HomeController extends Controller
 
             //kinerja relawan perminggu
             $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->select('created_at')
             ->orderBy('created_at', 'asc')
-            ->first()
-            ->created_at
-            ->startOfWeek();
-
-            $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
+            ->first();
+        
+            $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama['created_at']);
 
             // Pengecekan jika minggu  sama dengan nol
             $jumlahMinggu == 0 ? $jumlahMinggu = 1 : null;
@@ -1746,12 +1744,11 @@ class HomeController extends Controller
 
             //kinerja relawan perbulan
             $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
+            ->select('created_at')
             ->orderBy('created_at', 'asc')
-            ->first()
-            ->created_at
-            ->startOfMonth();
+            ->first();
 
-            $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
+            $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama['created_at']);
 
             // Pengecekan jika jumlah bulan sama dengan nol
             $jumlahBulan == 0 ? $jumlahBulan = 1 : null;
