@@ -31,4 +31,11 @@ class DptMaster extends Model implements HasMedia
         return self::count();
     }
 
+    public static function cariNik($nik) : bool
+    {
+        $dpt = self::where('nik', $nik)->first();
+
+        return $dpt ? true : false;
+    }
+
 }

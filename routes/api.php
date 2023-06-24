@@ -53,8 +53,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('chart/relawan/statuspernikahan', [ChartRelawanApiController::class, 'getStatusPerkawinanRelawan']);
     Route::get('chart/relawan/rangeumur', [ChartRelawanApiController::class, 'getRangeUmurRelawan']);
 
-
+    
     Route::resource('dpts', DptAPIController::class)->except(['create', 'edit']);
+    Route::post('dpts/carinik', [DptAPIController::class, 'cariNik']);
     Route::post('dpts/updateimage/{id}', [DptAPIController::class, 'updateImage']);
 
     Route::post('relawans/updateimage/{id}', [RelawanAPIController::class, 'updateImage']);

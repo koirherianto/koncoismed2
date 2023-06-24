@@ -204,13 +204,16 @@ class AuthApiController extends AppBaseController
     public function me()
     {
         $user = Auth::user();
+        $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
         $user = [
             "id" => $user->id,
             "name" => $user->name,
             "contact" => $user->contact,
             "email" => $user->email,
             "alamat" => $user->alamat,
-            'role' => $user->getRoleNames()
+            'role' => $user->getRoleNames(),
+            'relawan_id' => $dataRelawans->id,
+            'url_profil'=> $dataRelawans->getFirstMediaUrl(),
         ];
         $this->response['success'] = true;
         $this->response['data'] = $user;

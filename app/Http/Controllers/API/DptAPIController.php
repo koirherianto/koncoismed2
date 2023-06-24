@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateDptAPIRequest;
 use App\Http\Requests\API\UpdateDptAPIRequest;
 use App\Models\Dpt;
+use App\Models\DptMaster;
 use App\Repositories\DptRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,15 +33,17 @@ class DptAPIController extends AppBaseController
 
     public function index(Request $request)
     {
-        $dpts=[];
-        $dataRelawanDpt=[];
-        if(Auth::user()->hasAnyRole('admin-kandidat-free','admin-kandidat-premium')){
-            $relawan = Relawan::where('users_id',Auth::user()->id)->first();
-            $dpts=[];
-            foreach( $relawan->descendants as $key=> $item){
-                    if(!$item->dpts->isEmpty()){
-                        $dpts[] =  $item->dpts;
-                    }        
+        $dpts = [];
+        $dataRelawanDpt = [];
+
+        if (Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')) {
+            $relawan = Relawan::where('users_id', Auth::user()->id)->first();
+            $dpts = [];
+
+            foreach ($relawan->descendants as $key => $item) {
+                if (!$item->dpts->isEmpty()) {
+                    $dpts[] = $item->dpts;
+                }
             }
 
             $tampungData = [];
@@ -48,8 +51,8 @@ class DptAPIController extends AppBaseController
 
             foreach ($dpts as $value) {
                 $i = count($value);
-                for ($k=0; $k < $i; $k++) { 
-                    $dptx = $value[$k]->load(['agama','sukus']);
+                for ($k = 0; $k < $i; $k++) {
+                    $dptx = $value[$k]->load(['agama', 'sukus']);
                     $dptx['wilayah'] = $this->wilayahById($dptx->id_wilayah);
                     $dptx['url_ktp'] = $dptx->getFirstMediaUrl('gambar_ktp');
                     $dptx['url_selfie'] = $dptx->getFirstMediaUrl('gambar_selfie');
@@ -58,9 +61,12 @@ class DptAPIController extends AppBaseController
                 }
             }
 
-            $dpts =  $tampungData;
-        }else{
-            $dpts = Dpt::where('relawan_id',Auth::user()->relawan->id)->with(['agama','sukus'])->get();
+            $dpts = collect($tampungData)->sortByDesc('created_at')->values()->all();
+        } else {
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)
+                ->with(['agama', 'sukus'])
+                ->orderByDesc('created_at')
+                ->get();
 
             foreach ($dpts as $dpt) {
                 $dpt['url_ktp'] = $dpt->getFirstMediaUrl('gambar_ktp');
@@ -69,9 +75,10 @@ class DptAPIController extends AppBaseController
                 $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
             }
         }
-        
-        return $this->sendResponse($dpts, 'DPT get successfully');
+
+        return $this->sendResponse($dpts, 'Pendukung get successfully');
     }
+
 
     private function inArray($tree)
     {
@@ -321,5 +328,14 @@ class DptAPIController extends AppBaseController
         $deletedData['wilayah'] = $this->wilayahById($deletedData->id_wilayah);
 
         return $this->sendResponse($deletedData ,'Dpt deleted successfully');
+    }
+
+    public function cariNik(Request $request) : JsonResponse {
+        $aktif = DptMaster::cariNik($request->nik);
+        if ($aktif) {
+            return $this->sendResponse($aktif ,'NIK TERDAFTAR');
+        }else{
+            return $this->sendResponse($aktif ,'NIK TIDAK TERDAFTAR');
+        }
     }
 }

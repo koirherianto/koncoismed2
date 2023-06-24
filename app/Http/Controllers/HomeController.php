@@ -1762,12 +1762,22 @@ class HomeController extends Controller
             $selisihTargetPendukung = 100 - $winRate;
 
              //chart dukungan 30 hari
-             $areaChart30 = DB::table('pendukung')
-             ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
-             ->where('kandidat_id',$idKandidat)
-             ->where('created_at', '>', now()->subDays(30)->endOfDay())
-             ->groupBy('created_at')
-             ->get();
+            //  $areaChart30 = DB::table('pendukung')
+            //  ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+            //  ->where('kandidat_id',$idKandidat)
+            //  ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            //  ->groupBy('created_at')
+            //  ->get();
+
+            $areaChart30 = DB::table('pendukung')
+            ->select(DB::raw('DATE(created_at) as created_date, COUNT(*) as total'))
+            ->where('kandidat_id', $idKandidat)
+            ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            ->groupBy('created_date')
+            ->orderBy('created_date')
+            ->get();
+
+            // return $areaChart30;
         
             return view('dashboard.visualisasi-relawan2', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
