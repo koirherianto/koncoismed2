@@ -39,38 +39,579 @@ class HomeController extends Controller
         $id = Auth::id();
         //headline super-admin
         if (Auth::user()->hasRole('super-admin')) {
-            // headline dashboard
-            $jumlah_relawan = Relawan::count();
-            $jumlah_dpt = Dpt::count();
-            $jumlah_kandidat = Kandidat::count();
 
-            // column chart perbandingan jumlah kandidat bersdarkan jenis kandidat
-            $perbandingan_kandidat = DB::table('kandidat')
-            ->join('jenis_kandidat', 'kandidat.jenis_kandidat_id', '=', 'jenis_kandidat.id')
-            ->select(DB::raw('count(*) as pk_count, jenis_kandidat.nama as jenis_kandidat_id'))
-            ->groupBy('jenis_kandidat.nama')
+            //ambil jumlah relawan 
+            $jumlah_relawan = DB::table('relawan')->count();
+
+            //total DPT
+            $jumlah_dpt = DB::table('pendukung')->count();
+
+            //pendukung hari ini
+            $dptNow = Dpt::whereDate('created_at', Carbon::today())->count();
+
+            //relawan hari ini
+            $relawanNow = DB::table('relawan')->whereDate('created_at', Carbon::today())->count();
+
+            //Line chart Pertumbuhan DPT Berdasarkan bulan tahun
+            $time_series_dpt = DB::table('pendukung')
+            ->select(DB::raw("concat(MONTH(created_at), '-',YEAR(created_at)) as monthyear"), 
+            DB::raw('count(*) as jumlah'))
+            ->groupBy('monthyear')
             ->get();
 
-            // pie chart perbandingan jumlah semua person berdasarkan jenis kelamin
-            $pieChartRelawanJK = DB::table('person')
-            ->select(DB::raw('count(*) as pcrjk, jenis_kelamin'))
+            //visualisasi dpt berdasarkan wilayah
+            $barChartDptIdWilayah = DB::table('pendukung')
+            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+            ->groupBy('id_wilayah')
+            ->orderBy('total','desc')
+            ->get();
+
+            //visualisasi dpt berdasarkan sukunya
+            $barChartDptSuku = DB::table('pendukung')
+            ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
+            ->select(DB::raw('count(*) as total, suku.nama as suku'))
+            ->groupBy('suku.nama')
+            ->orderBy('total', 'desc')
+            ->take(10)
+            ->get();
+
+            //visualisasi dpt berdasarkan agama dengan pie chart
+            $pieChartDptAgama = DB::table('pendukung')
+            ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
+            ->select(DB::raw('count(*) as total, agama.nama as agama_id'))
+            ->groupBy('agama.nama')
+            ->get();
+
+            //pie chart Relawan berdasarkan jenis-kelaminnya
+            $pieChartRelawanJenisKelamin = DB::table('relawan')
+            ->select(DB::raw('count(*) as total, jenis_kelamin'))
+            ->groupBy('jenis_kelamin')
+            ->get();
+            
+            //pie chart Relawan berdasarkan status_perkawinan
+            $pieChartRelawanStatusPerkawinan = DB::table('relawan')
+            ->select(DB::raw('count(*) as total, status_perkawinan'))
+            ->groupBy('status_perkawinan')
+            ->get();
+
+            
+            //barchart relawan berdasarkan kecamatan
+            $barChartRelawanKecamatan = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->join('kecamatan', 'desa.kecamatan_id', '=', 'kecamatan.id')
+            ->select(DB::raw('count(*) as total, kecamatan.nama as kecamatan_id'))
+            ->groupBy('kecamatan_id')
+            ->orderBy('total','desc')
+            ->get();
+            
+            //barchart relawan berdasarkan desa
+            $barChartRelawanDesa = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+            ->groupBy('id_wilayah')
+            ->orderBy('total','desc')
+            ->get();            
+
+            //tabel most count DPT
+            $mostDpt = DB::table('pendukung')
+            ->join('relawan', 'pendukung.relawan_id', '=', 'relawan.id')
+            ->join('users', 'relawan.users_id', '=', 'users.id')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total , users.name as relawan_id, desa.nama as id_wilayah'))
+            ->groupBy('pendukung.relawan_id')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get();
+
+            //pie chart dpt jenis kelamin
+            $pieChartDptJenisKelamin = DB::table('pendukung')
+            ->select(DB::raw('count(*) as total, jenis_kelamin'))
             ->groupBy('jenis_kelamin')
             ->get();
 
-            //time series total kandidat
-            $time_series_kandidat = DB::table('kandidat')
-            ->select(DB::raw("concat(MONTH(created_at), '-',YEAR(created_at)) as monthyear"), DB::raw('count(*) as jumlah'))
-            ->groupBy('monthyear')
+            // data relawan
+            $scaterPlotUmurRelawanP = DB::table('relawan')
+            ->where('jenis_kelamin','=','Perempuan')
+            ->select('tanggal_lahir')
+            ->get();
+            
+            $scaterPlotUmurRelawanL = DB::table('relawan')
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->select('tanggal_lahir')
             ->get();
 
-            //time series total relawan
-            $time_series_relawan = DB::table('relawan')
-            ->select(DB::raw("concat(MONTH(created_at), '-',YEAR(created_at)) as monthyear"), DB::raw('count(*) as jumlah'))
-            ->groupBy('monthyear')
+            //get umur dari tanggal lahir pakai carbon
+            $umurRelawan=[];
+
+            foreach($scaterPlotUmurRelawanP as $data){
+                $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+                array_push($umurRelawan, $data);
+            }
+
+            //return $umurRelawan;
+
+            $rangeUmurRelawan = [];
+            $rangeUmurRelawan['<20'] = 0;
+            $rangeUmurRelawan['21-30'] = 0;
+            $rangeUmurRelawan['31-40'] = 0;
+            $rangeUmurRelawan['41-50'] = 0;
+            $rangeUmurRelawan['51-60'] = 0;
+            $rangeUmurRelawan['61-70'] = 0;
+            $rangeUmurRelawan['71-80'] = 0;
+            $rangeUmurRelawan['>80'] = 0;
+
+            foreach($umurRelawan as $data){
+
+                if($data->tanggal_lahir < 21){
+                    $rangeUmurRelawan['<20'] += 1;   
+                }
+                elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                    $rangeUmurRelawan['21-30'] += 1;
+                }
+                elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                    $rangeUmurRelawan['31-40'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                    $rangeUmurRelawan['41-50'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                    $rangeUmurRelawan['51-60'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                    $rangeUmurRelawan['61-70'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                    $rangeUmurRelawan['71-80'] += 1; 
+                }
+                else{
+                    $rangeUmurRelawan['>80'] += 1; 
+                    }
+            };
+
+            $ketUmurRelawanP = [
+                [
+                    'ket'   => "＜20",
+                    'total' => $rangeUmurRelawan['<20']
+                ],
+                [
+                    'ket' => "21-30",
+                    'total' => $rangeUmurRelawan['21-30']
+                ],
+                [
+                    'ket' => "31-40",
+                    'total' => $rangeUmurRelawan['31-40']
+                ],
+                [
+                    'ket' => "41-50",
+                    'total' => $rangeUmurRelawan['41-50']
+                ],
+                [
+                    'ket' => "51-60",
+                    'total' => $rangeUmurRelawan['51-60']
+                ],
+                [
+                    'ket' => "61-70",
+                    'total' => $rangeUmurRelawan['61-70']
+                ],
+                [
+                    'ket' => "71-80",
+                    'total' => $rangeUmurRelawan['71-80']
+                ],
+                [
+                    'ket' => "＞80",
+                    'total' => $rangeUmurRelawan['>80']
+                ],
+            ];
+
+             //get umur dari tanggal lahir pakai carbon
+             $umurRelawanL=[];
+
+             foreach($scaterPlotUmurRelawanL as $data){
+                 $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+                 array_push($umurRelawanL, $data);
+             }
+ 
+             //return $umurRelawan;
+ 
+             $rangeUmurRelawanL = [];
+             $rangeUmurRelawanL['<20'] = 0;
+             $rangeUmurRelawanL['21-30'] = 0;
+             $rangeUmurRelawanL['31-40'] = 0;
+             $rangeUmurRelawanL['41-50'] = 0;
+             $rangeUmurRelawanL['51-60'] = 0;
+             $rangeUmurRelawanL['61-70'] = 0;
+             $rangeUmurRelawanL['71-80'] = 0;
+             $rangeUmurRelawanL['>80'] = 0;
+ 
+             foreach($umurRelawanL as $data){
+ 
+                 if($data->tanggal_lahir < 21){
+                     $rangeUmurRelawanL['<20'] += 1;   
+                 }
+                 elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                     $rangeUmurRelawanL['21-30'] += 1;
+                 }
+                 elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                     $rangeUmurRelawanL['31-40'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                     $rangeUmurRelawanL['41-50'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                     $rangeUmurRelawanL['51-60'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                     $rangeUmurRelawanL['61-70'] += 1; 
+                 }
+                 elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                     $rangeUmurRelawanL['71-80'] += 1; 
+                 }
+                 else{
+                     $rangeUmurRelawanL['>80'] += 1; 
+                     }
+             };
+ 
+             $ketUmurRelawanL = [
+                 [
+                     'ket'   => "＜20",
+                     'total' => $rangeUmurRelawanL['<20']
+                 ],
+                 [
+                     'ket' => "21-30",
+                     'total' => $rangeUmurRelawanL['21-30']
+                 ],
+                 [
+                     'ket' => "31-40",
+                     'total' => $rangeUmurRelawanL['31-40']
+                 ],
+                 [
+                     'ket' => "41-50",
+                     'total' => $rangeUmurRelawanL['41-50']
+                 ],
+                 [
+                     'ket' => "51-60",
+                     'total' => $rangeUmurRelawanL['51-60']
+                 ],
+                 [
+                     'ket' => "61-70",
+                     'total' => $rangeUmurRelawanL['61-70']
+                 ],
+                 [
+                     'ket' => "71-80",
+                     'total' => $rangeUmurRelawanL['71-80']
+                 ],
+                 [
+                     'ket' => "＞80",
+                     'total' => $rangeUmurRelawanL['>80']
+                 ],
+             ];
+
+            //get tanggal lahir pendukung Laki-laki
+            $tanggalLahirDptL = DB::table('pendukung')
+            ->select(DB::raw('tanggal_lahir'))
+            ->where('jenis_kelamin','=','Laki-laki')
             ->get();
 
-            return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','jumlah_kandidat'
-            ,'perbandingan_kandidat','pieChartRelawanJK','time_series_kandidat', 'time_series_relawan'));
+             //get umur dari tanggal lahir pakai carbon
+             $umurDptL=[];
+
+             foreach($tanggalLahirDptL as $data){
+                 $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+                 array_push($umurDptL, $data);
+             }
+
+             $rangeUmurDptL = [];
+             $rangeUmurDptL['<20'] = 0;
+             $rangeUmurDptL['21-30'] = 0;
+             $rangeUmurDptL['31-40'] = 0;
+             $rangeUmurDptL['41-50'] = 0;
+             $rangeUmurDptL['51-60'] = 0;
+             $rangeUmurDptL['61-70'] = 0;
+             $rangeUmurDptL['71-80'] = 0;
+             $rangeUmurDptL['>80'] = 0;
+
+             foreach($umurDptL as $data){
+
+                if($data->tanggal_lahir < 21){
+                    $rangeUmurDptL['<20'] += 1;   
+                }
+                elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                    $rangeUmurDptL['21-30'] += 1;
+                }
+                elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                    $rangeUmurDptL['31-40'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                    $rangeUmurDptL['41-50'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                    $rangeUmurDptL['51-60'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                    $rangeUmurDptL['61-70'] += 1; 
+                }
+                elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                    $rangeUmurDptL['71-80'] += 1; 
+                }
+                else{
+                    $rangeUmurDptL['>80'] += 1; 
+                    }
+        };
+
+        $ketUmurDptL = [
+            [
+                'ket'   => "＜20",
+                'total' => $rangeUmurDptL['<20']
+            ],
+            [
+                'ket' => "21-30",
+                'total' => $rangeUmurDptL['21-30']
+            ],
+            [
+                'ket' => "31-40",
+                'total' => $rangeUmurDptL['31-40']
+            ],
+            [
+                'ket' => "41-50",
+                'total' => $rangeUmurDptL['41-50']
+            ],
+            [
+                'ket' => "51-60",
+                'total' => $rangeUmurDptL['51-60']
+            ],
+            [
+                'ket' => "61-70",
+                'total' => $rangeUmurDptL['61-70']
+            ],
+            [
+                'ket' => "71-80",
+                'total' => $rangeUmurDptL['71-80']
+            ],
+            [
+                'ket' => "＞80",
+                'total' => $rangeUmurDptL['>80']
+            ],
+        ];
+        //get tanggal lahir pendukung Perempuan
+        $tanggalLahirDptP = DB::table('pendukung')
+        ->select(DB::raw('tanggal_lahir'))
+        ->where('jenis_kelamin','=','Perempuan')
+        ->get();
+
+         //get umur dari tanggal lahir pakai carbon
+         $umurDptP=[];
+
+         foreach($tanggalLahirDptP as $data){
+             $data->tanggal_lahir = Carbon::parse($data->tanggal_lahir)->age;
+             array_push($umurDptP, $data);
+         }
+
+         $rangeUmurDptP = [];
+         $rangeUmurDptP['<20'] = 0;
+         $rangeUmurDptP['21-30'] = 0;
+         $rangeUmurDptP['31-40'] = 0;
+         $rangeUmurDptP['41-50'] = 0;
+         $rangeUmurDptP['51-60'] = 0;
+         $rangeUmurDptP['61-70'] = 0;
+         $rangeUmurDptP['71-80'] = 0;
+         $rangeUmurDptP['>80'] = 0;
+
+         foreach($umurDptP as $data){
+
+            if($data->tanggal_lahir < 21){
+                $rangeUmurDptP['<20'] += 1;   
+            }
+            elseif(($data->tanggal_lahir >=21) && ($data->tanggal_lahir <=30)){
+                $rangeUmurDptP['21-30'] += 1;
+            }
+            elseif(($data->tanggal_lahir >=31) && ($data->tanggal_lahir <=40)){
+                $rangeUmurDptP['31-40'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=41) && ($data->tanggal_lahir <=50)){
+                $rangeUmurDptP['41-50'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=51) && ($data->tanggal_lahir <=60)){
+                $rangeUmurDptP['51-60'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=61) && ($data->tanggal_lahir <=70)){
+                $rangeUmurDptP['61-70'] += 1; 
+            }
+            elseif(($data->tanggal_lahir >=71) && ($data->tanggal_lahir <=80)){
+                $rangeUmurDptP['71-80'] += 1; 
+            }
+            else{
+                $rangeUmurDptP['>80'] += 1; 
+                }
+    };
+
+    $ketUmurDptP = [
+        [
+            'ket'   => "＜20",
+            'total' => $rangeUmurDptP['<20']
+        ],
+        [
+            'ket' => "21-30",
+            'total' => $rangeUmurDptP['21-30']
+        ],
+        [
+            'ket' => "31-40",
+            'total' => $rangeUmurDptP['31-40']
+        ],
+        [
+            'ket' => "41-50",
+            'total' => $rangeUmurDptP['41-50']
+        ],
+        [
+            'ket' => "51-60",
+            'total' => $rangeUmurDptP['51-60']
+        ],
+        [
+            'ket' => "61-70",
+            'total' => $rangeUmurDptP['61-70']
+        ],
+        [
+            'ket' => "71-80",
+            'total' => $rangeUmurDptP['71-80']
+        ],
+        [
+            'ket' => "＞80",
+            'total' => $rangeUmurDptP['>80']
+        ],
+    ];
+            //total relawan perempuan
+            $totalRelawanPerempuan = DB::table('relawan')
+            ->where('jenis_kelamin','=','Perempuan')
+            ->count();
+
+            //total relawan laki-laki
+            $totalRelawanLakilaki = DB::table('relawan')
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->count();
+
+             //total pendukung perempuan
+             $totalPendukungPerempuan = DB::table('pendukung')
+             ->where('jenis_kelamin','=','Perempuan')
+             ->count();
+
+            //total pendukung laki-laki
+            $totalPendukungLakilaki = DB::table('pendukung')
+            ->where('jenis_kelamin','=','Laki-laki')
+            ->count();
+
+            //target dukungan
+            $targetDukungan = DB::table('kandidat')->select('target_pendukung')->first();
+
+            //get total pendukung yg ada
+            $totalPendukungAll = DB::table('pendukung')->count();
+
+            $winRate = $totalPendukungAll/$targetDukungan->target_pendukung*100;
+
+            //monitoring wilayah pendukung
+            $monitoringWilayahPendukung = DB::table('pendukung')
+            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
+            ->groupBy('pendukung.id_wilayah')
+            ->orderBy('id_wilayah','desc')
+            ->get();
+
+            //monitoring wilayah relawan
+            $monitoringWilayahRelawan = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
+            ->groupBy('relawan.id_wilayah')
+            ->orderBy('id_wilayah','desc')
+            ->get();
+
+            //sebaran wilayah relawan dengan informasi gender P
+             $sebaranWilayahP = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->where('jenis_kelamin', '=', 'Perempuan')
+             ->groupBy('id_wilayah')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+            
+             //sebaran wilayah relawan dengan informasi gender L
+             $sebaranWilayahL = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->where('jenis_kelamin', '=', 'Laki-laki')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+
+             //sebaran wilayah total 1
+             $sebaranWilayahTotal = DB::table('relawan')
+             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->groupBy('id_wilayah')
+             ->orderBy('id_wilayah','desc')
+             ->get();
+
+
+            //Kinerja relawan perhari
+            $tanggalPertama = DB::table('pendukung')
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at;
+            //return $tanggalPertama;
+
+            $jumlahHari = Carbon::now()->startOfDay()->diffInDays($tanggalPertama);
+
+            // Pengecekan jika hari sama dengan nol
+            $jumlahHari == 0 ? $jumlahHari = 1 : null;
+
+            // Hitung rata-rata per hari ditambahkan
+            $rataRataPerHari = ROUND($jumlah_dpt / $jumlahHari);
+
+            //kinerja relawan perminggu
+            $tanggalPertama = DB::table('pendukung')
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at;
+
+            $jumlahMinggu = Carbon::now()->startOfWeek()->diffInWeeks($tanggalPertama);
+
+            // Pengecekan jika minggu  sama dengan nol
+            $jumlahMinggu == 0 ? $jumlahMinggu = 1 : null;
+
+            // Hitung rata-rata per minggu ditambahkan
+            $rataRataPerMinggu = ROUND($jumlah_dpt / $jumlahMinggu);
+
+            //kinerja relawan perbulan
+            $tanggalPertama = DB::table('pendukung')
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->created_at;
+
+            $jumlahBulan = Carbon::now()->startOfMonth()->diffInMonths($tanggalPertama);
+
+            // Pengecekan jika jumlah bulan sama dengan nol
+            $jumlahBulan == 0 ? $jumlahBulan = 1 : null;
+
+            // Hitung rata-rata per bulan ditambahkan
+            $rataRataPerBulan = $jumlah_dpt / $jumlahBulan;
+
+            $selisihTargetPendukung = 100 - $winRate;
+
+            //chart dukungan 30 hari
+            $areaChart30 = DB::table('pendukung')
+            ->select(DB::raw('DATE(created_at) as created_date, COUNT(*) as total'))
+            ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            ->groupBy('created_date')
+            ->orderBy('created_date')
+            ->get();
+
+            return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
+            ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
+            ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
+            ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
+            , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
+            ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
+            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
+            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'
+            ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
+     
         }
 
         elseif(Auth::user()->hasRole(['admin-kandidat-free', 'admin-kandidat-premium'])){
