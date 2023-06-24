@@ -8,11 +8,11 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-green p-2 media-middle">
+                                <div class="bg-amber p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="green font-medium-5">Input Permission</span><br>
+                                    <span class="amber font-medium-5">Input Permission</span><br>
                                     <span style="margin-top: -5px">Membuat Permission Baru</span>
                                 </div>
                             </div>
