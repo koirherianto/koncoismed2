@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Select;
 use App\Http\Livewire\LivewireCharts;
+use App\Http\Controller\RelawanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,13 +66,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('create-person', [App\Http\Controllers\HomeController::class, 'createPerson'])->name('createPerson');
         Route::get('create-wakil-person', [App\Http\Controllers\HomeController::class, 'createWakilPerson'])->name('createWakilPerson');
         Route::get('relawan-adm-kandidat-dua', [App\Http\Controllers\RelawanController::class, 'tambahRelawanPenuh'])->name('relawanpenuh');
-        Route::get('import-relawan', [App\Http\Controllers\RelawanController::class, 'importRelawan'])->name('importRelawan');
 
         //fitur peta
-        Route::post('relawans-import',[App\Http\Controllers\RelawanController::class, 'import'])->name('relawans.import');
-        Route::get('download-format', [App\Http\Controllers\RelawanController::class,'downloadFormat'])->name('downloadFormat');
+        
         Route::get('map-relawan', [App\Http\Controllers\RelawanMapController::class,'index'])->name('petaRelawan');
         Route::get('titik-peta-relawan', [App\Http\Controllers\RelawanMapController::class,'jsonRelawan'])->name('titik-peta-relawan');
+
+        //fitur import export
+        Route::get('import-relawan', [App\Http\Controllers\RelawanController::class, 'importRelawan'])->name('importRelawan');
+        Route::post('relawans-import',[App\Http\Controllers\RelawanController::class, 'import'])->name('relawans.import');
+        Route::get('download-format', [App\Http\Controllers\RelawanController::class,'downloadFormat'])->name('downloadFormat');
+        Route::get('export/excel',[App\Http\Controllers\RelawanController::class, 'export_excel'])->name('export.excel');
+        
     }); 
 
     //captcha

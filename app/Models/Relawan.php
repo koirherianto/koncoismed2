@@ -7,9 +7,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Auth;
 
 
-class Relawan extends Model implements HasMedia
+class Relawan extends Model implements FromCollection, HasMedia, WithHeadings, WithMapping
 {
     use NodeTrait, HasFactory, InteractsWithMedia;
     public $table = 'relawan';
@@ -102,6 +106,46 @@ class Relawan extends Model implements HasMedia
     public function desa(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Desa::class, 'id_wilayah');
+    }
+
+    public function collection()
+    {
+        if(Auth::user()->hasRole(['admin-kandidat-free', 'admin-kandidat-premium','super-admin'])){
+            
+            return Relawan::all();
+        }
+    }
+
+    public function headings(): array
+    {
+        return [
+            'Nama',
+            'NIK',
+            'KTA',
+            'Tempat Lahir',
+            'Tanggal Lahir',
+            'Jenis Kelamin',
+            'Status Perkawinan',
+            'No HP',
+            'Email',
+            'Alamat',
+        ];
+    }
+
+    public function map($relawan): array
+    {
+        return [
+            $relawan->users->name,
+            $relawan->nik,
+            $relawan->no_kta,
+            $relawan->tempat_lahir,
+            $relawan->tanggal_lahir,
+            $relawan->jenis_kelamin,
+            $relawan->status_perkawinan,
+            $relawan->users->contact,
+            $relawan->users->email,
+            $relawan->users->alamat,
+        ];
     }
 
 }

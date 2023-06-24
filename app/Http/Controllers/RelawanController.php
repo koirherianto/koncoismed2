@@ -234,4 +234,9 @@ class RelawanController extends AppBaseController
 
     	return response()->download($myFile);
     }
+
+    public function export_excel() 
+    {
+        return Excel::download(new Relawan, 'relawan.xlsx');
+    }  
 }

@@ -43,4 +43,9 @@ class Desa extends Model
     {
         return $this->belongsTo(\App\Models\Kecamatan::class, 'kecamatan_id');
     }
+
+    public function relawans(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Relawan::class, 'id');
+    }
 }

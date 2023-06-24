@@ -27,8 +27,7 @@
                                             <button type="button" class="btn btn-amber dropdown-toggle dropdown-menu-right btn-sm float-right mr-1 mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ft-download-cloud white"></i></button>
                                             <div class="dropdown-menu">
                                                 <a href="{{ route('importRelawan') }}" class="dropdown-item"><i class="ft-upload"></i> Import</a>
-                                                <a href="#" class="dropdown-item"><i class="ft-download"></i> Export Excel</a>
-                                                <a href="#" class="dropdown-item"><i class="ft-download"></i> Export PDF</a>
+                                                <a href="{{ route('export.excel')}}" class="dropdown-item"><i class="ft-download"></i> Export Excel</a>
                                             </div>
                                         {{-- <span class="dropdown show">
                                             <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-amber dropdown-toggle dropdown-menu-right btn-sm float-right mr-1 mb-1"><i class="ft-download-cloud white"></i></button>
