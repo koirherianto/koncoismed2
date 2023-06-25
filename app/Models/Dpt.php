@@ -175,8 +175,8 @@ class Dpt extends Model implements HasMedia
         return $this->belongsTo(\App\Models\Desa::class, 'id_wilayah');
     }
 
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
-    }
+    // public function getCreatedAtAttribute($date)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
+    // }
 }
