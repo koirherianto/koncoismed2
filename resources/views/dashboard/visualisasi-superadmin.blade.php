@@ -251,16 +251,16 @@
                             </tr>
                         </thead>
                         <tbody> 
-                                <tr>
-                                    @foreach($monitoringWilayahPendukung as $data)
+                            @foreach($monitoringWilayahPendukung as $data)
+                                <tr> 
                                     <td>{{$data->id_wilayah}}</td>
                                     <td>12.394</td>
                                     <td>379</td>
                                     <td>{{$data->total}}</td>
-                                    @endforeach
-                                    @foreach($monitoringWilayahRelawan as $item)
+                                @foreach($monitoringWilayahRelawan as $item)
                                     <td>{{$item->total}}</td>
-                                    @endforeach
+                                @endforeach
+                                @endforeach
                                 </tr>
                                 <tr>
                                     <th>TOTAL</th>

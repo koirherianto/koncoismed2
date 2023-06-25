@@ -251,17 +251,17 @@
                             </tr>
                         </thead>
                         <tbody> 
-                                <tr>
-                                    @foreach($monitoringWilayahPendukung as $data)
-                                    <td>{{$data->id_wilayah}}</td>
-                                    <td>12.394</td>
-                                    <td>379</td>
-                                    <td>{{$data->total}}</td>
-                                    @endforeach
-                                    @foreach($monitoringWilayahRelawan as $item)
-                                    <td>{{$item->total}}</td>
-                                    @endforeach
-                                </tr>
+                            @foreach($monitoringWilayahPendukung as $data)
+                            <tr> 
+                                <td>{{$data->id_wilayah}}</td>
+                                <td>12.394</td>
+                                <td>379</td>
+                                <td>{{$data->total}}</td>
+                            @foreach($monitoringWilayahRelawan as $item)
+                                <td>{{$item->total}}</td>
+                            @endforeach
+                            @endforeach
+                            </tr>
                                 <tr>
                                     <th>TOTAL</th>
                                     <th>461.767</th>
