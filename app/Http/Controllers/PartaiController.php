@@ -107,7 +107,7 @@ class PartaiController extends AppBaseController
             $partai->syncFromMediaLibraryRequest($request->partai)->toMediaCollection();
         }
 
-        Flash::success('Partai updated successfully.');
+        Flash::success('Data partai berhasil diedit.');
 
         return redirect(route('partais.index'));
     }

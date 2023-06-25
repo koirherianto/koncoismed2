@@ -6,7 +6,7 @@
                 @include('flash::message')
                 <div class="clearfix"></div>
                 <div class="card">
-                    <div class="border-light-blue border-left-6 box-shadow-1 rounded">
+                    <div class="border-light-green border-left-6 box-shadow-1 rounded">
                         <div class="card-content ">
                             <div class="card-body card-dashboard">
                                 <div class="row">

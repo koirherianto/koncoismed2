@@ -5,6 +5,7 @@
             <tr>
                 <th>Nama</th>
                 <th>Lembaga</th>
+                <th>Tingkat</th>
                 <th colspan="3">Aksi</th>
             </tr>
             </thead>
@@ -13,6 +14,7 @@
                 <tr>
                     <td>{{ $jenisKandidat->nama }}</td>
                     <td>{{ $jenisKandidat->lembaga }}</td>
+                    <td>{{ $jenisKandidat->tingkat }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['jenisKandidats.destroy', $jenisKandidat->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

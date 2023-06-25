@@ -6,7 +6,6 @@
                 <th>Nama</th>
                 <th>Judul</th>
                 <th>Feedback</th>
-                <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -16,7 +15,7 @@
                     <td>{{ $feedback->judul_feedback}}</td>
                     <td>{{ $feedback->feedback}}</td>
                     {{-- nama var, nama func model,nama field yg ingin ditampilkan --}}
-                    <td  style="width: 120px">
+                    {{-- <td  style="width: 120px"> --}}
                         {{-- {!! Form::open(['route' => ['feedbacks.destroy', $feedback->id], 'method' => 'delete']) !!}
                         <div class='btn-group'> --}}
                             {{-- <a href="{{ route('kandidats.show', [$kandidat->id]) }}"
@@ -29,7 +28,7 @@
                             {{-- {!! Form::button('<i class="bi bi-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
                         </div>
                         {!! Form::close() !!}
-                    </td>
+                    {{-- </td> --}}
                 </tr>
             @endforeach
             </tbody>

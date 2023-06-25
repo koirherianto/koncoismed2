@@ -52,7 +52,6 @@
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
         @include('layouts.js')
         @yield('scripts')
-        @stack('scripts')
-       
+        @stack('scripts') 
     </body>
 </html>

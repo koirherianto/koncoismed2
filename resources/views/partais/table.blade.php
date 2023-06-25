@@ -18,9 +18,9 @@
             <tbody>
             @foreach($partais as $partai)
                 <tr>
-                    <td><img src="{{$partai->getFirstMediaUrl()}}"width="80px"></td>
+                    <td><img src="{{$partai->getFirstMediaUrl()}}"width="60px"></td>
                     <td>{{ $partai->nama }}</td>
-                    <td  style="width: 80px">
+                    <td  style="width: 60px">
                         {!! Form::open(['route' => ['partais.destroy', $partai->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             {{-- <a href="{{ route('partais.show', [$partai->id]) }}"
