@@ -116,8 +116,8 @@ class ChartRelawanApiController extends AppBaseController
             ->get();
 
             foreach ($jenisKelamins as $jenisKelamin) {
-                $jenisKelamin->nama == 'P' ? $jenisKelamin->nama = 'wanita' : null;
-                $jenisKelamin->nama == 'L' ? $jenisKelamin->nama = 'pria' : null;
+                $jenisKelamin->nama == 'Perempuan' ? $jenisKelamin->nama = 'wanita' : null;
+                $jenisKelamin->nama == 'Laki-laki' ? $jenisKelamin->nama = 'pria' : null;
                 is_null($jenisKelamin->nama) ? $jenisKelamin->nama = 'noData' : null;
             }
 
@@ -141,9 +141,9 @@ class ChartRelawanApiController extends AppBaseController
 
             foreach ($relawanku->descendants as $relawan) {
                 $jenisKelamin = $relawan->jenis_kelamin;
-                $jenisKelamin == 'P' ? $genders['pria']++ : null;
-                $jenisKelamin == 'L' ? $genders['wanita']++ : null;
-                $jenisKelamin != 'P' && $jenisKelamin != 'L'? $genders['noData']++ : null;
+                $jenisKelamin == 'Perempuan' ? $genders['pria']++ : null;
+                $jenisKelamin == 'Laki-laki' ? $genders['wanita']++ : null;
+                $jenisKelamin != 'Perempuan' && $jenisKelamin != 'Laki-laki'? $genders['noData']++ : null;
             }
 
             // hilangin yang n0ll

@@ -62,11 +62,11 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
             $genderDpt = [
                 [
-                    'nama' => 'pria',
+                    'nama' => 'Laki-laki',
                     'jumlah' => 0
                 ],
                 [
-                    'nama' => 'wanita',
+                    'nama' => 'Perempuan',
                     'jumlah' => 0
                 ]
             ];
@@ -122,7 +122,7 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
             $pieChartDptAgama = DB::table('pendukung')
-            ->join('agama', 'dpt.agama_id', '=', 'agama.id')
+            ->join('agama', 'pendukung.agama_id', '=', 'agama.id')
             ->select(DB::raw('count(*) as jumlah, agama.nama as nama'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('agama.nama')
@@ -177,9 +177,6 @@ class ChartApiController extends AppBaseController
                 $i++;
             }
 
-            // $this->response['success'] = true;
-            // $this->response['data'] = $agamaDpt2;
-            // return response()->json($this->response,200);
             return $this->sendResponse($agamaDpt2, 'Get Chart Agama Succes');
         }
         
