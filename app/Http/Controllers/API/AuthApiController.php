@@ -288,9 +288,11 @@ class AuthApiController extends AppBaseController
             return response()->json($this->response,200);
         }
 
-        //bcrypt
-
         $user->update($request->post());
+
+        $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+        $user['relawan_id'] = $dataRelawans->id;
+        $user['url_profil'] = $dataRelawans->getFirstMediaUrl();
 
         $this->response['status'] = 'success';
         $this->response['data'] = $user;

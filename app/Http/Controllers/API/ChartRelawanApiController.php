@@ -439,6 +439,7 @@ class ChartRelawanApiController extends AppBaseController
 
         if (empty($chartWilayahRelawan)) {
             $this->response['success'] = false;
+            $this->response['message'] = 'Data Wilayah Gender Relawan Kosong';
             return response()->json($this->response, 200);
         }
 
