@@ -12,7 +12,7 @@
             <select wire:model="selectedProvinsi" class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2">
                 <option value="" selected>Pilih Provinsi</option>
                 @foreach($provinsis as $provinsi)
-                    <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
+                    <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
                 @endforeach
             </select>
         </div>
@@ -27,7 +27,7 @@
                 <select class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2"wire:model="selectedKabkota" name="id_wilayah">
                     <option value="" selected>Pilih Kab/Kota</option>
                     @foreach($kabkotas as $kabkota)
-                        <option value="{{ $kabkota->id }}">{{ $kabkota->kabkota }}</option>
+                        <option value="{{ $kabkota->id }}">{{ $kabkota->nama }}</option>
                     @endforeach
                 </select>
             </div>
@@ -40,10 +40,10 @@
         <div class="form-group row">
             <label for="id_wilayah">Kecamatan</label>
             <div class="col-13">
-                <select class="form-control border-left-pink border-left-6 text-bold-600 black font-medium-2" wire:model="selectedKecamatan" name="id_wilayah">
+                <select class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" wire:model="selectedKecamatan" name="id_wilayah">
                     <option value="" selected>Pilih Kecamatan</option>
                     @foreach($kecamatans as $kecamatan)
-                        <option value="{{ $kecamatan->id }}">{{ $kecamatan->kecamatan }}</option>
+                        <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
                     @endforeach
                 </select>
             </div>
@@ -56,10 +56,10 @@
         <div class="form-group row">
             <label for="id_wilayah">Kel/Desa</label>
             <div class="col-13">
-                <select class="form-control border-left-pink border-left-6 text-bold-600 black font-medium-2" wire:model="selectedDesa" name="id_wilayah">
+                <select class="form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2" wire:model="selectedDesa" name="id_wilayah">
                     <option value="" selected>Pilih Kel/Desa</option>
                     @foreach($desas as $desa)
-                        <option value="{{ $desa->id }}">{{ $desa->desa }}</option>
+                        <option value="{{ $desa->id }}">{{ $desa->nama }}</option>
                     @endforeach
                 </select>
             </div>

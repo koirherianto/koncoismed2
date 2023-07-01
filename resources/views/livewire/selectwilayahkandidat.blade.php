@@ -11,7 +11,7 @@
             <select wire:model="selectedProvinsi" class="form-control border-light-green border-darken-4 border-left-6 p-2" name="id_wilayah">
                 <option value="" selected>Pilih Provinsi</option>
                     @foreach($provinsis as $provinsi)
-                <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
+                <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
                     @endforeach
             </select>
         </div>
@@ -25,7 +25,7 @@
             <select class="form-control border-light-green border-darken-4 border-left-6 p-2" wire:model="selectedKabkota" name="id_wilayah">
                 <option value="" selected>Pilih Kab/Kota</option>
                 @foreach($kabkotas as $kabkota)
-                    <option value="{{ $kabkota->id }}">{{ $kabkota->kabkota }}</option>
+                    <option value="{{ $kabkota->id }}">{{ $kabkota->nama }}</option>
                 @endforeach
             </select>
         </div>

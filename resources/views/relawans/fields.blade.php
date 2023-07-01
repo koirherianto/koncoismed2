@@ -88,7 +88,7 @@
                     {!! Form::label('alamat', 'Alamat',['class'=>' text-uppercase']) !!}
                     {!! Form::text('alamat', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         {!! Form::label('relawan', 'Foto Profil :') !!}
                         <div class="position-relative">
                             @if(!isset($relawan))
@@ -97,7 +97,7 @@
                                 <x-media-library-collection :model="$relawan"  name="relawan" rules="mimes:png,jpeg"/>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-12">
                     <div class="card box-shadow-0-1 mt-1">
