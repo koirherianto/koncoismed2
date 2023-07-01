@@ -74,3 +74,7 @@
 <li class="{{''}}">
     <a href="/feedback"><span data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">FeedBack</span></a>
 </li>
+
+<li class="{{ Request::is('dptMasters*') ? 'active' : '' }}">
+    <a href="{{ route('dpt-masters.index') }}"><i class="icon-circle-right"></i><span data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">DPT</span></a>
+</li>

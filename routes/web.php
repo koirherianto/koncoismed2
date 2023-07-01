@@ -93,3 +93,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('selectwilayahkandidat', Select::class);
     Route::get('livewire-chart', LivewireCharts::class);
     Route::get('livewire-chart', [App\Http\Livewire\LivewireCharts::class,'render']);
+
+    Route::resource('dpt-masters', App\Http\Controllers\DptMasterController::class);
