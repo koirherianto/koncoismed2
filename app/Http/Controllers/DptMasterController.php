@@ -8,6 +8,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\DptMasterRepository;
 use Illuminate\Http\Request;
 use Flash;
+use App\Imports\DptMastersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DptMasterController extends AppBaseController
 {
@@ -49,7 +51,7 @@ class DptMasterController extends AppBaseController
 
         Flash::success('Dpt Master saved successfully.');
 
-        return redirect(route('dptMasters.index'));
+        return redirect(route('dpt-masters.index'));
     }
 
     /**
@@ -116,13 +118,37 @@ class DptMasterController extends AppBaseController
         if (empty($dptMaster)) {
             Flash::error('Dpt Master not found');
 
-            return redirect(route('dptMasters.index'));
+            return redirect(route('dpt-masters.index'));
         }
 
         $this->dptMasterRepository->delete($id);
 
         Flash::success('Dpt Master deleted successfully.');
 
-        return redirect(route('dptMasters.index'));
+        return redirect(route('dpt-masters.index'));
     }
+
+     //function untuk tampilan import DPT dengan excel
+     public function importDpt()
+     {
+         return view('dpt_masters.import');
+     }
+
+     public function import() 
+    {
+        Excel::import(new DptMastersImport,request()->file('file'));
+        return back();
+    }
+
+    public function downloadFormat()
+    {
+        $myFile = storage_path("app/public/download/import-dpt-masters.xlsx");
+
+    	return response()->download($myFile);
+    }
+
+    public function export_excel() 
+    {
+        return Excel::download(new Relawan, 'relawan.xlsx');
+    }  
 }

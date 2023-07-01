@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class DptMaster extends Model
+class DptMaster extends Model implements FromCollection
 {
     public $table = 'dpt';
 
@@ -25,10 +26,17 @@ class DptMaster extends Model
         'nik' => 'required|string|max:45',
         'nama' => 'required|string|max:225',
         'tps' => 'required|string|max:45',
-        'id_wilayah' => 'required',
+        'id_wilayah' => 'nullable',
         'created_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        'updated_at' => 'nullable'
     ];
 
-    
+    public function collection()
+    {
+        if(Auth::user()->hasRole(['admin-kandidat-free', 'admin-kandidat-premium','super-admin'])){
+            
+            return DptMaster::all();
+        }
+    }
+ 
 }
