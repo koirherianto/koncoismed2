@@ -8,12 +8,12 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-green p-2 media-middle">
+                                <div class="bg-amber p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="green font-medium-5">Input Dpt Masters</span><br>
-                                    <span style="margin-top: -5px">Membuat Dpt Masters Baru</span>
+                                    <span class="amber font-medium-5">Tambah DPT</span><br>
+                                    <span style="margin-top: -5px">Membuat DPT Baru</span>
                                 </div>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
                                 <div class="form-body">
                                     @include('dpt_masters.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('dpt-masters.index') }}" class="btn btn-default">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        <a href="{{ route('dpt-masters.index') }}" class="btn btn-red">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

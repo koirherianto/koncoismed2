@@ -8,12 +8,12 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-indigo p-2 media-middle">
+                                <div class="bg-amber p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="indigo font-medium-5">Perubahan Dpt Master</span><br>
-                                    <span style="margin-top: -5px">Melakukan Perubahan Dpt Master </span>
+                                    <span class="amber font-medium-5">Perubahan Data DPT</span><br>
+                                    <span style="margin-top: -5px">Melakukan Perubahan Data DPT </span>
                                 </div>
                             </div>
                         </div>
@@ -24,12 +24,12 @@
                     <div class="card">
                         <div class="card-content collpase show">
                             <div class="card-body">
-                                {!! Form::model($dptMaster, ['route' => ['dptMasters.update', $dptMaster->id], 'method' => 'patch']) !!}
+                                {!! Form::model($dptMaster, ['route' => ['dpt-masters.update', $dptMaster->id], 'method' => 'patch']) !!}
                                 <div class="form-body">
                                     @include('dpt_masters.fields')
                                     <div class="form-actions center">
-                                        <a href="{{ route('dptMasters.index') }}" class="btn btn-default">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        <a href="{{ route('dpt-masters.index') }}" class="btn btn-red">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

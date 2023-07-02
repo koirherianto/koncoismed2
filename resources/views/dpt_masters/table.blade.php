@@ -1,12 +1,12 @@
 <div class="card-body p-0">
     <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped default" id="dpt-masters-table">
+        <table class="table table-hover table-borderless mb-1" id="dpt-masters-table">
             <thead>
             <tr>
-                <th>Nik</th>
+                <th>NIK</th>
                 <th>Nama</th>
-                <th>Tps</th>
-                <th>Id Wilayah</th>
+                <th>TPS</th>
+                <th>Wilayah</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -16,19 +16,18 @@
                     <td>{{ $dptMaster->nik }}</td>
                     <td>{{ $dptMaster->nama }}</td>
                     <td>{{ $dptMaster->tps }}</td>
-                    <td>{{ $dptMaster->id_wilayah }}</td>
+                    {{-- <td>{{ $dptMaster->id_wilayah }}</td> --}}
+                    <td>{{ isset($dptMaster->id_wilayah)?$dptMaster->id_wilayah:"" }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['dpt-masters.destroy', $dptMaster->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            <a href="{{ route('dpt-masters.show', [$dptMaster->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
+                            {{-- <a href="{{ route('dpt-masters.show', [$dptMaster->id]) }}"
+                                class='btn btn-outline-success'><span class="fa fa-eye"></span>
+                            </a> --}}
                             <a href="{{ route('dpt-masters.edit', [$dptMaster->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-edit"></i>
+                                class='btn btn-outline-warning'><span class="fa fa-pencil"></span>
                             </a>
-                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         </div>
                         {!! Form::close() !!}
                     </td>

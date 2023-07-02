@@ -94,4 +94,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('livewire-chart', LivewireCharts::class);
     Route::get('livewire-chart', [App\Http\Livewire\LivewireCharts::class,'render']);
 
+    //route dpt master
     Route::resource('dpt-masters', App\Http\Controllers\DptMasterController::class);
+    Route::get('import-dpt-masters', [App\Http\Controllers\DptMasterController::class, 'importDpt'])->name('import-dpt-masters');
+    //upload import excel
+    Route::post('dpt-masters-import',[App\Http\Controllers\DptMasterController::class, 'import'])->name('dpt-masters.import');
+    //download format import dpt master 
+    Route::get('download-format-dpt', [App\Http\Controllers\DptMasterController::class,'downloadFormat'])->name('download-format-dpt');

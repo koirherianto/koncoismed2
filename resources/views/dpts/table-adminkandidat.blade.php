@@ -6,18 +6,6 @@
                 <th>KTP</th>
                 <th>Nama</th>
                 <th>NIK</th>
-                {{-- <th>Tempat Lahir</th>
-                <th>Tanggal Lahir</th>
-                <th>Jenis Kelamin</th>
-                <th>Email</th>
-                <th>Kontak</th>
-                <th>Agama</th>
-                <th>Suku</th>
-                <th>TPS</th>
-                <th>RT</th>
-                <th>RW</th>
-                <th>Alamat</th>
-                <th>Keterangan</th> --}}
                 <th>Kontak</th>
                 <th>Relawan</th>
                 <th>Aksi</th>
@@ -31,18 +19,6 @@
                     <td><img src="{{$dataDpt->getFirstMediaUrl()}}"width="80px"></td>
                     <td>{{ $dataDpt->nama }}</td>
                     <td>{{ $dataDpt->nik }}</td>
-                    {{-- <td>{{ $dataDpt->tempat_lahir }}</td>
-                    <td>{{ $dataDpt->tanggal_lahir }}</td>
-                    <td>{{ $dataDpt->jenis_kelamin }}</td>
-                    <td>{{ $dataDpt->email }}</td>
-                    <td>{{ $dataDpt->kontak }}</td>
-                    <td>{{ $dataDpt->agama->nama }}</td>
-                    <td>{{ $dataDpt->suku }}</td>
-                    <td>{{ $dataDpt->tps }}</td>
-                    <td>{{ $dataDpt->rt }}</td>
-                    <td>{{ $dataDpt->rw }}</td>
-                    <td>{{ $dataDpt->alamat }}</td>
-                    <td>{{ $dataDpt->keterangan }}</td> --}}
                     <td>{{ $dataDpt->kontak }}</td>
                     <td>{{ $dataDpt->relawan->users->name }}</td>
                     <td  style="width: 120px">
@@ -55,7 +31,7 @@
                             <a href="{{ route('dpts.edit', [$dataDpt->id]) }}"
                             class='btn btn-outline-warning'><span class="fa fa-pencil"></span>
                             </a>
-                            {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             @endrole
                         </div>
                         {!! Form::close() !!}
