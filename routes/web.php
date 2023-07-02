@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('import-relawan', [App\Http\Controllers\RelawanController::class, 'importRelawan'])->name('importRelawan');
         Route::post('relawans-import',[App\Http\Controllers\RelawanController::class, 'import'])->name('relawans.import');
         Route::get('download-format', [App\Http\Controllers\RelawanController::class,'downloadFormat'])->name('downloadFormat');
-        Route::get('export/excel',[App\Http\Controllers\RelawanController::class, 'export_excel'])->name('export.excel');
+        Route::get('export/excel/relawan',[App\Http\Controllers\RelawanController::class, 'export_excel'])->name('export.excel');
         
     }); 
 

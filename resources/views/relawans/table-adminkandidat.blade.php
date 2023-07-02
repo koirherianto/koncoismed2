@@ -7,7 +7,7 @@
                 <th>Atasan</th>
                 <th>No HP</th>
                 <th>KTA</th>
-                <th>Wilayah</th>
+                <th>Status</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -43,7 +43,7 @@
                     {{-- </td> --}}
                     <td>{{ $relawan->users->contact }}</td>
                     <td>{{ $relawan->no_kta}}</td>
-                    <td>{{ isset($relawan->desa->nama)?$relawan->desa->nama:"" }}</td>
+                    <td>{{ isset($relawan->status)?$relawan->status:"" }}</td>
                     {{-- <td>{{ $relawan->id_wilayah}}</td> --}}
                     <td  style="width: 120px">
                         {{-- {!! Form::open(['route' => ['relawans.destroy', $relawan->id], 'method' => 'delete']) !!} --}}

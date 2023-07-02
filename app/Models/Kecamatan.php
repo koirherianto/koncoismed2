@@ -36,11 +36,16 @@ class Kecamatan extends Model
 
     public function kabkota(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Kabkotum::class, 'kabkota_id');
+        return $this->belongsTo(\App\Models\Kabkota::class, 'kabkota_id');
     }
 
     public function desas(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Desa::class, 'kecamatan_id');
+    }
+
+    public function relawanskec(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Relawan::class, 'id');
     }
 }
