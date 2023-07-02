@@ -13,7 +13,7 @@
                     <h4 class="card-title">{{ $relawan->users->name }}</h4>
                     @if($relawan->status == 'kel/desa')
                         <h6 class="card-subtitle text-muted">{{ isset($relawan->desa->nama)?$relawan->desa->nama:""}}</h6>
-                    @elseif($relawan->status == 'kec')
+                    @elseif($relawan->status == 'kecamatan')
                         <h6 class="card-subtitle text-muted">{{ isset($relawan->kecamatan->nama)?$relawan->kecamatan->nama:""}}</h6>
                     @elseif($relawan->status == 'kab/kota')
                         <h6 class="card-subtitle text-muted">{{ isset($relawan->kabkota->nama)?$relawan->kabkota->nama:""}}</h6>
@@ -64,11 +64,17 @@
             
         </div>
         <div class="row">
-            @if($relawan->status == 'kec' || $relawan->status == 'kel/desa')
+            @if($relawan->status == 'kel/desa')
                 <!-- Kecamatan Field -->
                 <div class="col-xl-3 col-md-6 col-6">
                     {!! Form::label('id_wilayah', 'Kecamatan:') !!}
                     <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->nama)?$relawan->desa->kecamatan->nama:""}}</p>
+                </div>
+            @elseif($relawan->status == 'kecamatan')
+                 <!-- Kecamatan Field -->
+                 <div class="col-xl-3 col-md-6 col-6">
+                    {!! Form::label('id_wilayah', 'Kecamatan:') !!}
+                    <p class="font-weight-bold">{{ isset($relawan->kecamatan->nama)?$relawan->kecamatan->nama:""}}</p>
                 </div>
             @else
                 <!-- Kecamatan Field -->
@@ -83,7 +89,7 @@
                     {!! Form::label('id_wilayah', 'kabkota:') !!}
                     <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->kabkota->nama)?$relawan->desa->kecamatan->kabkota->nama:""}}</p>
                 </div>
-            @elseif($relawan->status == 'kec')
+            @elseif($relawan->status == 'kecamatan')
                 <!-- kabkota Field -->
                 <div class="col-xl-3 col-md-6 col-6">
                     {!! Form::label('id_wilayah', 'kabkota:') !!}
