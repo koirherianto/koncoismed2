@@ -9,7 +9,6 @@ use App\Repositories\RelawanRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\Kandidat;
 use App\Models\User;
 use App\Models\Relawan;

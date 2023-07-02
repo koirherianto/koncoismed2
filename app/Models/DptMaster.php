@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Auth;
 
-class DptMaster extends Model implements FromCollection
+class DptMaster extends Model implements FromCollection, WithHeadings, WithMapping
 {
     public $table = 'dpt';
 
@@ -38,5 +41,26 @@ class DptMaster extends Model implements FromCollection
             return DptMaster::all();
         }
     }
+
+    public function headings(): array
+    {
+        return [
+            'NIK',
+            'Nama',
+            'TPS',
+            'Wilayah'
+        ];
+    }
+
+    public function map($dpt): array
+    {
+        return [
+            $dpt->nama,
+            $dpt->nik,
+            $dpt->tps,
+            $dpt->id_wilayah
+        ];
+    }
+
  
 }

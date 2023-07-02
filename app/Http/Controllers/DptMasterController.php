@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use App\Imports\DptMastersImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\DptMaster;
 
 class DptMasterController extends AppBaseController
 {
@@ -123,7 +124,7 @@ class DptMasterController extends AppBaseController
 
         $this->dptMasterRepository->delete($id);
 
-        Flash::success('Dpt Master deleted successfully.');
+        Flash::success('Data DPT berhasil dihapus.');
 
         return redirect(route('dpt-masters.index'));
     }
@@ -149,6 +150,6 @@ class DptMasterController extends AppBaseController
 
     public function export_excel() 
     {
-        return Excel::download(new Relawan, 'relawan.xlsx');
+        return Excel::download(new DptMaster, 'data-dpt.xlsx');
     }  
 }
