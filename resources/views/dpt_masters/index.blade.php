@@ -29,7 +29,7 @@
                                             <button type="button" class="btn btn-amber dropdown-toggle dropdown-menu-right btn-sm float-right mr-1 mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ft-download-cloud white"></i></button>
                                             <div class="dropdown-menu">
                                                 <a href="{{ route('import-dpt-masters') }}" class="dropdown-item"><i class="ft-upload"></i> Import</a>
-                                                <a href="{{ route('dpt-masters.import')}}" class="dropdown-item"><i class="ft-download"></i> Export Excel</a>
+                                                <a href="{{ route('export-dpt-masters')}}" class="dropdown-item"><i class="ft-download"></i> Export Excel</a>
                                             </div>
                                 </div>
                                 @include('dpt_masters.table')
