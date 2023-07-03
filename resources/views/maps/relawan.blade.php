@@ -64,8 +64,10 @@
         // deklarasi peta
 
         var map = L.map('map', {
-            center: [-0.5438331, 117.1417018],
+            center: [-0.547067, 117.1151387],
             zoom: 11,
+            maxZoom: 20,
+            doubleClickZoom: false,
             layers: [peta1]
         });
 
@@ -93,14 +95,19 @@
         // });
 
          //add cluster
-        var markers = L.markerClusterGroup();
+        var markers = L.markerClusterGroup({
+            //tiga baris di bawah mematikan spider cluster
+            spiderfyOnMaxZoom:false,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false
+        });
         $( document ).ready(function() {
             $.getJSON('titik-peta-relawan',function(data){
                 $.each(data, function(index){
                     var lokasi = L.marker([data[index].latitude,data[index].longitude])
                     //tambah click pop up
                     .bindPopup('Nama : '+ [data[index].nama]);
-
+                    
                     markers.addLayer(lokasi);
                     map.addLayer(markers);
                     map.fitBounds(markers.getBounds());
