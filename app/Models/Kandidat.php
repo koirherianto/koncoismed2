@@ -15,7 +15,9 @@ class Kandidat extends Model
         'users_id',
         'jenis_kandidat_id',
         'id_wilayah',
-        'target_pendukung'
+        'target_pendukung',
+        'jumlah_tps',
+        'alokasi_kursi'
     ];
 
     protected $casts = [
