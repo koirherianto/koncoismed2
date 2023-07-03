@@ -7,7 +7,9 @@
                 <th>Atasan</th>
                 <th>No HP</th>
                 <th>KTA</th>
+                <th>Status</th>
                 <th>Wilayah</th>
+                <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -28,31 +30,24 @@
                             </div>
                         </div>
                     </td>
-                    {{-- <td>{{ $dataRelawan->users->name }}</td> --}}
                     <td>{{ isset($dataRelawan->relawanParent)?$dataRelawan->relawanParent->users->name:"" }}</td>
-                    {{-- <td> --}}
-                        {{-- {{$relawan->descendants}} untuk mengambil turunan di bawahnya--}}
-                        {{-- <ul>
-                            @foreach($relawan->descendants as $item)
-                            <li>{{$item->users->name}}</li>
-                            @endforeach
-                        </ul> --}}
-                        
-                    {{-- </td> --}}
                     <td>{{ $dataRelawan->users->contact}}</td>
                     <td>{{ $dataRelawan->no_kta}}</td>
+                    <td>{{ $dataRelawan->status}}</td>
                     <td>{{ $dataRelawan->desa->nama}}</td>
                     <td  style="width: 120px">  
                         {!! Form::open(['route' => ['relawans.destroy', $dataRelawan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            {{-- <a href="{{ route('relawans.show', [$relawan->id]) }}"
-                               class='btn btn-success btn-xs'>
-                                <i class="far fa-eye"></i>Lihat
-                            </a> --}}
-                            {{-- <a href="{{ route('relawans.edit', [$dataRelawan->id]) }}"
-                               class='btn btn-outline-warning btn-xs'><span class="fa fa-pencil"></span>
-                            </a> --}}
-                            {{-- {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+                            <a href="{{ route('relawans.show', [$dataRelawan->id]) }}"
+                               class='btn btn-outline-success'>
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            @if(Auth::user()->relawan->id == $dataRelawan->relawan_id)
+                                <a href="{{ route('relawans.edit', [$dataRelawan->id]) }}"
+                                class='btn btn-outline-warning btn-xs'><span class="fa fa-pencil"></span>
+                                </a>
+                                {{-- {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+                            @endif
                         </div>
                         {!! Form::close() !!}
                     </td>
