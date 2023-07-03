@@ -32,6 +32,8 @@ class Select extends Component
         if(Auth::user()->relawan->status == 'kab/kota'){
             $this->kecamatans = Kecamatan::where('kabkota_id', Auth::user()->relawan->desa->kecamatan->kabkota->id)->get();
             $this->desas = collect();
+        }elseif (Auth::user()->relawan->status == 'kecamatan') {
+            $this->desas = Desa::where('kecamatan_id', Auth::user()->relawan->desa->kecamatan->id)->get();
         }else{
             //milik admin-kandidat
             $this->provinsis = Provinsi::all();
