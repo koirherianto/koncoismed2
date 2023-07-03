@@ -117,7 +117,7 @@ class RelawanController extends AppBaseController
         // }
 
         DB::commit();
-        Flash::success("Data berhasil ditambahkan");
+        Flash::success("Relawan berhasil ditambahkan");
         // return $user;
         }catch (Exception $e){
         DB::rollBack();

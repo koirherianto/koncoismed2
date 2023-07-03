@@ -2,9 +2,6 @@
     <div class="card-content">
         <div class="card-body">
             <div class="font-medium-2 text-bold-800 black mb-2"><i class="fa fa-pencil-square pr-1 green"></i> DATA AKUN</div>
-            {{--<select name="unit_id" id="unit_id">--}}
-            {{--    <option value="">null</option>--}}
-            {{--</select>--}}
             <div class="row">
                 <div class="col-6">
                     <!-- Name Field -->
@@ -88,16 +85,6 @@
                     {!! Form::label('alamat', 'Alamat',['class'=>' text-uppercase']) !!}
                     {!! Form::text('alamat', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
                     </div>
-                    {{-- <div class="form-group">
-                        {!! Form::label('relawan', 'Foto Profil :') !!}
-                        <div class="position-relative">
-                            @if(!isset($relawan))
-                                <x-media-library-attachment  multiple name="relawan" rules="mimes:png,jpeg"/>
-                            @else
-                                <x-media-library-collection :model="$relawan"  name="relawan" rules="mimes:png,jpeg"/>
-                            @endif
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="col-12">
                     <div class="card box-shadow-0-1 mt-1">
@@ -177,9 +164,3 @@ const togglePassword = document.querySelector('#togglePassword');
 @hasanyrole('relawan-free|relawan-premium')
 {!! Form::hidden('kandidat_id',auth()->user()->relawan->kandidat->id, ['class' => 'form-control']) !!}
 @endhasanyrole
-
-    <!-- Wilayah Id Field -->
-{{-- <div class="form-group col-sm-6">
-    {!! Form::label('wilayah', 'Wilayah:') !!}
-    {!! Form::select('wilayah_id',$wilayahs ,null, ['class' => 'form-control']) !!}
-</div> --}}

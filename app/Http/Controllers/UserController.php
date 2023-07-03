@@ -204,7 +204,7 @@ class UserController extends AppBaseController
 
         $relawans = Relawan::where('users_id', $id)->pluck('id');
         \DB::transaction(function () use ($relawans, $id) {
-            \DB::table('dpt')->whereIn('relawan_id', $relawans)->delete();
+            \DB::table('pendukung')->whereIn('relawan_id', $relawans)->delete();
             \DB::table('relawan')->where('users_id', $id)->delete();
             \DB::table('users')->where('id', $id)->delete();
         });
@@ -220,7 +220,7 @@ class UserController extends AppBaseController
 
 //         $this->userRepository->delete($id);
 
-        Flash::success('Deleted successfully');
+        Flash::success('Pengguna berhasil dihapus');
 
         return redirect(route('users.index'));
     }

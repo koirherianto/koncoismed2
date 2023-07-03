@@ -12,6 +12,20 @@
         {!! Form::number('target_pendukung', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6']) !!}
     </div>
 </div>
+<div class="col-12">
+    <!--  Field -->
+    <div class="form-group">
+        {!! Form::label('jumlah_tps', 'Jumlah TPS:') !!}
+        {!! Form::number('jumlah_tps', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6']) !!}
+    </div>
+</div>
+<div class="col-12">
+    <!--  Field -->
+    <div class="form-group">
+        {!! Form::label('alokasi_kursi', 'Alokasi Kursi:') !!}
+        {!! Form::number('alokasi_kursi', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6']) !!}
+    </div>
+</div>
 
 
 {{ Form::hidden('users_id', Auth::id()) }}

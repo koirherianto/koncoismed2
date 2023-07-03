@@ -43,4 +43,9 @@ class Kabkota extends Model
     {
         return $this->hasMany(\App\Models\Kecamatan::class, 'kabkota_id');
     }
+
+    public function relawanskabkota(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Relawan::class, 'id');
+    }
 }

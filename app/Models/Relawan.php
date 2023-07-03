@@ -108,6 +108,15 @@ class Relawan extends Model implements FromCollection, HasMedia, WithHeadings, W
         return $this->belongsTo(\App\Models\Desa::class, 'id_wilayah');
     }
 
+    public function kecamatan(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Kecamatan::class, 'id_wilayah');
+    }
+    public function kabkota(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Kabkota::class, 'id_wilayah');
+    }
+
     public function collection()
     {
         if(Auth::user()->hasRole(['admin-kandidat-free', 'admin-kandidat-premium','super-admin'])){

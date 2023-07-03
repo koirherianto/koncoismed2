@@ -7,6 +7,8 @@
                 <th>Admin Kandidat</th>
                 <th>Jenis Kandidat</th>
                 <th>Target Pendukung</th>
+                <th>Jumlah TPS</th>
+                <th>Alokasi Kursi</th>
                 @hasanyrole('admin-kandidat-free|admin-kandidat-premium')
                 <th colspan="3">Action</th>
                 @endhasanyrole
@@ -19,6 +21,8 @@
                     <td>{{ $kandidat->users->name}}</td>
                     <td>{{ $kandidat->jenisKandidat->nama}}</td>
                     <td>{{ $kandidat->target_pendukung}}</td>
+                    <td>{{ $kandidat->jumlah_tps}}</td>
+                    <td>{{ $kandidat->alokasi_kursi}}</td>
                     {{-- nama var, nama func model,nama field yg ingin ditampilkan --}}
 
                     @hasanyrole('admin-kandidat-free|admin-kandidat-premium')
