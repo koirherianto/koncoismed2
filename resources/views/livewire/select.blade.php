@@ -1,11 +1,32 @@
 <div>
-    <div class="col-13">
-        <!-- Status Field -->
-            <div class="form-group">
-            {!! Form::label('status', 'Status',['class'=>' text-uppercase']) !!}
-            {!! Form::select('status', ['' => 'Pilih Status Relawan','kab/kota' => 'Kab/Kota', 'kecamatan' => 'Kecamatan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
-            </div>
+    @if(Auth::user()->relawan->status == 'kab/kota')
+        <div class="col-13">
+            <!-- Status Field -->
+                <div class="form-group">
+                {!! Form::label('status', 'Status',['class'=>' text-uppercase']) !!}
+                {!! Form::select('status', ['' => 'Pilih Status Relawan','kecamatan' => 'Kecamatan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
+                </div>
         </div>
+    @elseif(Auth::user()->relawan->status == 'kecamatan')
+        <div class="col-13">
+            <!-- Status Field -->
+                <div class="form-group">
+                {!! Form::label('status', 'Status',['class'=>' text-uppercase']) !!}
+                {!! Form::select('status', ['' => 'Pilih Status Relawan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
+                </div>
+        </div>
+    @elseif(Auth::user()->relawan->status == 'kel/desa')
+        {!! Form::hidden('status',auth()->user()->relawan->status, ['class' => 'form-control']) !!}
+    @else
+        {{-- untuk admin-kandidat --}}
+        <div class="col-13">
+            <!-- Status Field -->
+                <div class="form-group">
+                {!! Form::label('status', 'Status',['class'=>' text-uppercase']) !!}
+                {!! Form::select('status', ['' => 'Pilih Status Relawan','kab/kota' => 'Kab/Kota', 'kecamatan' => 'Kecamatan','kel/desa' => 'Kel/Desa'], null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','wire:model'=>'selectedStatus']) !!}
+                </div>
+        </div>
+    @endif
     <div class="form-group row">
         <label for="provinsi">Provinsi</label>
         <div class="col-13">
@@ -18,7 +39,7 @@
         </div>
     </div>
 
-@if ($selectedStatus == 'kab/kota'|| $selectedStatus == 'kecamatan'||$selectedStatus == 'kel/desa')
+{{-- @if ($selectedStatus == 'kab/kota'|| $selectedStatus == 'kecamatan'||$selectedStatus == 'kel/desa') --}}
     @if (!is_null($selectedProvinsi))
         <div class="form-group row">
             <label for="id_wilayah">Kab/Kota</label>
@@ -33,10 +54,10 @@
             </div>
         </div>
     @endif
-    @endif
+    {{-- @endif --}}
 
     @if (!is_null($selectedKabkota))
-    @if ($selectedStatus == 'kecamatan'||$selectedStatus == 'kel/desa')
+    {{-- @if ($selectedStatus == 'kecamatan'||$selectedStatus == 'kel/desa') --}}
         <div class="form-group row">
             <label for="id_wilayah">Kecamatan</label>
             <div class="col-13">
@@ -48,11 +69,11 @@
                 </select>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
     @endif
     
     @if (!is_null($selectedKecamatan))
-    @if ($selectedStatus == 'kel/desa')
+    {{-- @if ($selectedStatus == 'kel/desa') --}}
         <div class="form-group row">
             <label for="id_wilayah">Kel/Desa</label>
             <div class="col-13">
@@ -64,6 +85,6 @@
                 </select>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
     @endif 
 </div>

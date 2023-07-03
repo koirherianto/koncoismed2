@@ -14,13 +14,12 @@
                     @if($relawan->status == 'kel/desa')
                         <h6 class="card-subtitle text-muted">{{ isset($relawan->desa->nama)?$relawan->desa->nama:""}}</h6>
                     @elseif($relawan->status == 'kecamatan')
-                        <h6 class="card-subtitle text-muted">{{ isset($relawan->kecamatan->nama)?$relawan->kecamatan->nama:""}}</h6>
+                        <h6 class="card-subtitle text-muted">{{ isset($relawan->desa->kecamatan->nama)?$relawan->desa->kecamatan->nama:""}}</h6>
                     @elseif($relawan->status == 'kab/kota')
-                        <h6 class="card-subtitle text-muted">{{ isset($relawan->kabkota->nama)?$relawan->kabkota->nama:""}}</h6>
+                        <h6 class="card-subtitle text-muted">{{ isset($relawan->desa->kecamatan->kabkota->nama)?$relawan->desa->kecamatan->kabkota->nama:""}}</h6>
                     @else
                         <h6 class="card-subtitle text-muted">{{""}}</h6>
                     @endif
-
                 </div>
                 <div class="text-center">
                     <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-github"><span class=" fa fa-phone"></span></a>
@@ -48,66 +47,23 @@
                 <p class="font-weight-bold">{{ $relawan->status }}</p>
             </div>
 
-            @if ($relawan->status != 'kel/desa')
-                <!-- Desa Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'Desa:') !!}
-                    <p class="font-weight-bold">{{""}}</p>
-                </div>
-            @else
-                <!-- Desa Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'Desa:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->desa->nama)?$relawan->desa->nama:""}}</p>
-                </div>
-            @endif
-            
+            <!-- Desa Field -->
+            <div class="col-xl-3 col-md-6 col-6">
+                {!! Form::label('id_wilayah', 'Desa:') !!}
+                <p class="font-weight-bold">{{ isset($relawan->desa->nama)?$relawan->desa->nama:""}}</p>
+            </div>
         </div>
         <div class="row">
-            @if($relawan->status == 'kel/desa')
-                <!-- Kecamatan Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'Kecamatan:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->nama)?$relawan->desa->kecamatan->nama:""}}</p>
-                </div>
-            @elseif($relawan->status == 'kecamatan')
-                 <!-- Kecamatan Field -->
-                 <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'Kecamatan:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->kecamatan->nama)?$relawan->kecamatan->nama:""}}</p>
-                </div>
-            @else
-                <!-- Kecamatan Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'Kecamatan:') !!}
-                    <p class="font-weight-bold">{{""}}</p>
-                </div>
-            @endif
-            @if($relawan->status == 'kel/desa')
-                <!-- kabkota Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'kabkota:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->kabkota->nama)?$relawan->desa->kecamatan->kabkota->nama:""}}</p>
-                </div>
-            @elseif($relawan->status == 'kecamatan')
-                <!-- kabkota Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'kabkota:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->kecamatan->kabkota->nama)?$relawan->kecamatan->kabkota->nama:""}}</p>
-                </div>  
-            @elseif($relawan->status == 'kab/kota')
-                <!-- kabkota Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'kabkota:') !!}
-                    <p class="font-weight-bold">{{ isset($relawan->kabkota->nama)?$relawan->kabkota->nama:""}}</p>
-                </div>
-            @else
-                <!-- kabkota Field -->
-                <div class="col-xl-3 col-md-6 col-6">
-                    {!! Form::label('id_wilayah', 'kabkota:') !!}
-                    <p class="font-weight-bold">{{""}}</p>
-                </div>
-            @endif
+            <!-- Kecamatan Field -->
+            <div class="col-xl-3 col-md-6 col-6">
+                {!! Form::label('id_wilayah', 'Kecamatan:') !!}
+                <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->nama)?$relawan->desa->kecamatan->nama:""}}</p>
+            </div>
+            <!-- kabkota Field -->
+            <div class="col-xl-3 col-md-6 col-6">
+                {!! Form::label('id_wilayah', 'kabkota:') !!}
+                <p class="font-weight-bold">{{ isset($relawan->desa->kecamatan->kabkota->nama)?$relawan->desa->kecamatan->kabkota->nama:""}}</p>
+            </div>
             <!-- No KTA Field -->
             <div class="col-xl-3 col-md-6 col-6">
                 {!! Form::label('no_kta', 'No KTA:') !!}
