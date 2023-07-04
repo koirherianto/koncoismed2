@@ -1629,13 +1629,13 @@ class HomeController extends Controller
             ->get();
 
             $areaChart30 = DB::table('pendukung')
-            ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+            ->select(DB::raw('count(*) as total, DATE(created_at) as tanggal'))
             ->where('relawan_id',$idRelawan)
             ->where('created_at', '>', now()->subDays(30)->endOfDay())
-            ->groupBy('created_at')
+            ->groupBy('tanggal')
             ->get();
 
-            //return $areaChart30;
+           // return $areaChart30;
 
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
             ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
