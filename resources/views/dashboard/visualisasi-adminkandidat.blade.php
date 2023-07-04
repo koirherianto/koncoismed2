@@ -329,24 +329,22 @@
                             </tr>
                         </thead>
                         <tbody> 
-                                <tr>
-                                    @foreach($sebaranWilayahP as $data)
-                                    <td>{{$data->id_wilayah}}</td>
-                                    <td>{{$data->total}}</td>
-                                    @endforeach
-                                    @foreach($sebaranWilayahL as $item)
-                                    <td>{{$item->total}}</td>
-                                    @endforeach
-                                    @foreach($sebaranWilayahTotal as $data)
-                                    <td>{{$data->total}}</td>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    <th>TOTAL</th>
-                                    <th>461.767</th>
-                                    <th>4.277</th>
-                                    <th>34.6276</th>
-                                </tr>
+                            @foreach($sebaranWilayah as $data)
+                            <tr>
+                                <td>{{$data->id_wilayah}}</td>
+                                <td>{{$data->Perempuan}}</td>
+                                <td>{{$data->Lakilaki}}</td>
+                                <td>{{$data->total}}</td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                            @foreach($sebaranWilayahTotal as $data)
+                                <th>TOTAL</th>
+                                <th>{{$data->Perempuan}}</th>
+                                <th>{{$data->Lakilaki}}</th>
+                                <th>{{$data->total}}</th>
+                            @endforeach
+                            </tr>
                         </tbody>
                     <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
                 </div>
