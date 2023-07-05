@@ -2201,11 +2201,11 @@ class HomeController extends Controller
             $winRate = $totalPendukungAll/$targetDukungan*100;
 
             //monitoring wilayah pendukung
-            $monitoringWilayahPendukung = DB::table('pendukung')
+            $monitoringWilayah = DB::table('pendukung')
             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->where('pendukung.kandidat_id', $idKandidat)
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
-            ->groupBy('pendukung.id_wilayah')
+            ->select(DB::raw('count(pendukung.id) as total_pendukung, desa.nama as id_wilayah'))
+            ->groupBy('id_wilayah')
             ->orderBy('id_wilayah','desc')
             ->get();
 
@@ -2298,7 +2298,7 @@ class HomeController extends Controller
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung','sebaranWilayah','sebaranWilayahTotal'
+            ,'monitoringWilayah','sebaranWilayah','sebaranWilayahTotal'
             ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'
             ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
         }
