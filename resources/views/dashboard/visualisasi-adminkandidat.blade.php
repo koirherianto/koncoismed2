@@ -246,28 +246,24 @@
                                 <th class="table-success">Kel/Desa</th>
                                 <th class="table-success">DPT</th>
                                 <th class="table-success">TPS</th>
+                                {{-- <th class="table-success">Relawan</th> --}}
                                 <th class="table-success">Dukungan</th>
-                                <th class="table-success">Relawan</th>
                             </tr>
                         </thead>
                         <tbody> 
-                            @foreach($monitoringWilayahPendukung as $data)
+                            @foreach($monitoringWilayah as $data)
                             <tr> 
                                 <td>{{$data->id_wilayah}}</td>
                                 <td>12.394</td>
                                 <td>379</td>
-                                <td>{{$data->total}}</td>
-                            @foreach($monitoringWilayahRelawan as $item)
-                                <td>{{$item->total}}</td>
-                            @endforeach
-                            @endforeach
+                                <td>{{$data->total_pendukung}}</td>
                             </tr>
+                            @endforeach
                                 <tr>
                                     <th>TOTAL</th>
                                     <th>461.767</th>
                                     <th>4.277</th>
                                     <th>34.6276</th>
-                                    <th>374</th>
                                 </tr>
                         </tbody>
                     <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
