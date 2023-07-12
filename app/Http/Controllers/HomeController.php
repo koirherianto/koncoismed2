@@ -507,47 +507,39 @@ class HomeController extends Controller
 
             $winRate = $totalPendukungAll/$targetDukungan->target_pendukung*100;
 
-            //monitoring wilayah pendukung
-            $monitoringWilayahPendukung = DB::table('pendukung')
-            ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
-            ->groupBy('pendukung.id_wilayah')
-            ->orderBy('id_wilayah','desc')
-            ->get();
-
-            //monitoring wilayah relawan
-            $monitoringWilayahRelawan = DB::table('relawan')
-            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
-            ->groupBy('relawan.id_wilayah')
-            ->orderBy('id_wilayah','desc')
-            ->get();
-
-            //sebaran wilayah relawan dengan informasi gender P
-             $sebaranWilayahP = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('jenis_kelamin', '=', 'Perempuan')
+             //monitoring wilayah pendukung
+             $monitoringWilayah = DB::table('pendukung')
+             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
+             ->select(DB::raw('count(pendukung.id) as total_pendukung, desa.nama as id_wilayah'))
              ->groupBy('id_wilayah')
              ->orderBy('id_wilayah','desc')
              ->get();
-            
-             //sebaran wilayah relawan dengan informasi gender L
-             $sebaranWilayahL = DB::table('relawan')
+ 
+             //monitoring wilayah relawan
+             $monitoringWilayahRelawan = DB::table('relawan')
              ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('jenis_kelamin', '=', 'Laki-laki')
+             ->select(DB::raw('count(*) as total_relawan , desa.nama as id_wilayah'))
+             ->groupBy('relawan.id_wilayah')
              ->orderBy('id_wilayah','desc')
              ->get();
-
-             //sebaran wilayah total 1
-             $sebaranWilayahTotal = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->groupBy('id_wilayah')
-             ->orderBy('id_wilayah','desc')
-             ->get();
-
+ 
+             //sebaran wilayah relawan dengan informasi
+              $sebaranWilayah = DB::table('relawan')
+              ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+              ->select(DB::raw('count(*) as total, desa.nama as id_wilayah, jenis_kelamin'))
+              ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+               COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki", 
+               COUNT(*) as total, desa.nama as id_wilayah'))
+              ->groupBy('id_wilayah')
+              ->orderBy('id_wilayah','desc')
+              ->get();
+ 
+              //sebaran wilayah relawan total
+              $sebaranWilayahTotal = DB::table('relawan')
+              ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+              COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki",
+              COUNT(*) as total'))
+              ->get();
 
             //Kinerja relawan perhari
             $tanggalPertama = DB::table('pendukung')
@@ -611,7 +603,7 @@ class HomeController extends Controller
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
+            ,'monitoringWilayah','sebaranWilayah','sebaranWilayahTotal','sebaranWilayahTotal'
             ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'
             ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
      
@@ -1164,11 +1156,11 @@ class HomeController extends Controller
             $winRate = $totalPendukungAll/$targetDukunganKandidat*100;
 
             //monitoring wilayah pendukung
-            $monitoringWilayahPendukung = DB::table('pendukung')
+            $monitoringWilayah = DB::table('pendukung')
             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->where('pendukung.kandidat_id', $idKandidat)
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
-            ->groupBy('pendukung.id_wilayah')
+            ->select(DB::raw('count(pendukung.id) as total_pendukung, desa.nama as id_wilayah'))
+            ->groupBy('id_wilayah')
             ->orderBy('id_wilayah','desc')
             ->get();
 
@@ -1176,39 +1168,30 @@ class HomeController extends Controller
             $monitoringWilayahRelawan = DB::table('relawan')
             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
             ->where('relawan.kandidat_id', $idKandidat)
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
+            ->select(DB::raw('count(*) as total_relawan , desa.nama as id_wilayah'))
             ->groupBy('relawan.id_wilayah')
             ->orderBy('id_wilayah','desc')
             ->get();
 
-            //sebaran wilayah relawan dengan informasi gender P
-             $sebaranWilayahP = DB::table('relawan')
+            //sebaran wilayah relawan dengan informasi
+             $sebaranWilayah = DB::table('relawan')
              ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah, jenis_kelamin'))
+             ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+              COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki", 
+              COUNT(*) as total, desa.nama as id_wilayah'))
              ->where('kandidat_id',$idKandidat)
-             ->where('jenis_kelamin', '=', 'Perempuan')
              ->groupBy('id_wilayah')
              ->orderBy('id_wilayah','desc')
              ->get();
-            
-             //sebaran wilayah relawan dengan informasi gender L
-             $sebaranWilayahL = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('kandidat_id',$idKandidat)
-             ->where('jenis_kelamin', '=', 'Laki-laki')
-             ->orderBy('id_wilayah','desc')
-             ->get();
 
-             //sebaran wilayah total 1
+             //sebaran wilayah relawan total
              $sebaranWilayahTotal = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
+             ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+             COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki",
+             COUNT(*) as total'))
              ->where('kandidat_id',$idKandidat)
-             ->groupBy('id_wilayah')
-             ->orderBy('id_wilayah','desc')
              ->get();
-
 
             //Kinerja relawan perhari
             $tanggalPertama = Dpt::where('kandidat_id', Auth::user()->kandidat->id)
@@ -1269,10 +1252,9 @@ class HomeController extends Controller
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
-            ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
-            ,'ketUmurRelawanL','ketUmurDptL','rataRataPerHari','rataRataPerMinggu','rataRataPerBulan'
-            ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
+            ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan','sebaranWilayahTotal'
+            ,'monitoringWilayah','sebaranWilayah','ketUmurRelawanL','ketUmurDptL','rataRataPerHari'
+            ,'rataRataPerMinggu','rataRataPerBulan','totalPendukungAll','selisihTargetPendukung','areaChart30'));
         }
         else{ 
                 //dashboard milik relawan
@@ -1639,13 +1621,13 @@ class HomeController extends Controller
             ->get();
 
             $areaChart30 = DB::table('pendukung')
-            ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
+            ->select(DB::raw('count(*) as total, DATE(created_at) as tanggal'))
             ->where('relawan_id',$idRelawan)
             ->where('created_at', '>', now()->subDays(30)->endOfDay())
-            ->groupBy('created_at')
+            ->groupBy('tanggal')
             ->get();
 
-            //return $areaChart30;
+           // return $areaChart30;
 
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt','pieChartDptA'
             ,'agamaDpt','pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','relawanNow'
@@ -2211,11 +2193,11 @@ class HomeController extends Controller
             $winRate = $totalPendukungAll/$targetDukungan*100;
 
             //monitoring wilayah pendukung
-            $monitoringWilayahPendukung = DB::table('pendukung')
+            $monitoringWilayah = DB::table('pendukung')
             ->join('desa', 'pendukung.id_wilayah', '=', 'desa.id')
             ->where('pendukung.kandidat_id', $idKandidat)
-            ->select(DB::raw('count(*) as total , desa.nama as id_wilayah'))
-            ->groupBy('pendukung.id_wilayah')
+            ->select(DB::raw('count(pendukung.id) as total_pendukung, desa.nama as id_wilayah'))
+            ->groupBy('id_wilayah')
             ->orderBy('id_wilayah','desc')
             ->get();
 
@@ -2228,34 +2210,25 @@ class HomeController extends Controller
             ->orderBy('id_wilayah','desc')
             ->get();
 
-            //sebaran wilayah relawan dengan informasi gender P
-             $sebaranWilayahP = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('kandidat_id',$idKandidat)
-             ->where('jenis_kelamin', '=', 'Perempuan')
-             ->groupBy('id_wilayah')
-             ->orderBy('id_wilayah','desc')
-             ->get();
-            
-             //sebaran wilayah relawan dengan informasi gender L
-             $sebaranWilayahL = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('kandidat_id',$idKandidat)
-             ->where('jenis_kelamin', '=', 'Laki-laki')
-             ->groupBy('id_wilayah')
-             ->orderBy('id_wilayah','desc')
-             ->get();
-             
-             //sebaran wilayah total 1
-             $sebaranWilayahTotal = DB::table('relawan')
-             ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
-             ->select(DB::raw('count(*) as total, desa.nama as id_wilayah'))
-             ->where('kandidat_id',$idKandidat)
-             ->groupBy('id_wilayah')
-             ->orderBy('id_wilayah','desc')
-             ->get();
+            //sebaran wilayah relawan dengan informasi
+            $sebaranWilayah = DB::table('relawan')
+            ->join('desa', 'relawan.id_wilayah', '=', 'desa.id')
+            ->select(DB::raw('count(*) as total, desa.nama as id_wilayah, jenis_kelamin'))
+            ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+             COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki", 
+             COUNT(*) as total, desa.nama as id_wilayah'))
+            ->where('kandidat_id',$idKandidat)
+            ->groupBy('id_wilayah')
+            ->orderBy('id_wilayah','desc')
+            ->get();
+
+            //sebaran wilayah relawan total
+            $sebaranWilayahTotal = DB::table('relawan')
+            ->select(DB::raw('COUNT(CASE WHEN jenis_kelamin = 1 THEN 1 ELSE NULL END) as "Perempuan",
+            COUNT(CASE WHEN jenis_kelamin <> 1 THEN 1 ELSE NULL END) as "Lakilaki",
+            COUNT(*) as total'))
+            ->where('kandidat_id',$idKandidat)
+            ->get();
 
              //Kinerja relawan perhari
             $tanggalPertama = Dpt::where('kandidat_id', $idKandidat)
@@ -2301,14 +2274,6 @@ class HomeController extends Controller
 
             $selisihTargetPendukung = 100 - $winRate;
 
-             //chart dukungan 30 hari
-            //  $areaChart30 = DB::table('pendukung')
-            //  ->select(DB::raw('count(*) as total, DATE(created_at) as created_at'))
-            //  ->where('kandidat_id',$idKandidat)
-            //  ->where('created_at', '>', now()->subDays(30)->endOfDay())
-            //  ->groupBy('created_at')
-            //  ->get();
-
             $areaChart30 = DB::table('pendukung')
             ->select(DB::raw('DATE(created_at) as created_date, COUNT(*) as total'))
             ->where('kandidat_id', $idKandidat)
@@ -2325,7 +2290,7 @@ class HomeController extends Controller
             ,'barChartRelawanDesa','dptNow','relawanNow','pieChartDptJenisKelamin', 'ketUmurRelawanP'
             , 'ketUmurDptP','totalRelawanPerempuan','totalRelawanLakilaki','totalPendukungPerempuan'
             ,'totalPendukungLakilaki','targetDukungan','winRate','monitoringWilayahRelawan'
-            ,'monitoringWilayahPendukung','sebaranWilayahP','sebaranWilayahL','sebaranWilayahTotal'
+            ,'monitoringWilayah','sebaranWilayah','sebaranWilayahTotal'
             ,'ketUmurRelawanL','ketUmurDptL','rataRataPerMinggu','rataRataPerHari','rataRataPerBulan'
             ,'totalPendukungAll','selisihTargetPendukung','areaChart30'));
         }

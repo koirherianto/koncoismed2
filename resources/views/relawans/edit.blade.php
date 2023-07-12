@@ -8,11 +8,11 @@
                     <div class="card overflow-hidden">
                         <div class="card-content">
                             <div class="media align-items-stretch">
-                                <div class="bg-indigo p-2 media-middle">
+                                <div class="bg-amber p-2 media-middle">
                                     <i class="fa fa-pencil-square font-large-2 text-white"></i>
                                 </div>
                                 <div class="media-body p-1">
-                                    <span class="indigo font-medium-5">Perubahan Relawan</span><br>
+                                    <span class="amber font-medium-5">Perubahan Relawan</span><br>
                                     <span style="margin-top: -5px">Melakukan Perubahan Relawan </span>
                                 </div>
                             </div>
@@ -26,10 +26,10 @@
                             <div class="card-body">
                                 {!! Form::model($relawan, ['route' => ['relawans.update', $relawan->id], 'method' => 'patch']) !!}
                                 <div class="form-body">
-                                    @include('relawans.fields')
+                                    @include('relawans.fields-edit')
                                     <div class="form-actions center">
-                                        <a href="{{ route('relawans.index') }}" class="btn btn-default">Batal</a>
-                                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                        <a href="{{ route('relawans.index') }}" class="btn btn-red">Batal</a>
+                                        {!! Form::submit('Simpan', ['class' => 'btn btn-green']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

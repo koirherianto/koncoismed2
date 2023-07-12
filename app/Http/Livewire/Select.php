@@ -7,6 +7,7 @@ use App\Models\Kabkota;
 use App\Models\Provinsi;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use Auth;
   
 class Select extends Component
 {
@@ -27,11 +28,19 @@ class Select extends Component
      * @return response()
      */
     public function mount()
-    {
-        $this->provinsis = Provinsi::all();
-        $this->kabkotas = collect();
-        $this->kecamatans = collect();
-        $this->desas = collect();
+    {   
+        if(Auth::user()->relawan->status == 'kab/kota'){
+            $this->kecamatans = Kecamatan::where('kabkota_id', Auth::user()->relawan->desa->kecamatan->kabkota->id)->get();
+            $this->desas = collect();
+        }elseif (Auth::user()->relawan->status == 'kecamatan') {
+            $this->desas = Desa::where('kecamatan_id', Auth::user()->relawan->desa->kecamatan->id)->get();
+        }else{
+            //milik admin-kandidat
+            $this->provinsis = Provinsi::all();
+            $this->kabkotas = collect();
+            $this->kecamatans = collect();
+            $this->desas = collect();
+        }
     }
   
     /**
@@ -59,7 +68,7 @@ class Select extends Component
     }
 
     public function updatedSelectedKabkota($kabkota)
-    {
+    {   
         if (!is_null($kabkota)) {
             $this->kecamatans = Kecamatan::where('kabkota_id', $kabkota)->get();
             $this->selectedDesa = NULL;

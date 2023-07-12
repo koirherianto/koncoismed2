@@ -295,7 +295,7 @@ var chartOptions = {
     var chartData = {
         labels: [
             @foreach($areaChart30 as $data)
-            '{{ $data->created_at}}',
+            '{{ $data->tanggal}}',
             @endforeach
         ],
         datasets: [{
