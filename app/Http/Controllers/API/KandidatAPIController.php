@@ -12,6 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\JenisKandidat;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class KandidatAPIController
@@ -131,5 +132,33 @@ class KandidatAPIController extends AppBaseController
         $kandidat->delete();
 
         return $this->sendSuccess('Kandidat deleted successfully');
+    }
+
+    public function updateKandidatNumber(Request $request): JsonResponse
+    {
+        $kandidat = Auth::user()->relawan->kandidat;
+        if (empty($kandidat)) {
+            return $this->sendError('Kandidat not found');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'jml_tps' => 'required|numeric',
+            'jml_alokasi_kursi' => 'required|numeric',
+            'target_jml_pendukung' => 'required|numeric',
+        ],[]);
+
+        if ($validator->fails()) {
+            $this->response['success'] = false;
+            $this->response['error'] = $validator->errors();
+            return response()->json($this->response, 200);
+        }
+
+        $kandidat->jumlah_tps = $request->jml_tps;
+        $kandidat->alokasi_kursi = $request->jml_alokasi_kursi;
+        $kandidat->target_pendukung = $request->target_jml_pendukung;
+
+        $kandidat->save();
+
+        return $this->sendResponse($kandidat->toArray(), 'Kandidat updated successfully');
     }
 }
