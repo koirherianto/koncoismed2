@@ -1152,7 +1152,7 @@ class HomeController extends Controller
              
             $targetDukunganKandidat = Auth::user()->kandidat->target_pendukung;
 
-            $winRate = $totalPendukungAll/$targetDukunganKandidat*100;
+            $winRate = round($totalPendukungAll/$targetDukunganKandidat*100,3);
 
             //monitoring wilayah pendukung
             $monitoringWilayah = DB::table('pendukung')

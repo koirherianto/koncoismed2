@@ -37,7 +37,7 @@
                             <i class="fa fa-trophy white font-large-2 float-left"></i>
                         </div>
                         <div class="media-body white text-right">
-                            <h3 class="white">{{$winRate}}</h3>
+                            <h3 class="white">{{$winRate}}%</h3>
                             <span>Progress Pemenangan</span>
                         </div>
                     </div>
