@@ -34,6 +34,18 @@ class DptMaster extends Model implements FromCollection, WithHeadings, WithMappi
         'updated_at' => 'nullable'
     ];
 
+    public static function countDptMaster()
+    {
+        return self::count();
+    }
+
+    public static function cariNik($nik) : bool
+    {
+        $dpt = self::where('nik', $nik)->first();
+
+        return $dpt ? true : false;
+    }
+    
     public function collection()
     {
         if(Auth::user()->hasRole(['admin-kandidat-free', 'admin-kandidat-premium','super-admin'])){

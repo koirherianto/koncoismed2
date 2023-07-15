@@ -88,8 +88,14 @@ class ChartRelawanApiController extends AppBaseController
         $jumlahPendukung = $countRelawan['jumlahPendukung'] = Dpt::countDukungan();
 
         //win rate
-        $targetDukunganKandidat = Auth::user()->relawan->kandidat->target_pendukung;
-        $countRelawan['targetSuara'] = $jumlahPendukung/$targetDukunganKandidat*100;
+        $targetDukunganKandidat = Auth::user()->relawan->kandidat->target_pendukung ?? 1;
+        $countRelawan['progressTargetDukungan'] = $jumlahPendukung/$targetDukunganKandidat*100;
+        //jumlah jumlah pendukung
+        $countRelawan['targetJmlPendukung'] = $targetDukunganKandidat;
+        //jumlah tps
+        $countRelawan['jmlTps'] = Auth::user()->relawan->kandidat->jumlah_tps ?? 0;
+        //jumlah alokasi kursi
+        $countRelawan['jmlAlokasiKursi'] = Auth::user()->relawan->kandidat->alokasi_kursi ?? 0;
 
         //kinerja relawan perhari
         $countRelawan['kinerjaRelawanHarian'] = Dpt::kinerjaRelawanPerhari();
@@ -439,6 +445,7 @@ class ChartRelawanApiController extends AppBaseController
 
         if (empty($chartWilayahRelawan)) {
             $this->response['success'] = false;
+            $this->response['message'] = 'Data Wilayah Gender Relawan Kosong';
             return response()->json($this->response, 200);
         }
 

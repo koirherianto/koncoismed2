@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateSukuAPIRequest;
 use App\Http\Requests\API\UpdateSukuAPIRequest;
 use App\Models\Suku;
+use App\Models\JenisKandidat;
 use App\Repositories\SukuRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,4 +37,10 @@ class SukuAPIController extends AppBaseController
 
         return $this->sendResponse($sukus->toArray(), 'Sukus retrieved successfully');
     }
+
+    public function getJenisKandidats() : JsonResponse {
+        $JenisKandidat = JenisKandidat::all();
+        return $this->sendResponse($JenisKandidat, 'Jenis Kandidat retrieved successfully');
+    }
+
 }

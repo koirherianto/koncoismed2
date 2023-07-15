@@ -41,8 +41,8 @@ class DptFactory extends Factory
             'alamat' => $this->faker->address(),
             'keterangan' => $this->faker->text(),
             'suku_id' => $suku,
-            'id_wilayah' => Relawan::find(1585)->id_wilayah,
-            'relawan_id' => 1585,
+            'id_wilayah' => Relawan::find(1913)->id_wilayah,
+            'relawan_id' => 1913,
             'kandidat_id' => 44,
         ];
     }

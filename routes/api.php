@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('auth/updatePassword', [AuthApiController::class, 'updatePassword']);
     Route::put('auth/update/{user:id}', [AuthApiController::class, 'update']);
     
+    Route::put('kandidats/updateNumber', [KandidatAPIController::class, 'updateKandidatNumber']);
 
     // Route::post('kandidats/iskandidatexis', [KandidatAPIController::class, 'isKandidatExis']);
     // Route::post('kandidats/getsetkandidat', [KandidatAPIController::class, 'getSetKandidat']);
@@ -78,7 +79,7 @@ Route::post('wilayah/detail', [WilayahAPIController::class, 'detailWilayahById']
 
 Route::resource('agamas', App\Http\Controllers\API\AgamaAPIController::class)
     ->except(['create', 'edit']);
-
+Route::get('jeniskandidats', [App\Http\Controllers\API\SukuAPIController::class, 'getJenisKandidats']);
 Route::resource('sukus', App\Http\Controllers\API\SukuAPIController::class)
     ->except(['create', 'edit']);
 

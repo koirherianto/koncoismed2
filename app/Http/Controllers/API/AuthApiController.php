@@ -104,6 +104,9 @@ class AuthApiController extends AppBaseController
                 'users_id' => $user->id,
                 "jenis_kandidat_id" => $request->jenis_kandidat_id,
                 "id_wilayah" => $request->id_wilayah,
+                'target_pendukung' => 200,
+                'jumlah_tps' => 100,
+                'alokasi_kursi' => 15,
             ]);
 
             $relawan = Relawan::create([
@@ -288,9 +291,11 @@ class AuthApiController extends AppBaseController
             return response()->json($this->response,200);
         }
 
-        //bcrypt
-
         $user->update($request->post());
+
+        $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+        $user['relawan_id'] = $dataRelawans->id;
+        $user['url_profil'] = $dataRelawans->getFirstMediaUrl();
 
         $this->response['status'] = 'success';
         $this->response['data'] = $user;

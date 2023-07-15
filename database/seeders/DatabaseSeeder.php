@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Dpt::factory(1)->create();
+        // \App\Models\Dpt::factory(10)->create();
+        \App\Models\Relawan::factory(1)->create();
     }
 }
