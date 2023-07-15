@@ -596,7 +596,6 @@ class HomeController extends Controller
 
             //scaterplot usia dan jumlah relawan
             
-
             return view('dashboard.home', compact('jumlah_relawan', 'jumlah_dpt'
             ,'barChartDptSuku','pieChartDptAgama','time_series_dpt','barChartDptIdWilayah','mostDpt'
             ,'pieChartRelawanJenisKelamin','pieChartRelawanStatusPerkawinan','barChartRelawanKecamatan'

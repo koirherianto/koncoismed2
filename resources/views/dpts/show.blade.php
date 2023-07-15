@@ -8,7 +8,7 @@
 			<div class="card">
                 <div class="border-left-green border-left-6 box-shadow-1 rounded">
 				<div class="card-header">
-					<h4 class="card-title">Detail Informasi DPT</h4>
+					<h4 class="card-title">Detail Informasi Pendukung</h4>
 					<a class="heading-elements-toggle"><i class="ft-ellipsis-h font-medium-3"></i></a>
         			{{-- <div class="heading-elements">
 						<ul class="list-inline mb-0">
