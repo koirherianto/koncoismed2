@@ -36,11 +36,11 @@ class RelawanController extends AppBaseController
         $relawans=[];
         $dataRelawanRelawan=[];
         if (Auth::user()->hasRole('super-admin')) {
-            $relawans = $this->relawanRepository->paginate(10); 
+            $relawans = $this->relawanRepository->all(); 
         }
         //admin-kandidat
         else if(Auth::user()->hasAnyRole(['admin-kandidat-free', 'admin-kandidat-premium'])){
-            $relawans = Relawan::where('kandidat_id',Auth::user()->kandidat->id)->paginate(10);
+            $relawans = Relawan::where('kandidat_id',Auth::user()->kandidat->id)->get();
         }else{
             $dataRelawanRelawan = Relawan::where('id',Auth::user()->relawan->id)->with('relawans')->first();
             // return $dataRelawanRelawan;

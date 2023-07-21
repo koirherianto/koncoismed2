@@ -20,11 +20,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @role('super-admin')
+                                    {{-- @role('super-admin') --}}
                                     <div class="col-3 text-right">
                                         <a href="{!! route('users.create') !!}" class="btn btn-sm btn-green"><i class="fa fa-plus-circle"></i> Tambah Pengelola</a>
                                     </div>
-                                    @endrole
+                                    {{-- @endrole --}}
                                 </div>
                                 @include('users.table')
                             </div>

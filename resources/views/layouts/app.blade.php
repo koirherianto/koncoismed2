@@ -30,6 +30,11 @@
         <link rel="stylesheet" href="{{asset('master/assets/js/leaflet/MarkerCluster.Default.css')}}"/>
         <script src="{{asset('master/assets/js/leaflet/leaflet.markercluster.js')}}"></script>
 
+        {{-- table relawan --}}
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
+
         @include('layouts.css')
         @yield('css')
         @livewireStyles
@@ -49,10 +54,14 @@
                 @yield('content')      
             </div>
         </div>
+        <script>
+            new DataTable('#example');
+        </script>
         @livewireScripts
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
         @include('layouts.js')
         @yield('scripts')
         @stack('scripts') 
+       
     </body>
 </html>
