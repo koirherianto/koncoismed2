@@ -19,5 +19,5 @@
 <!-- Id Wilayah Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('id_wilayah', 'Id Wilayah:') !!}
-    {!! Form::number('id_wilayah', null, ['class' => 'form-control border-light-green border-darken-4', 'required']) !!}
+    {!! Form::number('id_wilayah', null, ['class' => 'form-control border-light-green border-darken-4']) !!}
 </div>

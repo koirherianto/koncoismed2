@@ -28,7 +28,7 @@ class DptMaster extends Model implements FromCollection, WithHeadings, WithMappi
     public static $rules = [
         'nik' => 'required|string|max:45',
         'nama' => 'required|string|max:225',
-        'tps' => 'required|string|max:45',
+        'tps' => 'nullable',
         'id_wilayah' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'

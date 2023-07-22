@@ -50,7 +50,7 @@ class DptMasterController extends AppBaseController
 
         $dptMaster = $this->dptMasterRepository->create($input);
 
-        Flash::success('Dpt Master saved successfully.');
+        Flash::success('data DPT berhasil ditambahkan.');
 
         return redirect(route('dpt-masters.index'));
     }
