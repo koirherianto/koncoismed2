@@ -7,7 +7,7 @@ use Hamcrest\Core\IsNull;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Flash;
+use Flash;
 
 use function PHPUnit\Framework\isNull;
 use App\Repositories\FeedbackRepository;
@@ -39,7 +39,7 @@ class FeedbackController extends Controller
             $feedbackAbility = false;
         }else{
             $feedbackAbility = true;
-            Flash::success('Feedback saved successfully.');
+
             return view('feedbacks.index',[
                 'feedbackAbility' => $feedbackAbility
             ]);
