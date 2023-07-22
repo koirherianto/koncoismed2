@@ -21,8 +21,8 @@ class DptMastersImport implements ToCollection
         foreach ($rows as $row) 
             {
                 $dpt = DptMaster::create([
-                    'nik' => $row[0],
-                    'nama'  => $row[1],
+                    'nama' => $row[0],
+                    'nik'  => $row[1],
                     'tps'   => $row[2]
                 ]);
             }
