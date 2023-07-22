@@ -215,7 +215,7 @@ class KandidatController extends AppBaseController
 
         $kandidat = $this->kandidatRepository->update($request->all(), $id);
 
-        Flash::success('Kandidat updated successfully.');
+        Flash::success('Data Kandidat berhasil diubah.');
 
         return redirect(route('kandidats.index'));
     }

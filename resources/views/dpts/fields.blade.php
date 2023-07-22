@@ -46,7 +46,7 @@
     <!-- Kontak Field -->
     <div class="form-group col-sm-3">
         {!! Form::label('kontak', 'No Telepon:') !!}
-        {!! Form::text('kontak', null, ['class' => 'form-control border-light-green border-darken-4 round']) !!}
+        {!! Form::text('kontak', null, ['class' => 'form-control border-light-green border-darken-4 round','placeholder'=>'62xxxxxxxxxxx']) !!}
     </div>
 </div>
 <div class="row">

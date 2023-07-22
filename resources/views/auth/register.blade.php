@@ -195,7 +195,7 @@
                   @enderror
                   <div class="section-field mb-20 col-sm-6">
                     {{-- <label class="mb-10" for="contact">Nomor Telepon</label> --}}
-                      <input id="contact" class="form-control @error('contact') is-invalid @enderror" type="text" placeholder="No Telepon 08xxxxxxx" name="contact"value="{{ old('contact') }}">
+                      <input id="contact" class="form-control @error('contact') is-invalid @enderror" type="text" placeholder="No Telepon 62xxxxxxxxxxx" name="contact"value="{{ old('contact') }}">
                    </div>
                 </div>
                  <div class="row">

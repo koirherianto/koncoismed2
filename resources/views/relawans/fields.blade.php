@@ -14,7 +14,7 @@
                     <!-- No HP Field -->
                     <div class="form-group">
                         {!! Form::label('contact', 'No HP Aktif',['class'=>' text-uppercase']) !!}
-                        {!! Form::text('contact', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off']) !!}
+                        {!! Form::text('contact', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6 text-bold-600 black font-medium-2','autocomplete'=>'off','placeholder'=>'62xxxxxxxxxx']) !!}
                     </div>
                 </div>
             </div>

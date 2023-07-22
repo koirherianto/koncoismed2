@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
-                <div class="border-left-amber border-left-6 box-shadow-1 rounded">
+                <div class="border-left-green border-left-6 box-shadow-1 rounded">
 				<div class="card-header">
 					<h4 class="card-title">Detail Informasi Person</h4>
 					<a class="heading-elements-toggle"><i class="ft-ellipsis-h font-medium-3"></i></a>

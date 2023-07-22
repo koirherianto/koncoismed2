@@ -49,7 +49,7 @@
     <!-- Kontak Field -->
     <div class="form-group col-sm-6">
         {!! Form::label('kontak', 'Kontak:') !!}
-        {!! Form::text('kontak', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6']) !!}
+        {!! Form::text('kontak', null, ['class' => 'form-control border-light-green border-darken-4 border-left-6','placeholder'=>'62xxxxxxxxxxx']]) !!}
     </div>
 </div>
 <div class="row">
