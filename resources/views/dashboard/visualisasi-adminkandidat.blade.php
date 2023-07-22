@@ -236,10 +236,11 @@
                 </div>
             </div>
             <div class="card-content">
-                <div class="card-body">
+                {{-- <div class="card-body">
                     <p>Informasi mengenai wilayah<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
-                </div>
+                </div> --}}
                 <div class="table-responsive">
+                    <div id="audience-list-scroll" class="table-responsive height-300 position-relative">
                     <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
                         <thead>
                             <tr>
@@ -266,7 +267,16 @@
                                     <th>34.6276</th>
                                 </tr>
                         </tbody>
-                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+                        <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
+                        </div>
+                    </div>
+                    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;">
+                        <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;">
+                        </div>
+                    </div>
+                </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -311,10 +321,8 @@
                 </div>
             </div>
             <div class="card-content">
-                <div class="card-body">
-                    <p>Informasi mengenai relawan<span class="float-right"><a href="project-summary.html" target="_blank">Lihat detail <i class="ft-arrow-right"></i></a></span></p>
-                </div>
                 <div class="table-responsive">
+                    <div id="audience-list-scroll" class="table-responsive height-300 position-relative">
                     <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default" data-ps-id="1fb96c43-ff76-b93b-daf8-539428da8ba6">
                         <thead>
                             <tr>
@@ -342,7 +350,9 @@
                             @endforeach
                             </tr>
                         </tbody>
-                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></table>
+                    </div>
+                </table>
+                    </div>
                 </div>
             </div>
         </div>
