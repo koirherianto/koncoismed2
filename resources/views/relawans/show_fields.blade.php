@@ -22,9 +22,9 @@
                     @endif
                 </div>
                 <div class="text-center">
-                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-github"><span class=" fa fa-phone"></span></a>
-                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-twitter"><span class="fa fa-envelope font-medium-4"></span></a>
-                    <a href="#" class="btn btn-social-icon mb-1 btn-outline-google"><span class="fa fa-map-marker"></span></a>
+                    <a href="https://wa.me/{{ $relawan->users->contact }}" class="btn btn-social-icon mr-1 mb-1 btn-outline-green"><span class=" fa fa-phone"></span></a>
+                    <a href="mailto:{{ $relawan->users->email }}" class="btn btn-social-icon mr-1 mb-1 btn-outline-red"><span class="fa fa-envelope font-medium-4"></span></a>
+                    <a href="https://www.google.com/maps/@ {{ $relawan->desa->latitude }},{{ $relawan->desa->longitude }},15z" class="btn btn-social-icon mb-1 btn-outline-blue"><span class="fa fa-map-marker"></span></a>
                 </div>
             </div>
         </div>
