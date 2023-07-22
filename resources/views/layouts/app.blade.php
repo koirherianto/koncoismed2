@@ -57,6 +57,9 @@
         <script>
             new DataTable('#example');
         </script>
+        <script>
+            new DataTable('#pendukung');
+        </script>
         @livewireScripts
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
         @include('layouts.js')
