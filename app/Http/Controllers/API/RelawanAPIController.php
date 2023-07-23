@@ -38,10 +38,11 @@ class RelawanAPIController extends AppBaseController
         return $this->sendResponse($dataRelawanRelawan, 'Relawan saved successfully');
     }
 
+    
     public function index(Request $request)
     {
         $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
-        $dataRelawans =  $dataRelawans->relawans;
+        $dataRelawans = $dataRelawans->relawans;
 
         foreach ($dataRelawans as $relawan) {
             // return $relawan->id_wilayah;
@@ -49,6 +50,19 @@ class RelawanAPIController extends AppBaseController
             $relawan['wilayah'] = $this->wilayahById((int)$relawan->id_wilayah);
         }
         return $this->sendResponse($dataRelawans, 'Relawan saved successfully');
+    }
+
+    public function infinityRelawan(Request $request, $limit)
+    {
+        $search = $request['search'];
+        $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+
+        $dataRelawans = $dataRelawans->relawans()->take($limit)->get();
+        foreach ($dataRelawans as $relawan) {
+            $relawan['url_profil'] = $relawan->getFirstMediaUrl();
+            $relawan['wilayah'] = $this->wilayahById((int)$relawan->id_wilayah);
+        }
+        return $this->sendResponse($dataRelawans, 'Relawan get Success');
     }
 
     public function store(Request $request)
@@ -168,22 +182,11 @@ class RelawanAPIController extends AppBaseController
     public function updatePass($id,request $request)
     {
         $relawanId = Relawan::find($id)->users_id;
-        $userPassword = user::find($relawanId)->password;
-
-        $hash = Hash::check($request->passwordLama, $userPassword);
-
-        if (!$hash) {
-            $this->response['status'] = 'failed';
-            $this->response['error'] = ['passwordLama' => ['Password Anda Tidak Sesuai']];
-            return response()->json($this->response,200);
-        }
 
         $validator = Validator::make($request->all(), [
-            'passwordLama' => 'required|min:6|max:255',
             'passwordBaru' => 'required|min:6|max:255',
             'passwordConfirm' => 'same:passwordBaru',
         ],[
-            'passwordLama.min' => 'Kata Sandi minimal 6 karakter',
             'passwordBaru.min' => 'Kata Sandi minimal 6 karakter',
             'passwordConfirm.same' => 'Kata sandi tidak cocok'
         ]);
@@ -195,7 +198,7 @@ class RelawanAPIController extends AppBaseController
         }
 
         #Update the new Password
-        $user = User::whereId(auth()->user()->id)->update([
+        $user = User::whereId($relawanId)->update([
             'password' => Hash::make($request->passwordBaru)
         ]);
 
