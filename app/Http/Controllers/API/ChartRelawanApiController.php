@@ -90,20 +90,14 @@ class ChartRelawanApiController extends AppBaseController
         //win rate
         $targetDukunganKandidat = Auth::user()->relawan->kandidat->target_pendukung ?? 1;
         $countRelawan['progressTargetDukungan'] = $jumlahPendukung/$targetDukunganKandidat*100;
-        //jumlah jumlah pendukung
         $countRelawan['targetJmlPendukung'] = $targetDukunganKandidat;
-        //jumlah tps
         $countRelawan['jmlTps'] = Auth::user()->relawan->kandidat->jumlah_tps ?? 0;
-        //jumlah alokasi kursi
         $countRelawan['jmlAlokasiKursi'] = Auth::user()->relawan->kandidat->alokasi_kursi ?? 0;
 
-        //kinerja relawan perhari
         $countRelawan['kinerjaRelawanHarian'] = Dpt::kinerjaRelawanPerhari();
         $countRelawan['kinerjaRelawanHarian'] = number_format($countRelawan['kinerjaRelawanHarian'], 1);
-        //kinerja relawan perminggu
         $countRelawan['kinerjaRelawanMingguan'] = Dpt::kinerjaRelawanPerminggu();
         $countRelawan['kinerjaRelawanMingguan'] = number_format($countRelawan['kinerjaRelawanMingguan'], 1);
-        // kinerja relawan perminggu
         $countRelawan['kinerjaRelawanBulan'] = Dpt::kinerjaRelawanPerbulan();
         $countRelawan['kinerjaRelawanBulan'] = number_format($countRelawan['kinerjaRelawanBulan'], 1);
 

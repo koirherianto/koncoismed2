@@ -304,30 +304,16 @@ class DptAPIController extends AppBaseController
     public function destroy($id): JsonResponse
     {
         $dpt = $this->dptRepository->find($id);
-
-        if (empty($dpt)) {
-            return $this->sendError('Dpt not found');
-        }
-
-        // Menghapus semua gambar dalam kumpulan media "gambar_ktp"
+        if (empty($dpt)) { return $this->sendError('Pendukung not found');}
         $dpt->clearMediaCollection('gambar_ktp');
-
-        // Menghapus semua gambar dalam kumpulan media "gambar_selfie"
         $dpt->clearMediaCollection('gambar_selfie');
-
-        // Menghapus semua gambar dalam kumpulan media "gambar_profil"
         $dpt->clearMediaCollection('gambar_profil');
-
-        $dpt->getMedia()->each(function ($media) {
-            $media->delete();
-        });
-
+        $dpt->getMedia()->each(function ($media) {$media->delete();});
         $deletedData = $dpt;
         $dpt->delete();
         $deletedData->load(['agama','sukus']);
         $deletedData['wilayah'] = $this->wilayahById($deletedData->id_wilayah);
-
-        return $this->sendResponse($deletedData ,'Dpt deleted successfully');
+        return $this->sendResponse($deletedData ,'pendukung deleted successfully');
     }
 
     public function cariNik(Request $request) : JsonResponse {

@@ -61,8 +61,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('relawans/updateimage/{id}', [RelawanAPIController::class, 'updateImage']);
     Route::put('relawanpassword/{id}',[RelawanAPIController::class,"updatePass"]);
-    Route::resource('relawans', RelawanAPIController::class)
-    ->except(['create', 'edit']);
+    Route::post('infinityrelawan/{id}',[RelawanAPIController::class,"infinityRelawan"]);
+    Route::resource('relawans', RelawanAPIController::class)->except(['create', 'edit']);
     
 
     // Route::get('qqq', function() {
