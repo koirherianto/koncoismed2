@@ -55,15 +55,28 @@ class RelawanAPIController extends AppBaseController
     public function infinityRelawan(Request $request, $limit)
     {
         $search = $request['search'];
-        $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+        $dataRelawans = Relawan::where('id', Auth::user()->relawan->id)->first();
 
-        $dataRelawans = $dataRelawans->relawans()->take($limit)->get();
+        if ($search) {
+            $dataRelawans = $dataRelawans->relawans()->where(function ($query) use ($search) {
+                $query->whereHas('users', function ($userQuery) use ($search) {
+                    $userQuery->where('name', 'LIKE', '%' . $search . '%')
+                              ->orWhere('nik', 'LIKE', '%' . $search . '%');
+                });
+            })->get();
+            $dataRelawans = $dataRelawans->take($limit);
+        } else {
+            $dataRelawans = $dataRelawans->relawans()->take($limit)->get();
+        }
+
         foreach ($dataRelawans as $relawan) {
             $relawan['url_profil'] = $relawan->getFirstMediaUrl();
             $relawan['wilayah'] = $this->wilayahById((int)$relawan->id_wilayah);
         }
+
         return $this->sendResponse($dataRelawans, 'Relawan get Success');
     }
+
 
     public function store(Request $request)
     {

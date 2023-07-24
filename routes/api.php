@@ -58,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('dpts', DptAPIController::class)->except(['create', 'edit']);
     Route::post('dpts/carinik', [DptAPIController::class, 'cariNik']);
     Route::post('dpts/updateimage/{id}', [DptAPIController::class, 'updateImage']);
+    Route::post('infinitypendukung', [DptAPIController::class, 'infinityPendukung']);
 
     Route::post('relawans/updateimage/{id}', [RelawanAPIController::class, 'updateImage']);
     Route::put('relawanpassword/{id}',[RelawanAPIController::class,"updatePass"]);
@@ -65,8 +66,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('relawans', RelawanAPIController::class)->except(['create', 'edit']);
     
 
-    // Route::get('qqq', function() {
-    // });
 });
 
 

@@ -79,6 +79,72 @@ class DptAPIController extends AppBaseController
         return $this->sendResponse($dpts, 'Pendukung get successfully');
     }
 
+    public function infinityPendukung(Request $request)
+    {
+        $limit = $request->input('limit', 20);
+        $search = $request->input('search');
+        $dpts = [];
+        $dataRelawanDpt = [];
+
+        if (Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')) {
+            $relawan = Relawan::where('users_id', Auth::user()->id)->first();
+            $dpts = [];
+
+            foreach ($relawan->descendants as $key => $item) {
+                if (!$item->dpts->isEmpty()) {
+                    $dpts[] = $item->dpts;
+                }
+            }
+
+            $tampungData = [];
+            $i = 0;
+
+            foreach ($dpts as $value) {
+                $i = count($value);
+                for ($k = 0; $k < $i; $k++) {
+                    $dptx = $value[$k]->load(['agama', 'sukus']);
+                    $dptx['wilayah'] = $this->wilayahById($dptx->id_wilayah);
+                    $dptx['url_ktp'] = $dptx->getFirstMediaUrl('gambar_ktp');
+                    $dptx['url_selfie'] = $dptx->getFirstMediaUrl('gambar_selfie');
+                    $dptx['url_profil'] = $dptx->getFirstMediaUrl('gambar_profil');
+                    $tampungData[] = $dptx;
+                }
+            }
+
+            // Filter data berdasarkan pencarian
+            $filteredData = collect($tampungData)->filter(function ($item) use ($search) {
+                return str_contains(strtolower($item['nama']), strtolower($search)) || 
+                    str_contains(strtolower($item['nik']), strtolower($search));
+            })->values()->all();
+
+            // Ambil data sesuai dengan batas limit
+            $dpts = array_slice($filteredData, 0, $limit);
+
+            // $dpts = collect($tampungData)->sortByDesc('created_at')->values()->all();
+        } else {
+            $query = Dpt::where('relawan_id', Auth::user()->relawan->id)
+            ->with(['agama', 'sukus'])->orderByDesc('created_at');
+
+            if ($search) {
+                $query->where(function ($innerQuery) use ($search) {
+                    $innerQuery->where('nama', 'LIKE', '%' . $search . '%')
+                        ->orWhere('nik', 'LIKE', '%' . $search . '%');
+                });
+            }
+
+            $dpts = $query->take($limit)->get();
+
+            foreach ($dpts as $dpt) {
+                $dpt['url_ktp'] = $dpt->getFirstMediaUrl('gambar_ktp');
+                $dpt['url_selfie'] = $dpt->getFirstMediaUrl('gambar_selfie');
+                $dpt['url_profil'] = $dpt->getFirstMediaUrl('gambar_profil');
+                $dpt['wilayah'] = $this->wilayahById($dpt->id_wilayah);
+            }
+        }
+
+        return $this->sendResponse($dpts, 'Pendukung get successfully');
+    }
+
 
     private function inArray($tree)
     {
