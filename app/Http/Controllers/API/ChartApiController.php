@@ -184,12 +184,11 @@ class ChartApiController extends AppBaseController
 
     public function getChartSuku()
     {
-        //berlaku untuk admin kandidat
         if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
             $idKandidat = Auth::user()->kandidat->id;
 
             $barChartDptSuku = DB::table('pendukung')
-            ->join('suku', 'dpt.suku_id', '=', 'suku.id')
+            ->join('suku', 'pendukung.suku_id', '=', 'suku.id')
             ->select(DB::raw('count(*) as jumlah, suku.nama as nama'))
             ->where('kandidat_id',$idKandidat)
             ->groupBy('suku.nama')

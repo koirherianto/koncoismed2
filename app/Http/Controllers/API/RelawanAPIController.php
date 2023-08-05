@@ -37,7 +37,6 @@ class RelawanAPIController extends AppBaseController
 
         return $this->sendResponse($dataRelawanRelawan, 'Relawan saved successfully');
     }
-
     
     public function index(Request $request)
     {
@@ -148,19 +147,36 @@ class RelawanAPIController extends AppBaseController
             $kandidatId = Auth::user()->relawan->kandidat->id;
         }
 
-        $relawan = Relawan::create([
-            'users_id' => $user->id,
-            'relawan_id' => $relawanId,
-            'kandidat_id' => $kandidatId,
-            'status' => $request['tingkat_wilayah'],
-            'id_wilayah' => (int)$request['id_wilayah'],
-            'no_kta' => $request['no_kta'],
-            'nik' => $request['nik'],
-            'jenis_kelamin' => $request['jenis_kelamin'],
-            'tempat_lahir' => $request['tempat_lahir'],
-            'tanggal_lahir' => $request['tanggal_lahir'],
-            'status_perkawinan' => $request['status_perkawinan'],
-        ]);
+        if (Auth::user()->hasRole('admin-kandidat-free') || Auth::user()->hasRole('admin-kandidat-premium')) {
+            $relawan = Relawan::create([
+                'users_id' => $user->id,
+                'relawan_id' => $relawanId,
+                'kandidat_id' => $kandidatId,
+                'status' => $request['tingkat_wilayah'],
+                'id_wilayah' => (int)$request['id_wilayah'],
+                'no_kta' => $request['no_kta'],
+                'nik' => $request['nik'],
+                'jenis_kelamin' => $request['jenis_kelamin'],
+                'tempat_lahir' => $request['tempat_lahir'],
+                'tanggal_lahir' => $request['tanggal_lahir'],
+                'status_perkawinan' => $request['status_perkawinan'],
+            ]);
+        }else{//jika relawan
+            $relawan = Relawan::create([
+                'users_id' => $user->id,
+                'relawan_id' => $relawanId,
+                'kandidat_id' => $kandidatId,
+                'status' => Auth::user()->relawan->status,
+                'id_wilayah' => Auth::user()->relawan->id_wilayah,
+                'no_kta' => $request['no_kta'],
+                'nik' => $request['nik'],
+                'jenis_kelamin' => $request['jenis_kelamin'],
+                'tempat_lahir' => $request['tempat_lahir'],
+                'tanggal_lahir' => $request['tanggal_lahir'],
+                'status_perkawinan' => $request['status_perkawinan'],
+            ]);
+        }
+        
         $relawan->save();
         //input profil relawan
         if ($request->hasFile('gambar_profil')) {
