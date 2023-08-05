@@ -26,7 +26,7 @@ Route::get('/', function(){
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     
-    Route::mediaLibrary();
+    // Route::mediaLibrary();
 
     Route::group(['middleware' => ['role:super-admin']], function () {
         Route::resource('agamas', App\Http\Controllers\AgamaController::class);
