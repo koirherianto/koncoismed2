@@ -25,7 +25,7 @@ Route::get('/', function(){
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
-    
+    // "spatie/laravel-medialibrary-pro": "2.0.0",
     // Route::mediaLibrary();
 
     Route::group(['middleware' => ['role:super-admin']], function () {

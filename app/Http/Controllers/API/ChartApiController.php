@@ -20,25 +20,55 @@ class ChartApiController extends AppBaseController
 
     public function getChartPertumbuhanDpt()
     {
-        $time_series_dpt = Dpt::select(DB::raw("concat(YEAR(created_at), '-',MONTH(created_at)) as monthyear"), DB::raw('count(*) as jumlah'))
-            ->groupBy('monthyear')
-            ->get('jumlah');
+        if(Auth::user()->hasAnyRole('admin-kandidat-free', 'admin-kandidat-premium')){
+            $time_series_dpt = Dpt::select(DB::raw("concat(YEAR(created_at), '-',MONTH(created_at)) as monthyear"), DB::raw('count(*) as jumlah'))
+                ->groupBy('monthyear')
+                ->get('jumlah');
 
-        if (empty($time_series_dpt)) {
-            $this->response['success'] = false;
-            return response()->json($this->response,200);
-        }
-
-        foreach ($time_series_dpt as $time) {
-            $yearMonth = explode('-',$time["monthyear"]);
-            $year = reset($yearMonth);
-            $month = end($yearMonth);
-            if(strlen($month) == 1){
-                $month = '0' . $month;
+            if (empty($time_series_dpt)) {
+                $this->response['success'] = false;
+                return response()->json($this->response,200);
             }
-            $time['monthyear'] = $year . '-' . $month . '-01';
+
+            foreach ($time_series_dpt as $time) {
+                $yearMonth = explode('-',$time["monthyear"]);
+                $year = reset($yearMonth);
+                $month = end($yearMonth);
+                if(strlen($month) == 1){
+                    $month = '0' . $month;
+                }
+                $time['monthyear'] = $year . '-' . $month . '-01';
+            }
+            return $this->sendResponse($time_series_dpt, 'Get Chart Pertumbuhan Dpt Succes');
         }
-        return $this->sendResponse($time_series_dpt, 'Get Chart Pertumbuhan Dpt Succes');
+
+        if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
+            // Ambil semua DPT dari relawan yang sesuai
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)->get();
+
+            // Query untuk menghitung jumlah DPT berdasarkan bulan dan tahun
+            $query = DB::table('pendukung')
+                ->select(
+                    DB::raw('DATE_FORMAT(created_at, "%Y-%m-01") as monthyear'),
+                    DB::raw('COUNT(*) as jumlah')
+                )
+                ->where('relawan_id', Auth::user()->relawan->id)
+                ->groupBy('monthyear')
+                ->orderBy('monthyear', 'asc')
+                ->get();
+
+            // Format data untuk response
+            $formattedData = [];
+            foreach ($query as $item) {
+                $formattedData[] = [
+                    'monthyear' => $item->monthyear,
+                    'jumlah' => $item->jumlah,
+                ];
+            }
+
+            return $this->sendResponse($formattedData, 'Get Chart Pertumbuhan Dpt Succes');
+        }
+
     }
     
     public function getChartGender()
@@ -71,48 +101,70 @@ class ChartApiController extends AppBaseController
                 ]
             ];
     
-            $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+            // $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
     
-            if (empty($dataRelawans)) {
-                $this->response['success'] = false;
-                return response()->json($this->response,200);
-            }
+            // if (empty($dataRelawans)) {
+            //     $this->response['success'] = false;
+            //     return response()->json($this->response,200);
+            // }
     
-            $data=[];
-            $kosong = 0;
-            foreach($dataRelawans->dpts as $item){
-                if ($item->jenis_kelamin != null) {
-                    $i = 0;
-                    foreach($genderDpt as $agama){
-                        if($agama['nama'] == $item->jenis_kelamin){
-                            $genderDpt[$i]['jumlah']++;
-                        }else{
-                            $genderDpt[$i]['jumlah'] += 0;
-                        }
-                        $i++;
-                    }
-                }else{
-                    $kosong++;
+            // $data=[];
+            // $kosong = 0;
+            // foreach($dataRelawans->dpts as $item){
+            //     if ($item->jenis_kelamin != null) {
+            //         $i = 0;
+            //         foreach($genderDpt as $agama){
+            //             if($agama['nama'] == $item->jenis_kelamin){
+            //                 $genderDpt[$i]['jumlah']++;
+            //             }else{
+            //                 $genderDpt[$i]['jumlah'] += 0;
+            //             }
+            //             $i++;
+            //         }
+            //     }else{
+            //         $kosong++;
+            //     }
+            // }
+    
+            // foreach ($dataRelawans->descendants as $dataRelawan) {
+            //     foreach($dataRelawan->dpts as $item){
+            //         if ($item->jenis_kelamin != null) {
+            //             $i = 0;
+            //             foreach($genderDpt as $agama){
+            //                 if($agama['nama'] == $item->jenis_kelamin){
+            //                     $genderDpt[$i]['jumlah']++;
+            //                 }else{
+            //                     $genderDpt[$i]['jumlah'] += 0;
+            //                 }
+            //                 $i++;
+            //             }
+            //         }else{
+            //             $kosong++;
+            //         }
+            //     }
+            // }
+
+
+            // Inisialisasi variabel untuk menghitung jumlah laki-laki dan perempuan
+            $jumlahLakiLaki = 0;
+            $jumlahPerempuan = 0;
+
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)
+            ->get();
+
+            foreach ($dpts as $dpt) {
+                // Periksa jenis kelamin setiap DPT
+                if ($dpt->jenis_kelamin === 'Laki-laki') {
+                    $jumlahLakiLaki++;
+                } elseif ($dpt->jenis_kelamin === 'Perempuan') {
+                    $jumlahPerempuan++;
                 }
             }
-    
-            foreach ($dataRelawans->descendants as $dataRelawan) {
-                foreach($dataRelawan->dpts as $item){
-                    if ($item->jenis_kelamin != null) {
-                        $i = 0;
-                        foreach($genderDpt as $agama){
-                            if($agama['nama'] == $item->jenis_kelamin){
-                                $genderDpt[$i]['jumlah']++;
-                            }else{
-                                $genderDpt[$i]['jumlah'] += 0;
-                            }
-                            $i++;
-                        }
-                    }else{
-                        $kosong++;
-                    }
-                }
-            }
+
+            $genderDpt[0]['jumlah'] = $jumlahLakiLaki;
+            $genderDpt[1]['jumlah'] = $jumlahPerempuan;
+
+           
             return $this->sendResponse($genderDpt, 'Get Chart Gender Succes');
         }
     }
@@ -138,46 +190,66 @@ class ChartApiController extends AppBaseController
 
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
             $agamaDpt = Agama::all();
-            $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
+            // $dataRelawans = Relawan::where('id',Auth::user()->relawan->id)->first();
 
-            if (empty($agamaDpt)) {
-                $this->response['success'] = false;
-                return response()->json($this->response,200);
-            }
+            // if (empty($agamaDpt)) {
+            //     $this->response['success'] = false;
+            //     return response()->json($this->response,200);
+            // }
             
-            $data=[];
-            foreach($dataRelawans->dpts as $item){
-                foreach($agamaDpt as $agama){
-                    if($agama->id == $item->agama_id){
-                        $agama['jumlah']+=1;  
-                    }else{
-                        // $agama['jumlah']+=0; 
-                    }
-                }
-            }
-            foreach ($dataRelawans->descendants as $dataRelawan) {
-                foreach($dataRelawan->dpts as $item){
-                    foreach($agamaDpt as $agama){
-                        if($agama->id == $item->agama_id){
-                            $agama['jumlah']+=1;  
-                        }else{
-                            $agama['jumlah']+=0; 
-                            // unset($agama);
-                        }
-                    }
+            // $data=[];
+            // foreach($dataRelawans->dpts as $item){
+            //     foreach($agamaDpt as $agama){
+            //         if($agama->id == $item->agama_id){
+            //             $agama['jumlah']+=1;  
+            //         }else{
+            //             // $agama['jumlah']+=0; 
+            //         }
+            //     }
+            // }
+            // foreach ($dataRelawans->descendants as $dataRelawan) {
+            //     foreach($dataRelawan->dpts as $item){
+            //         foreach($agamaDpt as $agama){
+            //             if($agama->id == $item->agama_id){
+            //                 $agama['jumlah']+=1;  
+            //             }else{
+            //                 $agama['jumlah']+=0; 
+            //                 // unset($agama);
+            //             }
+            //         }
+            //     }
+            // }
+
+            // $agamaDpt2 = [];
+            // $i = 0;
+            // foreach ($agamaDpt as $item) {
+            //     if ($item['jumlah'] != 0) {
+            //         $agamaDpt2[] = $item;
+            //     }
+            //     $i++;
+            // }
+
+            ////////////////////////////////////////////////////
+            // Ambil semua agama
+            $agamaDpt = Agama::all();
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)
+            ->get();
+            // Inisialisasi variabel untuk menyimpan jumlah agama
+            $jumlahAgama = [];
+
+            // Hitung jumlah setiap agama dalam koleksi $dpts
+            foreach ($agamaDpt as $agama) {
+                $jumlahDptAgama = $dpts->where('agama_id', $agama->id)->count();
+                if ($jumlahDptAgama > 0) {
+                    $jumlahAgama[] = [
+                        'id' => $agama->id,
+                        'nama' => $agama->nama,
+                        'jumlah' => $jumlahDptAgama
+                    ];
                 }
             }
 
-            $agamaDpt2 = [];
-            $i = 0;
-            foreach ($agamaDpt as $item) {
-                if ($item['jumlah'] != 0) {
-                    $agamaDpt2[] = $item;
-                }
-                $i++;
-            }
-
-            return $this->sendResponse($agamaDpt2, 'Get Chart Agama Succes');
+            return $this->sendResponse($jumlahAgama, 'Get Chart Agama Succes');
         }
         
     }
@@ -205,68 +277,97 @@ class ChartApiController extends AppBaseController
         }
 
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
+            // $sukuDpt = Suku::all();
+            // $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
+
+            // if (empty($sukuDpt)) {
+            //     $this->response['success'] = false;
+            //     return response()->json($this->response,200);
+            // }
+
+            // $kosong = 0;
+            
+            // $data=[];
+            // foreach($relawanku->dpts as $item){
+            //     $item->load('sukus');
+            //     foreach($sukuDpt as $suku){
+            //         if ($item->sukus != null) {
+            //             if($suku->id == $item->sukus->id){
+            //                 $suku['jumlah']+=1;  
+            //             }else{
+            //                 $suku['jumlah']+=0; 
+            //             }
+            //         }else{
+            //             $kosong++;
+            //         }
+
+            //     }
+            // }
+
+            // foreach ($relawanku->descendants as $dataRelawan) {
+            //     foreach($dataRelawan->dpts as $item){
+            //         foreach($sukuDpt as $suku){
+            //             if ($item->sukus != null) {
+            //                 if($suku->id == $item->sukus->id){
+            //                     $suku['jumlah']+=1;  
+            //                 }else{
+            //                     $suku['jumlah']+=0; 
+            //                 }
+            //             }else{
+            //                 $kosong++;
+            //             }
+            //         }
+            //     }
+            // }
+            
+            // $sukuDpt2 = [];
+            // $i = 0;
+            // foreach ($sukuDpt as $item) {
+            //     if ($item['jumlah'] != 0) {
+            //         $sukuDpt2[] = $item;
+            //     }
+            //     $i++;
+            // }
+
+            // if ($kosong != 0) {
+            //     $sukuDpt2[] = [
+            //         'nama' => 'kosong',
+            //         'jumlah' => $kosong,
+            //     ];
+            // }
+
+            ////////////////////////////////////////////////////////////
             $sukuDpt = Suku::all();
-            $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
+            $dataSuku = [];
 
-            if (empty($sukuDpt)) {
-                $this->response['success'] = false;
-                return response()->json($this->response,200);
+            foreach ($sukuDpt as $suku) {
+                $dataSuku[$suku->nama] = 0;
             }
 
-            $kosong = 0;
-            
-            $data=[];
-            foreach($relawanku->dpts as $item){
-                $item->load('sukus');
-                foreach($sukuDpt as $suku){
-                    if ($item->sukus != null) {
-                        if($suku->id == $item->sukus->id){
-                            $suku['jumlah']+=1;  
-                        }else{
-                            $suku['jumlah']+=0; 
-                        }
-                    }else{
-                        $kosong++;
-                    }
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)->get();
 
+            // Hitung jumlah DPT berdasarkan suku
+            foreach ($dpts as $dpt) {
+                $suku = $dpt->suku->nama;
+                if (array_key_exists($suku, $dataSuku)) {
+                    $dataSuku[$suku]++;
                 }
             }
 
-            foreach ($relawanku->descendants as $dataRelawan) {
-                foreach($dataRelawan->dpts as $item){
-                    foreach($sukuDpt as $suku){
-                        if ($item->sukus != null) {
-                            if($suku->id == $item->sukus->id){
-                                $suku['jumlah']+=1;  
-                            }else{
-                                $suku['jumlah']+=0; 
-                            }
-                        }else{
-                            $kosong++;
-                        }
-                    }
+            // Ubah struktur data untuk mengikuti format yang Anda inginkan
+            $formattedData = [];
+            foreach ($dataSuku as $suku => $jumlah) {
+                if ($jumlah > 0) {
+                    $formattedData[] = [
+                        'jumlah' => $jumlah,
+                        'nama' => $suku
+                    ];
                 }
             }
             
-            $sukuDpt2 = [];
-            $i = 0;
-            foreach ($sukuDpt as $item) {
-                if ($item['jumlah'] != 0) {
-                    $sukuDpt2[] = $item;
-                }
-                $i++;
-            }
-
-            if ($kosong != 0) {
-                $sukuDpt2[] = [
-                    'nama' => 'kosong',
-                    'jumlah' => $kosong,
-                ];
-            }
-            
-            $this->response['success'] = true;
-            $this->response['data'] = $sukuDpt2;
-            return $this->sendResponse($sukuDpt2, 'Get Chart Suku Succes');
+            // $this->response['success'] = true;
+            // $this->response['data'] = $sukuDpt2;
+            return $this->sendResponse($formattedData, 'Get Chart Suku Succes');
         }
         
     }
@@ -356,6 +457,7 @@ class ChartApiController extends AppBaseController
         if(Auth::user()->hasAnyRole(['relawan-free','relawan-premium'])){
             $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
 
+            
             $wilayahs=[];
             foreach($relawanku->dpts as $dpt){
                 array_key_exists($dpt['id_wilayah'],$wilayahs) ? $wilayahs[$dpt['id_wilayah']]++ : $wilayahs[$dpt['id_wilayah']] = 1;
@@ -419,26 +521,18 @@ class ChartApiController extends AppBaseController
         //berlaku untuk relawan
         if(Auth::user()->hasAnyRole('relawan-free','relawan-premium')){
 
-            $dptTree = 0;
-            $jumlahPerempuan = 0;
-            $jumlahPria = 0;
-            $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)
+                ->get();
 
-            foreach($relawanku->dpts as $dpt){
-                $dpt['jenis_kelamin'] == 'Perempuan' ? $jumlahPerempuan++ :  $jumlahPria++;
-                $dptTree++;
-            }
+            // Menghitung jumlah DPT laki-laki
+            $jumlahLakiLaki = $dpts->where('jenis_kelamin', 'Laki-laki')->count();
 
-            foreach ($relawanku->descendants as $relawans) {
-                foreach($relawans->dpts as $dpt){   
-                    $dpt['jenis_kelamin'] == 'Perempuan' ? $jumlahPerempuan++ :  $jumlahPria++;   
-                    $dptTree++;
-                }
-            }
+            // Menghitung jumlah DPT perempuan
+            $jumlahPerempuan = $dpts->where('jenis_kelamin', 'Perempuan')->count();
 
-            $countDpt['jumlah'] += $dptTree;
+            $countDpt['jumlah'] += $jumlahPerempuan + $jumlahLakiLaki;
             $countDpt['jumlahPerempuan'] += $jumlahPerempuan;
-            $countDpt['jumlahPria'] += $jumlahPria;
+            $countDpt['jumlahPria'] += $jumlahLakiLaki;
 
         }
         return $this->sendResponse($countDpt, 'Get jumlah dpt Succes');
@@ -449,23 +543,28 @@ class ChartApiController extends AppBaseController
         $rangeUmurDpt = [
             '<20' => [
                 'Perempuan' => 0,
-                'Laki-laki' => 0
+                'Laki-laki' => 0,
+                'total' => 0
             ],
             '20-35' => [
                 'Perempuan' => 0,
-                'Laki-laki' => 0
+                'Laki-laki' => 0,
+                'total' => 0
             ],
             '36-45' => [
                 'Perempuan' => 0,
-                'Laki-laki' => 0
+                'Laki-laki' => 0,
+                'total' => 0
             ],
             '46-55' => [
                 'Perempuan' => 0,
-                'Laki-laki' => 0
+                'Laki-laki' => 0,
+                'total' => 0
             ],
             '>55' => [
                 'Perempuan' => 0,
-                'Laki-laki' => 0
+                'Laki-laki' => 0,
+                'total' => 0
             ]
         ];
 
@@ -498,37 +597,61 @@ class ChartApiController extends AppBaseController
         //berlaku untuk relawan
         if(Auth::user()->hasAnyRole('relawan-free','relawan-premium'))
         {
-            $umurDpt=[];
-            $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
+            // $umurDpt=[];
+            // $relawanku = Relawan::where('id',Auth::user()->relawan->id)->first();
 
-            foreach($relawanku->dpts as $dpt){
-                $umur = Carbon::parse($dpt->tanggal_lahir)->age;
-                array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
-            }
+            // foreach($relawanku->dpts as $dpt){
+            //     $umur = Carbon::parse($dpt->tanggal_lahir)->age;
+            //     array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
+            // }
             
-            foreach ($relawanku->descendants as $relawans) {
-                foreach($relawans->dpts as $dpt){    
-                    $umur = Carbon::parse($dpt->tanggal_lahir)->age;  
-                    array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
-                }
-            }
+            // foreach ($relawanku->descendants as $relawans) {
+            //     foreach($relawans->dpts as $dpt){    
+            //         $umur = Carbon::parse($dpt->tanggal_lahir)->age;  
+            //         array_push($umurDpt, ['tanggal_lahir' => $umur, 'jenis_kelamin' => $dpt->jenis_kelamin]);
+            //     }
+            // }
             
-            foreach($umurDpt as $data){
-                $tanggalLahir = $data['tanggal_lahir'];
-                $jenisKelamin = $data['jenis_kelamin'];
+            // foreach($umurDpt as $data){
+            //     $tanggalLahir = $data['tanggal_lahir'];
+            //     $jenisKelamin = $data['jenis_kelamin'];
                 
-                if ($tanggalLahir < 20) {
-                    $rangeUmurDpt['<20'][$jenisKelamin]++;
-                } elseif ($tanggalLahir >= 20 && $tanggalLahir <= 35) {
-                    $rangeUmurDpt['20-35'][$jenisKelamin]++;
-                } elseif ($tanggalLahir >= 36 && $tanggalLahir <= 45) {
-                    $rangeUmurDpt['36-45'][$jenisKelamin]++;
-                } elseif ($tanggalLahir >= 46 && $tanggalLahir <= 55) {
-                    $rangeUmurDpt['46-55'][$jenisKelamin]++;
-                } elseif ($tanggalLahir > 55) {
-                    $rangeUmurDpt['>55'][$jenisKelamin]++;
+            //     if ($tanggalLahir < 20) {
+            //         $rangeUmurDpt['<20'][$jenisKelamin]++;
+            //     } elseif ($tanggalLahir >= 20 && $tanggalLahir <= 35) {
+            //         $rangeUmurDpt['20-35'][$jenisKelamin]++;
+            //     } elseif ($tanggalLahir >= 36 && $tanggalLahir <= 45) {
+            //         $rangeUmurDpt['36-45'][$jenisKelamin]++;
+            //     } elseif ($tanggalLahir >= 46 && $tanggalLahir <= 55) {
+            //         $rangeUmurDpt['46-55'][$jenisKelamin]++;
+            //     } elseif ($tanggalLahir > 55) {
+            //         $rangeUmurDpt['>55'][$jenisKelamin]++;
+            //     }
+            // };
+
+            ////////////////////////////////////////////////////
+            $dpts = Dpt::where('relawan_id', Auth::user()->relawan->id)->get();
+            // Kelompokkan DPT berdasarkan rentang umur dan hitung total laki-laki, perempuan, dan total keseluruhan
+            foreach ($dpts as $dpt) {
+                $umur = Carbon::parse($dpt->tanggal_lahir)->age;
+                if ($umur < 20) {
+                    $rangeUmurDpt['<20'][$dpt->jenis_kelamin]++;
+                    $rangeUmurDpt['<20']['total']++;
+                } elseif ($umur >= 20 && $umur <= 35) {
+                    $rangeUmurDpt['20-35'][$dpt->jenis_kelamin]++;
+                    $rangeUmurDpt['20-35']['total']++;
+                } elseif ($umur >= 36 && $umur <= 45) {
+                    $rangeUmurDpt['36-45'][$dpt->jenis_kelamin]++;
+                    $rangeUmurDpt['36-45']['total']++;
+                } elseif ($umur >= 46 && $umur <= 55) {
+                    $rangeUmurDpt['46-55'][$dpt->jenis_kelamin]++;
+                    $rangeUmurDpt['46-55']['total']++;
+                } else {
+                    $rangeUmurDpt['>55'][$dpt->jenis_kelamin]++;
+                    $rangeUmurDpt['>55']['total']++;
                 }
-            };
+            }
+
         }
 
         //out if
