@@ -22,7 +22,7 @@
         {!! Form::text('desc', null, ['class' => 'form-control']) !!}
     </div>
 </div>
-
+//
 <div class="form-group row">
     {!! Form::label('s_permission_id', 'Permission',['class' => 'col-md-3 label-control']) !!}
     <div class="col-md-9">
