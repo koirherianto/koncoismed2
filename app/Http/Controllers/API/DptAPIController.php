@@ -182,7 +182,7 @@ class DptAPIController extends AppBaseController
             'tps' => 'required',
             'rt' => '',
             'rw' => '',
-            'alamat' => 'required',
+            'alamat' => '',
             'keterangan' => '',
             'agama_id' => 'required',          
             'id_wilayah' => 'required', //otomatis
